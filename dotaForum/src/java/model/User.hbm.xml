@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 21, 2017 9:01:03 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.User" table="user" catalog="dota" optimistic-lock="version">
+        <id name="idUser" type="java.lang.Integer">
+            <column name="id_user" />
+            <generator class="identity" />
+        </id>
+        <property name="firstName" type="string">
+            <column name="first_name" length="30" not-null="true" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="30" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="30" not-null="true" unique="true" />
+        </property>
+        <property name="jenisKelamin" type="string">
+            <column name="jenis_kelamin" length="3" not-null="true" />
+        </property>
+        <property name="urlFoto" type="string">
+            <column name="url_foto" length="100" not-null="true" />
+        </property>
+        <property name="username" type="string">
+            <column name="username" length="30" not-null="true" unique="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="30" not-null="true" />
+        </property>
+        <set name="messagesForIdReceiver" table="message" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_receiver" not-null="true" />
+            </key>
+            <one-to-many class="model.Message" />
+        </set>
+        <set name="replies" table="reply" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_user" not-null="true" />
+            </key>
+            <one-to-many class="model.Reply" />
+        </set>
+        <set name="comments" table="comment" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_user" not-null="true" />
+            </key>
+            <one-to-many class="model.Comment" />
+        </set>
+        <set name="messagesForIdSender" table="message" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_sender" not-null="true" />
+            </key>
+            <one-to-many class="model.Message" />
+        </set>
+        <set name="threads" table="thread" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_user" not-null="true" />
+            </key>
+            <one-to-many class="model.Thread" />
+        </set>
+        <set name="reports" table="report" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_user" not-null="true" />
+            </key>
+            <one-to-many class="model.Report" />
+        </set>
+    </class>
+</hibernate-mapping>

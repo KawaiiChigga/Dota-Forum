@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 21, 2017 9:01:03 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Thread" table="thread" catalog="dota" optimistic-lock="version">
+        <id name="idThread" type="java.lang.Integer">
+            <column name="id_thread" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="user" class="model.User" fetch="select">
+            <column name="id_user" not-null="true" />
+        </many-to-one>
+        <property name="judul" type="string">
+            <column name="judul" length="50" not-null="true" />
+        </property>
+        <property name="isi" type="string">
+            <column name="isi" length="65535" not-null="true" />
+        </property>
+        <property name="dateTime" type="date">
+            <column name="date_time" length="10" not-null="true" />
+        </property>
+        <set name="reports" table="report" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_thread" not-null="true" />
+            </key>
+            <one-to-many class="model.Report" />
+        </set>
+        <set name="comments" table="comment" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_thread" not-null="true" />
+            </key>
+            <one-to-many class="model.Comment" />
+        </set>
+    </class>
+</hibernate-mapping>
