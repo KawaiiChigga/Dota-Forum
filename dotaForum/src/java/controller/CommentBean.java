@@ -6,7 +6,7 @@
 package controller;
 
 import java.util.ArrayList;
-import model.Post;
+import model.Comment;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,10 +17,10 @@ import org.hibernate.cfg.Configuration;
  *
  * @author Tuyu
  */
-public class PostBean {
+public class CommentBean {
     public static SessionFactory factory;
     
-    public PostBean(){
+    public CommentBean(){
         try{
             factory = new Configuration().configure().buildSessionFactory();
         }catch(Exception e){
@@ -28,54 +28,54 @@ public class PostBean {
         }
     }
     
-    public ArrayList<Post> getAllPost(){
+    public ArrayList<Comment> getAllComment(){
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Post");
-        ArrayList<Post> hasil = (ArrayList) q.list();
+        Query q = session.createQuery("from Comment");
+        ArrayList<Comment> hasil = (ArrayList) q.list();
         tx.commit();
         session.close();
         return hasil;
     }
     
-    public boolean insertPost(Post p){
+    public boolean insertComment(Comment c){
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        session.save(p);
+        session.save(c);
         
         tx.commit();
         session.close();
         return true;
     }
 
-    public boolean updatePost(Post p) {
+    public boolean updateComment(Comment c) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        Post post = (Post) session.get(Post.class,p.getIdPost());
-        System.out.println("UPDATE = " + post);
-        post.setUser(p.getUser());
-        post.setJudul(p.getJudul());
-        post.setIsi(p.getIsi());
-        post.setDateTime(p.getDateTime());
+        Comment cmt = (Comment) session.get(Comment.class,c.getIdComment());
+        System.out.println("UPDATE = " + cmt);
+        cmt.setPost(c.getPost());
+        cmt.setUser(c.getUser());
+        cmt.setIsiComment(c.getIsiComment());
+        cmt.setDateTime(c.getDateTime());
         tx.commit();
         session.close();
         return true;
     }
 
-    public boolean deletePost(int id) {
+    public boolean deleteComment(int id) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        Post post = (Post) session.get(Post.class, id);
-        session.delete(post);
-        System.out.println("Delete = " + post);
+        Comment c = (Comment) session.get(Comment.class, id);
+        session.delete(c);
+        System.out.println("Delete = " + c);
         tx.commit();
         session.close();
         return true;
     }
     
     public static void main(String[] args){
-        PostBean da = new PostBean();
-        ArrayList<Post> listMhs = da.getAllPost();
+        CommentBean da = new CommentBean();
+        ArrayList<Comment> listMhs = da.getAllComment();
         System.out.println(listMhs);
 //        for(int i=0;i<listMhs.size();i++){
 //            System.out.println(listMhs.get(i).getNim()+" - "+listMhs.get(i).getNama()+" - "+listMhs.get(i).getAlamat());
