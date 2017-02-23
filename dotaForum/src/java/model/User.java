@@ -1,5 +1,5 @@
 package model;
-// Generated Feb 21, 2017 9:01:02 PM by Hibernate Tools 4.3.1
+// Generated Feb 24, 2017 4:52:52 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -19,12 +19,12 @@ public class User  implements java.io.Serializable {
      private String urlFoto;
      private String username;
      private String password;
-     private Set<Message> messagesForIdReceiver = new HashSet<Message>(0);
-     private Set<Reply> replies = new HashSet<Reply>(0);
-     private Set<Comment> comments = new HashSet<Comment>(0);
-     private Set<Message> messagesForIdSender = new HashSet<Message>(0);
-     private Set<Thread> threads = new HashSet<Thread>(0);
-     private Set<Report> reports = new HashSet<Report>(0);
+     private Set messagesForIdReceiver = new HashSet(0);
+     private Set replies = new HashSet(0);
+     private Set comments = new HashSet(0);
+     private Set messagesForIdSender = new HashSet(0);
+     private Set posts = new HashSet(0);
+     private Set reports = new HashSet(0);
 
     public User() {
     }
@@ -39,7 +39,7 @@ public class User  implements java.io.Serializable {
         this.username = username;
         this.password = password;
     }
-    public User(String firstName, String lastName, String email, String jenisKelamin, String urlFoto, String username, String password, Set<Message> messagesForIdReceiver, Set<Reply> replies, Set<Comment> comments, Set<Message> messagesForIdSender, Set<Thread> threads, Set<Report> reports) {
+    public User(String firstName, String lastName, String email, String jenisKelamin, String urlFoto, String username, String password, Set messagesForIdReceiver, Set replies, Set comments, Set messagesForIdSender, Set posts, Set reports) {
        this.firstName = firstName;
        this.lastName = lastName;
        this.email = email;
@@ -51,7 +51,7 @@ public class User  implements java.io.Serializable {
        this.replies = replies;
        this.comments = comments;
        this.messagesForIdSender = messagesForIdSender;
-       this.threads = threads;
+       this.posts = posts;
        this.reports = reports;
     }
    
@@ -111,46 +111,46 @@ public class User  implements java.io.Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    public Set<Message> getMessagesForIdReceiver() {
+    public Set getMessagesForIdReceiver() {
         return this.messagesForIdReceiver;
     }
     
-    public void setMessagesForIdReceiver(Set<Message> messagesForIdReceiver) {
+    public void setMessagesForIdReceiver(Set messagesForIdReceiver) {
         this.messagesForIdReceiver = messagesForIdReceiver;
     }
-    public Set<Reply> getReplies() {
+    public Set getReplies() {
         return this.replies;
     }
     
-    public void setReplies(Set<Reply> replies) {
+    public void setReplies(Set replies) {
         this.replies = replies;
     }
-    public Set<Comment> getComments() {
+    public Set getComments() {
         return this.comments;
     }
     
-    public void setComments(Set<Comment> comments) {
+    public void setComments(Set comments) {
         this.comments = comments;
     }
-    public Set<Message> getMessagesForIdSender() {
+    public Set getMessagesForIdSender() {
         return this.messagesForIdSender;
     }
     
-    public void setMessagesForIdSender(Set<Message> messagesForIdSender) {
+    public void setMessagesForIdSender(Set messagesForIdSender) {
         this.messagesForIdSender = messagesForIdSender;
     }
-    public Set<Thread> getThreads() {
-        return this.threads;
+    public Set getPosts() {
+        return this.posts;
     }
     
-    public void setThreads(Set<Thread> threads) {
-        this.threads = threads;
+    public void setPosts(Set posts) {
+        this.posts = posts;
     }
-    public Set<Report> getReports() {
+    public Set getReports() {
         return this.reports;
     }
     
-    public void setReports(Set<Report> reports) {
+    public void setReports(Set reports) {
         this.reports = reports;
     }
 

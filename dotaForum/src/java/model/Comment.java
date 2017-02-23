@@ -1,5 +1,5 @@
 package model;
-// Generated Feb 21, 2017 9:01:02 PM by Hibernate Tools 4.3.1
+// Generated Feb 24, 2017 4:52:52 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,24 +13,24 @@ public class Comment  implements java.io.Serializable {
 
 
      private Integer idComment;
-     private Thread thread;
+     private Post post;
      private User user;
      private String isiComment;
      private Date dateTime;
-     private Set<Reply> replies = new HashSet<Reply>(0);
+     private Set replies = new HashSet(0);
 
     public Comment() {
     }
 
 	
-    public Comment(Thread thread, User user, String isiComment, Date dateTime) {
-        this.thread = thread;
+    public Comment(Post post, User user, String isiComment, Date dateTime) {
+        this.post = post;
         this.user = user;
         this.isiComment = isiComment;
         this.dateTime = dateTime;
     }
-    public Comment(Thread thread, User user, String isiComment, Date dateTime, Set<Reply> replies) {
-       this.thread = thread;
+    public Comment(Post post, User user, String isiComment, Date dateTime, Set replies) {
+       this.post = post;
        this.user = user;
        this.isiComment = isiComment;
        this.dateTime = dateTime;
@@ -44,12 +44,12 @@ public class Comment  implements java.io.Serializable {
     public void setIdComment(Integer idComment) {
         this.idComment = idComment;
     }
-    public Thread getThread() {
-        return this.thread;
+    public Post getPost() {
+        return this.post;
     }
     
-    public void setThread(Thread thread) {
-        this.thread = thread;
+    public void setPost(Post post) {
+        this.post = post;
     }
     public User getUser() {
         return this.user;
@@ -72,11 +72,11 @@ public class Comment  implements java.io.Serializable {
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
-    public Set<Reply> getReplies() {
+    public Set getReplies() {
         return this.replies;
     }
     
-    public void setReplies(Set<Reply> replies) {
+    public void setReplies(Set replies) {
         this.replies = replies;
     }
 

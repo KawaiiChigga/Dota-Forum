@@ -1,5 +1,5 @@
 package model;
-// Generated Feb 21, 2017 9:01:02 PM by Hibernate Tools 4.3.1
+// Generated Feb 24, 2017 4:52:52 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -11,7 +11,7 @@ public class Report  implements java.io.Serializable {
 
 
      private Integer idReport;
-     private Thread thread;
+     private Post post;
      private User user;
      private int typeOfReport;
      private Date dateTime;
@@ -19,8 +19,8 @@ public class Report  implements java.io.Serializable {
     public Report() {
     }
 
-    public Report(Thread thread, User user, int typeOfReport, Date dateTime) {
-       this.thread = thread;
+    public Report(Post post, User user, int typeOfReport, Date dateTime) {
+       this.post = post;
        this.user = user;
        this.typeOfReport = typeOfReport;
        this.dateTime = dateTime;
@@ -33,12 +33,12 @@ public class Report  implements java.io.Serializable {
     public void setIdReport(Integer idReport) {
         this.idReport = idReport;
     }
-    public Thread getThread() {
-        return this.thread;
+    public Post getPost() {
+        return this.post;
     }
     
-    public void setThread(Thread thread) {
-        this.thread = thread;
+    public void setPost(Post post) {
+        this.post = post;
     }
     public User getUser() {
         return this.user;
