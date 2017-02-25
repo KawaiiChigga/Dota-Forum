@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/dota/index.jsp</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/util/HibernateUtil.java</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/dota/assets/css/basic.css</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/controller/ReplyBean.java</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/controller/PostBean.java</file>
+            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/dota/post.jsp</file>
+            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/servlet/LoginServlet.java</file>
+            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/controller/UserBean.java</file>
+            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/model/Post.java</file>
         </group>
     </open-files>
 </project-private>

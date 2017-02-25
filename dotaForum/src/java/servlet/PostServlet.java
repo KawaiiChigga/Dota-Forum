@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Post;
 import model.User;
 
@@ -80,7 +81,11 @@ public class PostServlet extends HttpServlet {
         String judul = request.getParameter("post_title");
         String isi = request.getParameter("post_isi");
         
-        User u = new User("tuyu", "glenn", "cgtuyu31@gmail.com", "L", ".jpg", "tuyu", "tuyu", 1, null, 0);
+        String username;
+        HttpSession sessionLogIn = request.getSession();
+        sessionLogIn.setAttribute("username", username);
+        
+        
         Post p = new Post(u,judul,isi,null,0,0);
         if(pb.insertPost(p)){
             String ALERT_FAIL = "fail";
@@ -95,10 +100,6 @@ public class PostServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("post.jsp");
             rd.include(request, response);
         }
-        
-        
-        RequestDispatcher rd = request.getRequestDispatcher("post.jsp");
-        rd.include(request, response);
     }
 
     /**

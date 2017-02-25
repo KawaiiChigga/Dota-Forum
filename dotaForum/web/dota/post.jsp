@@ -57,7 +57,7 @@
                                 <div id="menu-wrapper">
                                     <nav class="mobileUI-site-nav">
                                         <ul>
-                                            <li class="current_page_item"><a href="">All</a></li>
+                                            <li class="current_page_item"><a href="index.jsp">All</a></li>
                                             <li><a href="">Chat</a></li>
                                             <li><a href="">Competitive</a></li>
                                             <li><a href="">Custom Game</a></li>
@@ -78,7 +78,7 @@
                         <div id="content">
                             <section>
                                 <div class="post">
-                                    <form method="post" action="postServlet" id="post_disc">
+                                    <form method="POST" action="postServlet" id="post_disc">
                                         <h2>Post it!</h2>
                                         <p style="color:red"><b><%=err%></b><p>
                                         <center>
