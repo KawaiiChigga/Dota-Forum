@@ -5,9 +5,7 @@
  */
 package controller;
 
-import static controller.PostBean.factory;
 import java.util.ArrayList;
-import javax.servlet.http.HttpSession;
 import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -25,8 +23,9 @@ public class UserBean {
     public UserBean(){
         try{
             factory = new Configuration().configure().buildSessionFactory();
+            System.out.println("TEST");
         }catch(Exception e){
-            
+            System.out.println("ERROR!!");
         }
     }
     
@@ -39,42 +38,41 @@ public class UserBean {
         session.close();
         return hasil;
     }
-    public static ArrayList<User> getUser(String username){
-        Session session = null;
-        Transaction tx = null;
-        ArrayList<User> hasil = new ArrayList<>();
-        
-        try{
-            session = factory.openSession();
-            tx = session.beginTransaction();
-            Query q = session.createQuery("from User where username = '" + username+"'");
-             hasil = (ArrayList) q.list();
-//             System.out.println("-- : "+ hasil);
-            tx.commit();
-        }catch(Exception e){
-            hasil = null;
-        }finally {
-            session.close();   
-        }
-        
-        return hasil;
-    }
+//    public static User getUser(String username){
+//        Session session = null;
+//        Transaction tx = null;
+//        ArrayList<User> hasil = new ArrayList<>();
+//        
+//        try{
+//            session = factory.openSession();
+//            tx = session.beginTransaction();
+//            Query q = session.createQuery("from User where username = '" + username+"'");
+//             hasil = (ArrayList) q.list();
+////             System.out.println("-- : "+ hasil);
+//            tx.commit();
+//        }catch(Exception e){
+//            hasil = null;
+//        }finally {
+//            session.close();   
+//        }
+//        
+//        return hasil;
+//    }
     
     public static boolean insertUser(User u){
         Session session = null;
         Transaction tx = null;
-        boolean inserted = true;
         try{
             session = factory.openSession();
             tx = session.beginTransaction();
             session.save(u);
             tx.commit();
         }catch(Exception e){
-            inserted = false;
+            e.printStackTrace();
         }finally {
             session.close();   
         }
-        return inserted;
+        return true;
     }
 
     public static boolean updateUser(User newUser) {
@@ -109,29 +107,29 @@ public class UserBean {
         return true;
     }
     
-    public static boolean checkLogIn(String username,String password){
-        Session session = null;
-        Transaction tx = null;
-        boolean inserted = true;
+    public static User checkLogIn(String username, String password){
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        User u = null;
         try{
-            session = factory.openSession();
-            tx = session.beginTransaction();
-            Query q = session.createQuery("from User where username=" + username + " and password=" + password);
+            Query q = session.createQuery("from User where username='" + username + "' and password='" + password +"'");
+            u = (User) q.uniqueResult();
             tx.commit();
         }catch(Exception e){
-            inserted = false;
+            e.printStackTrace();
         }finally {
             session.close();   
         }
-        return inserted;
+        return u;
     }
     
     public static void main(String[] args){
         UserBean da = new UserBean();
-        ArrayList<User> listMhs = da.getUser("tuyu");
-        System.out.println(listMhs);
+//        ArrayList<User> listMhs = da.getUser("tuyu");
+//        System.out.println(listMhs);
 //        User u = new User("glenn", "tuyu", "cgtuyu31@gmail.com", "L", "ganteng.jpg", "tuyu", "tuyu", 1, null, 0);
-//        System.out.println(u.getEmail());
+        System.out.println(checkLogIn("tuyu", "tuyu"
+                + ""));
 //        for(int i=0;i<listMhs.size();i++){
 //            System.out.println(listMhs.get(i).getNim()+" - "+listMhs.get(i).getNama()+" - "+listMhs.get(i).getAlamat());
 //        }

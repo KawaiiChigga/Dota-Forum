@@ -41,18 +41,17 @@ public class MessageBean {
     public static boolean insertMessage(Message m){
         Session session = null;
         Transaction tx = null;
-        boolean inserted = true;
         try{
             session = factory.openSession();
             tx = session.beginTransaction();
             session.save(m);
             tx.commit();
         }catch(Exception e){
-            inserted = false;
+            e.printStackTrace();
         }finally {
             session.close();   
         }
-        return inserted;
+        return true;
     }
 
     public static boolean updateMessage(Message m) {

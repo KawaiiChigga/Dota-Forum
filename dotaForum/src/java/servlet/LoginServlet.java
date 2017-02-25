@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -23,7 +24,7 @@ import org.hibernate.Transaction;
  *
  * @author asus
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
     /**
@@ -80,10 +81,11 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
-        if (UserBean.checkLogIn(username, password)) {
+        UserBean ub = new UserBean();
+        User u = ub.checkLogIn(username, password);
+        if (u!=null) {
             HttpSession sessionLogIn = request.getSession();
-            sessionLogIn.setAttribute("username", username);
+            sessionLogIn.setAttribute("user", u);
             response.sendRedirect("index.jsp");
         } else {
             request.setAttribute("warning", "Username or password wrong!");

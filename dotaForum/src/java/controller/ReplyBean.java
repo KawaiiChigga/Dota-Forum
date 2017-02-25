@@ -41,18 +41,17 @@ public class ReplyBean {
     public static boolean insertReply(Reply r){
         Session session = null;
         Transaction tx = null;
-        boolean inserted = true;
         try{
             session = factory.openSession();
             tx = session.beginTransaction();
             session.save(r);
             tx.commit();
         }catch(Exception e){
-            inserted = false;
+            e.printStackTrace();
         }finally {
             session.close();   
         }
-        return inserted;
+        return true;
     }
 
     public static boolean updateReply(Reply r) {
