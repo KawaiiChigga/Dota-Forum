@@ -55,12 +55,16 @@ public class UserBean {
         User user = (User) session.get(User.class,
                 newUser.getIdUser());
         System.out.println("UPDATE = " + user);
+        
         user.setFirstName(newUser.getFirstName());
         user.setLastName(newUser.getLastName());
         user.setEmail(newUser.getEmail());
         user.setJenisKelamin(newUser.getJenisKelamin());
         user.setUrlFoto(newUser.getUrlFoto());
         user.setPassword(newUser.getPassword());
+        user.setLevel(newUser.getLevel());
+        user.setDateTime(newUser.getDateTime());
+        user.setProgressLevel(newUser.getProgressLevel());
         tx.commit();
         session.close();
         return true;
