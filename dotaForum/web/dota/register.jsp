@@ -38,6 +38,10 @@
          <div class="row">
             <div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                 <div class="panel-body">
+                    <%
+                        String warning = request.getParameter("warningRegister");
+                        if(warning!=null)out.println(warning);
+                    %>
                             <form method="POST" action="RegisterServlet">
                               <div class="form-group col-md-6">
                                 <label for="first_name">First name:</label>
@@ -58,38 +62,22 @@
                               <div class="form-group col-md-6">
                                 <label for="password">Password:</label><span class="alert-danger"><?php echo $passErr; ?></span>
                                 <input type="password" class="form-control" name="password" placeholder="Password">
+                                <%
+                                    String passWarning = request.getParameter("warningPassLength");
+                                    if(passWarning!=null){
+                                        out.print(passWarning);
+                                    }
+                                %>
                               </div>
                               <div class="form-group col-md-6">
                                 <label for="password2">Re-type Password:</label><span class="alert-danger"><?php echo $pass2Err; ?></span>
                                 <input type="password" class="form-control" name = "password2" placeholder="Re-type password">
                               </div>
                               <div class="form-group col-md-6">
-                                <label for="phone">Phone:</label>
-                                <input type="text" class="form-control" name = "phone" placeholder="Phone">
-                              </div>
-                              <div class="form-group col-md-6">
-                                <label for="pin">Pin:</label><span class="alert-danger"><?php echo $pinErr; ?></span>
-                                <input type="password" class="form-control" name="pin" maxlength="6" placeholder="Pin">
-                              </div>
-                              <div class="form-group col-md-6">
-                                <label for="country">Country:</label>
-                                <input type="text" class="form-control" name = "country" placeholder="Country">
-                              </div>
-                              <div class="form-group col-md-6">
-                                <label for="city">City:</label>
-                                <input type="text" class="form-control" name = "city" placeholder="City">
-                              </div>
-                              <div class="form-group col-md-6">
                                 <label for="gender">Gender</label> &nbsp;&nbsp;&nbsp;
                                 <input type="radio" name="gender" value="L"> Male
                                 <input type="radio" name="gender" value="M"> Female
                                 <span class="alert-danger"><?php echo $genderErr; ?></span>
-                              </div>
-                              <div class="form-group col-md-6">
-                                <label for="birth">Birth:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="text" name = "birthd" maxlength="2" size="4" style="border-radius:4px;" placeholder="dd">
-                                <input type="text" name = "birthm" maxlength="2" size="4" style="border-radius:4px;" placeholder="mm">
-                                <input type="text" name = "birthy" maxlength="4" size="8" style="border-radius:4px;" placeholder="yyyy">
                               </div>
                               <div class="form-group col-md-12">
                                 <center>
