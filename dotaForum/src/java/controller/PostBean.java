@@ -7,6 +7,7 @@ package controller;
 
 import java.util.ArrayList;
 import model.Post;
+import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -39,13 +40,20 @@ public class PostBean {
     }
     
     public boolean insertPost(Post p){
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.save(p);
-        
-        tx.commit();
-        session.close();
-        return true;
+        Session session = null;
+        Transaction tx = null;
+        boolean inserted = true;
+        try{
+            session = factory.openSession();
+            tx = session.beginTransaction();
+            session.save(p);
+            tx.commit();
+        }catch(Exception e){
+            inserted = false;
+        }finally {
+            session.close();   
+        }
+        return inserted;
     }
 
     public boolean updatePost(Post p) {
@@ -77,8 +85,9 @@ public class PostBean {
     
     public static void main(String[] args){
         PostBean da = new PostBean();
-        ArrayList<Post> listMhs = da.getAllPost();
-        System.out.println(listMhs);
+        User u = new User("glenn", "tuyu", "cgtuyu31@gmail.com", "L", "ganteng.jpg", "tuyu", "tuyu", 1, null, 0);
+        Post p = new Post(u,"judul","isi\n\nqwiejqowenjqwe",null,0,0);
+        System.out.println("hasil : "+da.insertPost(p));
 //        for(int i=0;i<listMhs.size();i++){
 //            System.out.println(listMhs.get(i).getNim()+" - "+listMhs.get(i).getNama()+" - "+listMhs.get(i).getAlamat());
 //        }
