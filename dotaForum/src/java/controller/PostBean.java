@@ -57,6 +57,8 @@ public class PostBean {
         post.setJudul(p.getJudul());
         post.setIsi(p.getIsi());
         post.setDateTime(p.getDateTime());
+        post.setLikePost(p.getLikePost());
+        post.setDislikePost(p.getDislikePost());
         tx.commit();
         session.close();
         return true;
