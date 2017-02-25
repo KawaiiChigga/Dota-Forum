@@ -185,6 +185,11 @@ public class User  implements java.io.Serializable {
         this.reports = reports;
     }
 
+    @Override
+    public String toString() {
+        return "User{" + "idUser=" + idUser + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", jenisKelamin=" + jenisKelamin + ", urlFoto=" + urlFoto + ", username=" + username + ", password=" + password + ", level=" + level + ", dateTime=" + dateTime + ", progressLevel=" + progressLevel+"}";
+    }
+
 
 
 

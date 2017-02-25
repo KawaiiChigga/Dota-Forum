@@ -85,23 +85,23 @@ public class PostServlet extends HttpServlet {
         
         HttpSession sessionLogIn = request.getSession();
         String username = (String) sessionLogIn.getAttribute("username");
-        User user = UserBean.getUser(username);
+//        User user = UserBean.getUser(username);
         
         
-        Post p = new Post(user,judul,isi,null,0,0);
-        if(pb.insertPost(p)){
-            String ALERT_FAIL = "fail";
-            String fail = "0";
-            request.setAttribute(ALERT_FAIL, fail);
-            RequestDispatcher rd = request.getRequestDispatcher("post.jsp");
-            rd.include(request, response);
-        }else{
-            String ALERT_FAIL = "fail";
-            String fail = "1";
-            request.setAttribute(ALERT_FAIL, fail);
-            RequestDispatcher rd = request.getRequestDispatcher("post.jsp");
-            rd.include(request, response);
-        }
+//        Post p = new Post(user,judul,isi,null,0,0);
+//        if(pb.insertPost(p)){
+//            String ALERT_FAIL = "fail";
+//            String fail = "0";
+//            request.setAttribute(ALERT_FAIL, fail);
+//            RequestDispatcher rd = request.getRequestDispatcher("post.jsp");
+//            rd.include(request, response);
+//        }else{
+//            String ALERT_FAIL = "fail";
+//            String fail = "1";
+//            request.setAttribute(ALERT_FAIL, fail);
+//            RequestDispatcher rd = request.getRequestDispatcher("post.jsp");
+//            rd.include(request, response);
+//        }
     }
 
     /**
