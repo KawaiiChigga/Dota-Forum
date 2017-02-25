@@ -41,18 +41,17 @@ public class CommentBean {
     public static boolean insertComment(Comment c){
         Session session = null;
         Transaction tx = null;
-        boolean inserted = true;
         try{
             session = factory.openSession();
             tx = session.beginTransaction();
             session.save(c);
             tx.commit();
         }catch(Exception e){
-            inserted = false;
+            e.printStackTrace();
         }finally {
             session.close();   
         }
-        return inserted;
+        return true;
     }
 
     public static boolean updateComment(Comment c) {

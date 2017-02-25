@@ -54,7 +54,7 @@
 
                     %>
                     <div class="panel-body">
-                        <form role="form" action="LoginServlet" method="post">
+                        <form action="login" method="post">
                             <hr />
                             <h5>Enter Details to Login</h5>
                             <span></span>

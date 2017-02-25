@@ -43,18 +43,17 @@ public class PostBean {
     public boolean insertPost(Post p){
         Session session = null;
         Transaction tx = null;
-        boolean inserted = true;
         try{
             session = factory.openSession();
             tx = session.beginTransaction();
             session.save(p);
             tx.commit();
         }catch(Exception e){
-            inserted = false;
+            e.printStackTrace();
         }finally {
             session.close();   
         }
-        return inserted;
+        return true;
     }
 
     public boolean updatePost(Post p) {
