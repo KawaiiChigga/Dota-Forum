@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package servlet;
 
+import controller.PostBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -21,7 +22,7 @@ import model.User;
  * @author Tuyu
  */
 @WebServlet(name = "postServlet", urlPatterns = {"/postServlet"})
-public class postServlet extends HttpServlet {
+public class PostServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -76,10 +77,6 @@ public class postServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PostBean pb = new PostBean();
-//        private User user;
-//     private String judul;
-//     private String isi;
-//     private Date dateTime;
         String judul = request.getParameter("post_title");
         String isi = request.getParameter("post_isi");
         
