@@ -6,6 +6,7 @@
 package controller;
 
 import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;

@@ -38,7 +38,7 @@
          <div class="row">
             <div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                 <div class="panel-body">
-                            <form method="POST" action="login.jsp">
+                            <form method="POST" action="RegisterServlet">
                               <div class="form-group col-md-6">
                                 <label for="first_name">First name:</label>
                                 <input type="text" class="form-control" name = "first_name" placeholder="First name">
