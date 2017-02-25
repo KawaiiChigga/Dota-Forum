@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import controller.UserBean;
 import static controller.UserBean.factory;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -77,21 +78,16 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Session session = factory.openSession();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from User where username=" + username + "and password=" + password);
-        tx.commit();
-        session.close();
-        if (q == null) {
-            request.setAttribute("warning", "Username or password wrong!");
-            response.sendRedirect("login.jsp");
-        } else {
+
+        if (UserBean.checkLogIn(username, password)) {
             HttpSession sessionLogIn = request.getSession();
             sessionLogIn.setAttribute("username", username);
-            sessionLogIn.setAttribute("password", password);
             response.sendRedirect("index.jsp");
+        } else {
+            request.setAttribute("warning", "Username or password wrong!");
+            response.sendRedirect("login.jsp");
         }
     }
 

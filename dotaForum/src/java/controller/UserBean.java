@@ -38,6 +38,14 @@ public class UserBean {
         session.close();
         return hasil;
     }
+    public User getUser(String username){
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from User where username="+username);
+        tx.commit();
+        session.close();
+        return (User)q;
+    }
     
     public boolean insertUser(User u){
         Session session = factory.openSession();
@@ -79,6 +87,19 @@ public class UserBean {
         tx.commit();
         session.close();
         return true;
+    }
+    
+    public static boolean checkLogIn(String username,String password){
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from User where username=" + username + "and password=" + password);
+        tx.commit();
+        session.close();
+        if (q == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
     
     public static void main(String[] args){
