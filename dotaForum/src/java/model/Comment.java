@@ -1,5 +1,5 @@
 package model;
-// Generated Feb 24, 2017 4:52:52 AM by Hibernate Tools 4.3.1
+// Generated Feb 25, 2017 12:52:14 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -17,7 +17,7 @@ public class Comment  implements java.io.Serializable {
      private User user;
      private String isiComment;
      private Date dateTime;
-     private Set replies = new HashSet(0);
+     private Set<Reply> replies = new HashSet<Reply>(0);
 
     public Comment() {
     }
@@ -29,7 +29,7 @@ public class Comment  implements java.io.Serializable {
         this.isiComment = isiComment;
         this.dateTime = dateTime;
     }
-    public Comment(Post post, User user, String isiComment, Date dateTime, Set replies) {
+    public Comment(Post post, User user, String isiComment, Date dateTime, Set<Reply> replies) {
        this.post = post;
        this.user = user;
        this.isiComment = isiComment;
@@ -72,11 +72,11 @@ public class Comment  implements java.io.Serializable {
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
-    public Set getReplies() {
+    public Set<Reply> getReplies() {
         return this.replies;
     }
     
-    public void setReplies(Set replies) {
+    public void setReplies(Set<Reply> replies) {
         this.replies = replies;
     }
 

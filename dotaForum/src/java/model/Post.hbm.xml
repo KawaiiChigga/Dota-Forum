@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Feb 24, 2017 4:52:52 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Feb 25, 2017 12:52:15 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Post" table="post" catalog="dota" optimistic-lock="version">
         <id name="idPost" type="java.lang.Integer">
@@ -20,15 +20,21 @@
         <property name="dateTime" type="timestamp">
             <column name="date_time" length="19" not-null="true" />
         </property>
+        <property name="likePost" type="int">
+            <column name="like_post" not-null="true" />
+        </property>
+        <property name="dislikePost" type="int">
+            <column name="dislike_post" not-null="true" />
+        </property>
         <set name="reports" table="report" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="id_post" not-null="true" />
+                <column name="id_thread" not-null="true" />
             </key>
             <one-to-many class="model.Report" />
         </set>
         <set name="comments" table="comment" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="id_post" not-null="true" />
+                <column name="id_thread" not-null="true" />
             </key>
             <one-to-many class="model.Comment" />
         </set>

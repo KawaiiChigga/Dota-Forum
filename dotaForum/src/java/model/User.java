@@ -1,7 +1,8 @@
 package model;
-// Generated Feb 24, 2017 4:52:52 AM by Hibernate Tools 4.3.1
+// Generated Feb 25, 2017 12:52:14 PM by Hibernate Tools 4.3.1
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,18 +20,21 @@ public class User  implements java.io.Serializable {
      private String urlFoto;
      private String username;
      private String password;
-     private Set messagesForIdReceiver = new HashSet(0);
-     private Set replies = new HashSet(0);
-     private Set comments = new HashSet(0);
-     private Set messagesForIdSender = new HashSet(0);
-     private Set posts = new HashSet(0);
-     private Set reports = new HashSet(0);
+     private int level;
+     private Date dateTime;
+     private int progressLevel;
+     private Set<Message> messagesForIdReceiver = new HashSet<Message>(0);
+     private Set<Reply> replies = new HashSet<Reply>(0);
+     private Set<Comment> comments = new HashSet<Comment>(0);
+     private Set<Message> messagesForIdSender = new HashSet<Message>(0);
+     private Set<Post> posts = new HashSet<Post>(0);
+     private Set<Report> reports = new HashSet<Report>(0);
 
     public User() {
     }
 
 	
-    public User(String firstName, String lastName, String email, String jenisKelamin, String urlFoto, String username, String password) {
+    public User(String firstName, String lastName, String email, String jenisKelamin, String urlFoto, String username, String password, int level, Date dateTime, int progressLevel) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -38,8 +42,11 @@ public class User  implements java.io.Serializable {
         this.urlFoto = urlFoto;
         this.username = username;
         this.password = password;
+        this.level = level;
+        this.dateTime = dateTime;
+        this.progressLevel = progressLevel;
     }
-    public User(String firstName, String lastName, String email, String jenisKelamin, String urlFoto, String username, String password, Set messagesForIdReceiver, Set replies, Set comments, Set messagesForIdSender, Set posts, Set reports) {
+    public User(String firstName, String lastName, String email, String jenisKelamin, String urlFoto, String username, String password, int level, Date dateTime, int progressLevel, Set<Message> messagesForIdReceiver, Set<Reply> replies, Set<Comment> comments, Set<Message> messagesForIdSender, Set<Post> posts, Set<Report> reports) {
        this.firstName = firstName;
        this.lastName = lastName;
        this.email = email;
@@ -47,6 +54,9 @@ public class User  implements java.io.Serializable {
        this.urlFoto = urlFoto;
        this.username = username;
        this.password = password;
+       this.level = level;
+       this.dateTime = dateTime;
+       this.progressLevel = progressLevel;
        this.messagesForIdReceiver = messagesForIdReceiver;
        this.replies = replies;
        this.comments = comments;
@@ -111,46 +121,67 @@ public class User  implements java.io.Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    public Set getMessagesForIdReceiver() {
+    public int getLevel() {
+        return this.level;
+    }
+    
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    public Date getDateTime() {
+        return this.dateTime;
+    }
+    
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
+    }
+    public int getProgressLevel() {
+        return this.progressLevel;
+    }
+    
+    public void setProgressLevel(int progressLevel) {
+        this.progressLevel = progressLevel;
+    }
+    public Set<Message> getMessagesForIdReceiver() {
         return this.messagesForIdReceiver;
     }
     
-    public void setMessagesForIdReceiver(Set messagesForIdReceiver) {
+    public void setMessagesForIdReceiver(Set<Message> messagesForIdReceiver) {
         this.messagesForIdReceiver = messagesForIdReceiver;
     }
-    public Set getReplies() {
+    public Set<Reply> getReplies() {
         return this.replies;
     }
     
-    public void setReplies(Set replies) {
+    public void setReplies(Set<Reply> replies) {
         this.replies = replies;
     }
-    public Set getComments() {
+    public Set<Comment> getComments() {
         return this.comments;
     }
     
-    public void setComments(Set comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
-    public Set getMessagesForIdSender() {
+    public Set<Message> getMessagesForIdSender() {
         return this.messagesForIdSender;
     }
     
-    public void setMessagesForIdSender(Set messagesForIdSender) {
+    public void setMessagesForIdSender(Set<Message> messagesForIdSender) {
         this.messagesForIdSender = messagesForIdSender;
     }
-    public Set getPosts() {
+    public Set<Post> getPosts() {
         return this.posts;
     }
     
-    public void setPosts(Set posts) {
+    public void setPosts(Set<Post> posts) {
         this.posts = posts;
     }
-    public Set getReports() {
+    public Set<Report> getReports() {
         return this.reports;
     }
     
-    public void setReports(Set reports) {
+    public void setReports(Set<Report> reports) {
         this.reports = reports;
     }
 

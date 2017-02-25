@@ -1,5 +1,5 @@
 package model;
-// Generated Feb 24, 2017 4:52:52 AM by Hibernate Tools 4.3.1
+// Generated Feb 25, 2017 12:52:14 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -17,24 +17,30 @@ public class Post  implements java.io.Serializable {
      private String judul;
      private String isi;
      private Date dateTime;
-     private Set reports = new HashSet(0);
-     private Set comments = new HashSet(0);
+     private int likePost;
+     private int dislikePost;
+     private Set<Report> reports = new HashSet<Report>(0);
+     private Set<Comment> comments = new HashSet<Comment>(0);
 
     public Post() {
     }
 
 	
-    public Post(User user, String judul, String isi, Date dateTime) {
+    public Post(User user, String judul, String isi, Date dateTime, int likePost, int dislikePost) {
         this.user = user;
         this.judul = judul;
         this.isi = isi;
         this.dateTime = dateTime;
+        this.likePost = likePost;
+        this.dislikePost = dislikePost;
     }
-    public Post(User user, String judul, String isi, Date dateTime, Set reports, Set comments) {
+    public Post(User user, String judul, String isi, Date dateTime, int likePost, int dislikePost, Set<Report> reports, Set<Comment> comments) {
        this.user = user;
        this.judul = judul;
        this.isi = isi;
        this.dateTime = dateTime;
+       this.likePost = likePost;
+       this.dislikePost = dislikePost;
        this.reports = reports;
        this.comments = comments;
     }
@@ -74,18 +80,32 @@ public class Post  implements java.io.Serializable {
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
-    public Set getReports() {
+    public int getLikePost() {
+        return this.likePost;
+    }
+    
+    public void setLikePost(int likePost) {
+        this.likePost = likePost;
+    }
+    public int getDislikePost() {
+        return this.dislikePost;
+    }
+    
+    public void setDislikePost(int dislikePost) {
+        this.dislikePost = dislikePost;
+    }
+    public Set<Report> getReports() {
         return this.reports;
     }
     
-    public void setReports(Set reports) {
+    public void setReports(Set<Report> reports) {
         this.reports = reports;
     }
-    public Set getComments() {
+    public Set<Comment> getComments() {
         return this.comments;
     }
     
-    public void setComments(Set comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
 

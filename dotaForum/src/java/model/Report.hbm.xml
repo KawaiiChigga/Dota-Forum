@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Feb 24, 2017 4:52:52 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Feb 25, 2017 12:52:15 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Report" table="report" catalog="dota" optimistic-lock="version">
         <id name="idReport" type="java.lang.Integer">
@@ -9,7 +9,7 @@
             <generator class="identity" />
         </id>
         <many-to-one name="post" class="model.Post" fetch="select">
-            <column name="id_post" not-null="true" />
+            <column name="id_thread" not-null="true" />
         </many-to-one>
         <many-to-one name="user" class="model.User" fetch="select">
             <column name="id_user" not-null="true" />

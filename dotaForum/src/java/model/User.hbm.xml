@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Feb 24, 2017 4:52:52 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Feb 25, 2017 12:52:15 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.User" table="user" catalog="dota" optimistic-lock="version">
         <id name="idUser" type="java.lang.Integer">
@@ -28,6 +28,15 @@
         </property>
         <property name="password" type="string">
             <column name="password" length="30" not-null="true" />
+        </property>
+        <property name="level" type="int">
+            <column name="level" not-null="true" />
+        </property>
+        <property name="dateTime" type="timestamp">
+            <column name="date_time" length="19" not-null="true" />
+        </property>
+        <property name="progressLevel" type="int">
+            <column name="progress_level" not-null="true" />
         </property>
         <set name="messagesForIdReceiver" table="message" inverse="true" lazy="true" fetch="select">
             <key>
