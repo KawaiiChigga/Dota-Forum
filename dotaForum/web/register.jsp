@@ -42,7 +42,7 @@
                         String warning = request.getParameter("warningRegister");
                         if(warning!=null)out.println(warning);
                     %>
-                            <form method="POST" action="RegisterServlet">
+                            <form method="post" action="/dotaForum/RegisterServlet">
                               <div class="form-group col-md-6">
                                 <label for="first_name">First name:</label>
                                 <input type="text" class="form-control" name = "first_name" placeholder="First name">

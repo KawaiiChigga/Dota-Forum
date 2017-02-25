@@ -9,6 +9,8 @@ import controller.UserBean;
 import static controller.UserBean.factory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -79,26 +81,31 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Session session = factory.openSession();
-        User user = new User();
         boolean berhasil = false;
-        user.setEmail(request.getParameter("email"));
-        user.setPassword(request.getParameter("password"));
-        user.setUsername(request.getParameter("username"));
-        user.setFirstName(request.getParameter("first_name"));
-        user.setLastName(request.getParameter("last_name"));
-        user.setJenisKelamin(request.getParameter("gender"));
-        user.setLevel(1);
-        user.setUrlFoto(null);
-        user.setDateTime(null);
-        user.setProgressLevel(0);
-        String confPassword = request.getParameter("password");
+        User user = new User();
+        Session session = null;
 
-        Query username = session.createQuery("from user where username=" + user.getUsername());
-        Query email = session.createQuery("from user where email=" + user.getEmail());
+        try {
+            session = factory.openSession();
+            Transaction tx = session.beginTransaction();
 
-        if (email == null) {
-            if (username == null) {
+            user.setEmail(request.getParameter("email"));
+            user.setPassword(request.getParameter("password"));
+            user.setUsername(request.getParameter("username"));
+            user.setFirstName(request.getParameter("first_name"));
+            user.setLastName(request.getParameter("last_name"));
+            user.setJenisKelamin(request.getParameter("gender"));
+            user.setLevel(1);
+            user.setUrlFoto("");
+            user.setProgressLevel(0);
+            user.setDateTime(null);
+
+            String confPassword = request.getParameter("password2");
+            String temp = user.getUsername();
+            Query q = session.createQuery("from User where username = " + temp + " or email = " + user.getEmail());
+            ArrayList<User> hasil = (ArrayList) q.list();
+            if (hasil.isEmpty()) {
+
                 if (user.getPassword().length() > 4) {
                     if (user.getPassword().equals(confPassword)) {
                         berhasil = true;
@@ -110,22 +117,20 @@ public class RegisterServlet extends HttpServlet {
                     request.setAttribute("warningPassLength", "Password minimal 4 character!");
                 }
             } else {
-                request.setAttribute("warningRegister", "Username sudah terdaftar!");
+                request.setAttribute("warningRegister", "Username atau email sudah terdaftar!");
             }
-        } else {
-            request.setAttribute("warningRegister", "Email sudah terdaftar!");
-        }
 
-        Transaction tx = session.beginTransaction();
-        tx.commit();
-        session.close();
+            tx.commit();
+
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
 
         if (berhasil) {
             UserBean register = new UserBean();
             register.insertUser(user);
             response.sendRedirect("login.jsp");
-//            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-//            rd.include(request, response);
         } else {
             response.sendRedirect("register.jsp");
         }
