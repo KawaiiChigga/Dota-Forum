@@ -28,7 +28,7 @@ public class ReportBean {
         }
     }
     
-    public ArrayList<Report> getAllReport(){
+    public static ArrayList<Report> getAllReport(){
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from Report");
@@ -38,17 +38,24 @@ public class ReportBean {
         return hasil;
     }
     
-    public boolean insertReport(Report r){
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.save(r);
-        
-        tx.commit();
-        session.close();
-        return true;
+    public static boolean insertReport(Report r){
+        Session session = null;
+        Transaction tx = null;
+        boolean inserted = true;
+        try{
+            session = factory.openSession();
+            tx = session.beginTransaction();
+            session.save(r);
+            tx.commit();
+        }catch(Exception e){
+            inserted = false;
+        }finally {
+            session.close();   
+        }
+        return inserted;
     }
 
-    public boolean updateReport(Report r) {
+    public static boolean updateReport(Report r) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Report report = (Report) session.get(Report.class,r.getIdReport());
@@ -62,7 +69,7 @@ public class ReportBean {
         return true;
     }
 
-    public boolean deleteReport(int id) {
+    public static boolean deleteReport(int id) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Report report = (Report) session.get(Report.class, id);

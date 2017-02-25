@@ -88,7 +88,11 @@ public class PostBean {
         PostBean da = new PostBean();
         User u = new User("glenn", "tuyu", "cgtuyu31@gmail.com", "L", "ganteng.jpg", "tuyu", "tuyu", 1, null, 0);
         Post p = new Post(u,"judul","isi\n\nqwiejqowenjqwe",null,0,0);
-        System.out.println("hasil : "+da.insertPost(p));
+        if(da.insertPost(p)){
+            System.out.println("inserted");
+        }else{
+            System.out.println("not inserted");
+        }
 //        for(int i=0;i<listMhs.size();i++){
 //            System.out.println(listMhs.get(i).getNim()+" - "+listMhs.get(i).getNama()+" - "+listMhs.get(i).getAlamat());
 //        }

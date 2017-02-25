@@ -6,8 +6,10 @@
 package servlet;
 
 import controller.PostBean;
+import controller.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -81,12 +83,12 @@ public class PostServlet extends HttpServlet {
         String judul = request.getParameter("post_title");
         String isi = request.getParameter("post_isi");
         
-        String username;
         HttpSession sessionLogIn = request.getSession();
-        sessionLogIn.setAttribute("username", username);
+        String username = (String) sessionLogIn.getAttribute("username");
+        User user = UserBean.getUser(username);
         
         
-        Post p = new Post(u,judul,isi,null,0,0);
+        Post p = new Post(user,judul,isi,null,0,0);
         if(pb.insertPost(p)){
             String ALERT_FAIL = "fail";
             String fail = "0";

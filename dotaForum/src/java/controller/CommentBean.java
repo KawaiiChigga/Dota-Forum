@@ -28,7 +28,7 @@ public class CommentBean {
         }
     }
     
-    public ArrayList<Comment> getAllComment(){
+    public static ArrayList<Comment> getAllComment(){
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from Comment");
@@ -38,17 +38,24 @@ public class CommentBean {
         return hasil;
     }
     
-    public boolean insertComment(Comment c){
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.save(c);
-        
-        tx.commit();
-        session.close();
-        return true;
+    public static boolean insertComment(Comment c){
+        Session session = null;
+        Transaction tx = null;
+        boolean inserted = true;
+        try{
+            session = factory.openSession();
+            tx = session.beginTransaction();
+            session.save(c);
+            tx.commit();
+        }catch(Exception e){
+            inserted = false;
+        }finally {
+            session.close();   
+        }
+        return inserted;
     }
 
-    public boolean updateComment(Comment c) {
+    public static boolean updateComment(Comment c) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Comment cmt = (Comment) session.get(Comment.class,c.getIdComment());
@@ -62,7 +69,7 @@ public class CommentBean {
         return true;
     }
 
-    public boolean deleteComment(int id) {
+    public static boolean deleteComment(int id) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Comment c = (Comment) session.get(Comment.class, id);

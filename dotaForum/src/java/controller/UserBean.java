@@ -5,6 +5,7 @@
  */
 package controller;
 
+import static controller.PostBean.factory;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import model.User;
@@ -29,7 +30,7 @@ public class UserBean {
         }
     }
     
-    public ArrayList<User> getAllUser(){
+    public static ArrayList<User> getAllUser(){
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from User");
@@ -38,7 +39,7 @@ public class UserBean {
         session.close();
         return hasil;
     }
-    public User getUser(String username){
+    public static User getUser(String username){
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from User where username="+username);
@@ -47,17 +48,24 @@ public class UserBean {
         return (User)q;
     }
     
-    public boolean insertUser(User u){
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.save(u);
-        
-        tx.commit();
-        session.close();
-        return true;
+    public static boolean insertUser(User u){
+        Session session = null;
+        Transaction tx = null;
+        boolean inserted = true;
+        try{
+            session = factory.openSession();
+            tx = session.beginTransaction();
+            session.save(u);
+            tx.commit();
+        }catch(Exception e){
+            inserted = false;
+        }finally {
+            session.close();   
+        }
+        return inserted;
     }
 
-    public boolean updateUser(User newUser) {
+    public static boolean updateUser(User newUser) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         User user = (User) session.get(User.class,
@@ -78,7 +86,7 @@ public class UserBean {
         return true;
     }
 
-    public boolean deleteUser(int id) {
+    public static boolean deleteUser(int id) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         User user = (User) session.get(User.class, id);
@@ -106,6 +114,12 @@ public class UserBean {
         UserBean da = new UserBean();
         ArrayList<User> listMhs = da.getAllUser();
         System.out.println(listMhs);
+        User u = new User("glenn", "tuyu", "cgtuyu31@gmail.com", "L", "ganteng.jpg", "tuyu", "tuyu", 1, null, 0);
+        if(da.insertUser(u)){
+            System.out.println("inserted");
+        }else{
+            System.out.println("not inserted");
+        }
 //        for(int i=0;i<listMhs.size();i++){
 //            System.out.println(listMhs.get(i).getNim()+" - "+listMhs.get(i).getNama()+" - "+listMhs.get(i).getAlamat());
 //        }

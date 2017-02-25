@@ -28,7 +28,7 @@ public class ReplyBean {
         }
     }
     
-    public ArrayList<Reply> getAllReply(){
+    public static ArrayList<Reply> getAllReply(){
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from Reply");
@@ -38,17 +38,24 @@ public class ReplyBean {
         return hasil;
     }
     
-    public boolean insertReply(Reply r){
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.save(r);
-        
-        tx.commit();
-        session.close();
-        return true;
+    public static boolean insertReply(Reply r){
+        Session session = null;
+        Transaction tx = null;
+        boolean inserted = true;
+        try{
+            session = factory.openSession();
+            tx = session.beginTransaction();
+            session.save(r);
+            tx.commit();
+        }catch(Exception e){
+            inserted = false;
+        }finally {
+            session.close();   
+        }
+        return inserted;
     }
 
-    public boolean updateReply(Reply r) {
+    public static boolean updateReply(Reply r) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Reply reply = (Reply) session.get(Reply.class,r.getIdReply());
@@ -62,7 +69,7 @@ public class ReplyBean {
         return true;
     }
 
-    public boolean deleteReply(int id) {
+    public static boolean deleteReply(int id) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Reply reply = (Reply) session.get(Reply.class, id);

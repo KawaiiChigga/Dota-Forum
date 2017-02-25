@@ -28,7 +28,7 @@ public class MessageBean {
         }
     }
     
-    public ArrayList<Message> getAllMessage(){
+    public static ArrayList<Message> getAllMessage(){
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from Message");
@@ -38,17 +38,24 @@ public class MessageBean {
         return hasil;
     }
     
-    public boolean insertMessage(Message m){
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.save(m);
-        
-        tx.commit();
-        session.close();
-        return true;
+    public static boolean insertMessage(Message m){
+        Session session = null;
+        Transaction tx = null;
+        boolean inserted = true;
+        try{
+            session = factory.openSession();
+            tx = session.beginTransaction();
+            session.save(m);
+            tx.commit();
+        }catch(Exception e){
+            inserted = false;
+        }finally {
+            session.close();   
+        }
+        return inserted;
     }
 
-    public boolean updateMessage(Message m) {
+    public static boolean updateMessage(Message m) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Message msg = (Message) session.get(Message.class,m.getIdMessage());
@@ -62,7 +69,7 @@ public class MessageBean {
         return true;
     }
 
-    public boolean deleteMessage(int id) {
+    public static boolean deleteMessage(int id) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Message msg = (Message) session.get(Message.class, id);
