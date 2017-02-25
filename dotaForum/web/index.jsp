@@ -4,6 +4,9 @@
     Author     : Tuyu
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="controller.PostBean"%>
+<%@page import="model.Post"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -48,7 +51,7 @@
                                             <li><a href="">Competitive</a></li>
                                             <li><a href="">Custom Game</a></li>
                                             <li><a href="">Media</a></li>
-                                            <li><a href="">Recruitement</a></li>
+                                            <li><a href="">Recruitment</a></li>
                                             <li><a href="">Strategy</a></li>
                                         </ul>
                                     </nav>
@@ -74,9 +77,25 @@
                             </section>
                             <section>
                                 <div class="post">
-                                    <h2>Two Column #1</h2>
-                                    <p><a href="#"><img src="images/pics02.jpg" alt="" class="img-alignleft"></a>Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget, tempus et, tellus. Etiam neque. Vivamus consequat lorem at nisl. Nullam non wisi a sem semper eleifend. Donec mattis libero eget urna. Duis pretium velit ac mauris. Proin eu wisi suscipit nulla suscipit interdum. Aenean lectus lorem, imperdiet at, ultrices eget, ornare et, wisi. Pellentesque adipiscing purus ac magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.	 Pellentesque pede. Donec pulvinar ullamcorper metus. In eu odio at lectus pulvinar mollis. Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget, tempus et, tellus. Etiam neque. Vivamus consequat lorem at nisl. Nullam non wisi a sem semper eleifend. Donec mattis libero eget urna. Duis pretium velit ac mauris. Proin eu wisi suscipit nulla suscipit interdum. Aenean lectus lorem, imperdiet at, ultrices eget, ornare et, wisi. Pellentesque adipiscing purus ac magna. Pellentesque habitant morbi tristique.</p>
-                                    <p class="button-style"><a href="#">Read Full Article</a></p>
+                                    <table border="1 solid black">
+                                        <tr>
+                                            <th>Judul</th>
+                                            <th colspan="2">Isi</th>
+                                        </tr>
+                                        <%
+                                            PostBean pb = new PostBean();
+                                            ArrayList<Post> p = pb.getAllPost();
+                                            for (int i = 0; i < p.size(); i++) {
+                                        %>
+                                        
+                                                <tr>
+                                                    <td><%=p.get(i).getJudul()%></td>
+                                                    <td colspan="2"><%=p.get(i).getIsi()%></td>
+                                                </tr>
+                                        <%
+                                            }
+                                        %>
+                                    </table>
                                 </div>
                             </section>
                             <section>

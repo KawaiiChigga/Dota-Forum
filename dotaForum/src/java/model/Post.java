@@ -109,8 +109,10 @@ public class Post  implements java.io.Serializable {
         this.comments = comments;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Post{" + "idPost=" + idPost + ", judul=" + judul + ", isi=" + isi + ", dateTime=" + dateTime + ", likePost=" + likePost + ", dislikePost=" + dislikePost + '}';
+    }
 
 }
 
