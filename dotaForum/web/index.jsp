@@ -34,12 +34,30 @@
             <div id="header-wrapper">
                 <header id="header">
                     <div class="5grid-layout">
+
+
+                        <%
+                            HttpSession Login = request.getSession(false);
+
+                            if (Login.getAttribute("check") != null) {
+                        %>
+                        
+                        <p>
+                            <a href="LogoutServlet">Log out</a>
+                        </p>
+                        <%                            } else {
+                        %><p>
+                            <a href="login.jsp">Log In</a>&nbsp&nbsp&nbsp
+                            <a href="register.jsp">Register</a>
+                        </p>
+                        <%
+                            }
+                        %>
                         <div class="row">
                             <div class="12u" id="logo"> <!-- Logo -->
                                 <h1><a href="#" class="mobileUI-site-name">Dofu</a></h1>
                             </div>
-                            <a href="login.jsp">Log In</a>&nbsp&nbsp&nbsp
-                            <a href="register.jsp">Register</a>
+
                         </div>
                     </div>
                     <div class="5grid-layout">
@@ -89,11 +107,11 @@
                                             ArrayList<Post> p = pb.getAllPost();
                                             for (int i = 0; i < p.size(); i++) {
                                         %>
-                                        
-                                                <tr>
-                                                    <td><%=p.get(i).getJudul()%></td>
-                                                    <td colspan="2"><%=p.get(i).getIsi()%></td>
-                                                </tr>
+
+                                        <tr>
+                                            <td><%=p.get(i).getJudul()%></td>
+                                            <td colspan="2"><%=p.get(i).getIsi()%></td>
+                                        </tr>
                                         <%
                                             }
                                         %>

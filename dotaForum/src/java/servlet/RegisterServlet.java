@@ -110,12 +110,12 @@ public class RegisterServlet extends HttpServlet {
                 if (user.getPassword().length() > 4) {
                     if (user.getPassword().equals(confPassword)) {
                         berhasil = true;
-                        request.setAttribute("warningRegister", "Registrasi berhasil");
+                        request.setAttribute("berhasil", "Registrasi berhasil");
                     } else {
                         request.setAttribute("warningRegister", "Check Password and Confirm Password!");
                     }
                 } else {
-                    request.setAttribute("warningPassLength", "Password minimal 4 character!");
+                    request.setAttribute("warningRegister", "Password minimal 4 character!");
                 }
             } else {
                 request.setAttribute("warningRegister", "Username atau email sudah terdaftar!");
@@ -132,9 +132,10 @@ public class RegisterServlet extends HttpServlet {
         if (berhasil) {
             UserBean register = new UserBean();
             register.insertUser(user);
-            response.sendRedirect("login.jsp");
+            request.setAttribute("username", user.getUsername());
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            response.sendRedirect("register.jsp");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }
 
