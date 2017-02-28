@@ -108,6 +108,16 @@ public class Post  implements java.io.Serializable {
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
+    
+    public String getLike(){
+        String ld = "Like ("+this.likePost+")";
+        return ld;
+    }
+    
+    public String getDislike(){
+        String dis = "Dislike ("+this.dislikePost+")";
+        return dis;
+    }
 
     @Override
     public String toString() {

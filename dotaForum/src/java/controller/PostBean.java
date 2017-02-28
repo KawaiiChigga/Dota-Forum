@@ -6,9 +6,7 @@
 package controller;
 
 import java.util.ArrayList;
-import javax.servlet.http.HttpSession;
 import model.Post;
-import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -83,20 +81,29 @@ public class PostBean {
         return true;
     }
     
+    public static Post getPostById(int id){
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Post p = null;
+        try{
+            Query q = session.createQuery("from Post where id_post='" + id + "'");
+            p = (Post) q.uniqueResult();
+            tx.commit();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            session.close();   
+        }
+        return p;
+    }
+    
     public static void main(String[] args){
         PostBean da = new PostBean();
         ArrayList<Post> p = new ArrayList<>();
         p = da.getAllPost();
-        System.out.println(p);
-//        User u = new User("glenn", "tuyu", "cgtuyu31@gmail.com", "L", "ganteng.jpg", "tuyu", "tuyu", 1, null, 0);
-//        Post p = new Post(u,"judul","isi\n\nqwiejqowenjqwe",null,0,0);
-//        if(da.insertPost(p)){
-//            System.out.println("inserted");
-//        }else{
-//            System.out.println("not inserted");
-//        }
-//        for(int i=0;i<listMhs.size();i++){
-//            System.out.println(listMhs.get(i).getNim()+" - "+listMhs.get(i).getNama()+" - "+listMhs.get(i).getAlamat());
-//        }
+//        System.out.println(p);
+        for(Post a : p){
+            System.out.println("User : "+a.getUser());
+        }
     }
 }

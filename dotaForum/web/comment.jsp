@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : Feb 25, 2017, 12:40:04 PM
+    Document   : comment
+    Created on : Mar 1, 2017, 5:39:17 AM
     Author     : Tuyu
 --%>
 
@@ -41,6 +41,17 @@
 
 
                         <%
+                            String fail = (String) request.getAttribute("fail");
+                            String err = "";
+                            if (fail != null) {
+                                if (fail.equals("0")) {
+                                    err = "Comment not added";
+                                } else if (fail.equals("1")) {
+                                    err = "Comment succesfully added";
+                                } else {
+                                    err = "";
+                                }
+                            }
                             HttpSession Login = request.getSession(false);
                             String check = (String) Login.getAttribute("check");
                             if (check != null) {
@@ -48,13 +59,17 @@
                         <p>
                             <a href="LogoutServlet">Log out</a>
                         </p>
-                        <%                            } else {
+                        <%                            //} else {
                         %>
                         <p>
                             <a href="login.jsp">Log In</a>&nbsp&nbsp&nbsp
                             <a href="register.jsp">Register</a>
                         </p>
                         <%
+                            }
+                            int idpost = -1;
+                            if (request.getParameter("post") != null) {
+                                idpost = Integer.parseInt(request.getParameter("post"));
                             }
                         %>
                         <div class="row">
@@ -107,25 +122,40 @@
                                             PostBean pb = new PostBean();
                                             UserBean ub = new UserBean();
                                             CommentBean cb = new CommentBean();
-                                            ArrayList<Post> p = pb.getAllPost();
-                                            for (int i = 0; i < p.size(); i++) {
-                                                User u = ub.getUserById(p.get(i).getUser().getIdUser());
-                                                ArrayList<Comment> c = new ArrayList<Comment>();
-                                                c = cb.getCommentById(p.get(i).getIdPost());
+                                            Post p = pb.getPostById(idpost);
+                                            ArrayList<Comment> c = cb.getCommentById(idpost);
+                                            User u = ub.getUserById(p.getUser().getIdUser());
+                                        %>
+                                        <p><%= u.getFullName()%> - <%= p.getDateTime()%></p>
+                                        <p><%= p.getJudul()%></p>
+                                        <p><%= p.getIsi()%></p>
+                                        <p><a href="#"><%= p.getLike()%></a> -  
+                                            <a href="#"><%= p.getDislike()%></a></p>
+                                        <hr><hr>
+                                        <h2>Comments : </h2>
+                                        <%
+
+                                            for (int i = 0; i < c.size(); i++) {
+                                                u = ub.getUserById(c.get(i).getUser().getIdUser());
                                         %>
                                         <div>
-                                            <p><%= u.getFullName()%> - <%= p.get(i).getDateTime()%></p>
-                                            <p><%= p.get(i).getJudul()%></p>
-                                            <p><%= p.get(i).getIsi()%></p>
-                                            <p><a href="#"><%= p.get(i).getLike()%></a> -  
-                                                <a href="#"><%= p.get(i).getDislike()%></a></p>
-                                            <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment (<%= c.size()%>)</a></p>
+                                            <p><%= u.getFullName()%> - <%= c.get(i).getDateTime()%></p>
+                                            <p><%= c.get(i).getIsiComment()%></p>
                                             <hr>
                                         </div>
                                         <%
                                             }
                                         %>
                                     </table>
+                                    <br><br>
+                                    <form method="POST" action="CommentServlet" id="post_disc">
+                                        <h2>Post Comment!</h2>
+                                        <center>
+                                            <input type="hidden" name="id_post" value="<%= idpost%>"> 
+                                            <textarea placeholder="What do you wanna say?" name="isi_comment" id="post_disc" style="border-radius:5px;" rows="15"> </textarea><br><br>
+                                            <input type="submit" name="post_disc" value="Comment!" style="width:70%;height:50px;border-radius:5px;"><br><br>
+                                        </center>
+                                    </form>
                                 </div>
                             </section>
                         </div>

@@ -38,6 +38,16 @@ public class CommentBean {
         return hasil;
     }
     
+    public static ArrayList<Comment> getCommentById(int id){
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Comment where id_thread = '"+id+"'");
+        ArrayList<Comment> hasil = (ArrayList) q.list();
+        tx.commit();
+        session.close();
+        return hasil;
+    }
+    
     public static boolean insertComment(Comment c){
         Session session = null;
         Transaction tx = null;
@@ -81,7 +91,7 @@ public class CommentBean {
     
     public static void main(String[] args){
         CommentBean da = new CommentBean();
-        ArrayList<Comment> listMhs = da.getAllComment();
+        ArrayList<Comment> listMhs = da.getCommentById(1);
         System.out.println(listMhs);
 //        for(int i=0;i<listMhs.size();i++){
 //            System.out.println(listMhs.get(i).getNim()+" - "+listMhs.get(i).getNama()+" - "+listMhs.get(i).getAlamat());

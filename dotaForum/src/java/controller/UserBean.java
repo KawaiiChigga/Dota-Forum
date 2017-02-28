@@ -121,6 +121,22 @@ public class UserBean {
         return u;
     }
     
+    public static User getUserById(int id){
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        User u = null;
+        try{
+            Query q = session.createQuery("from User where id_user='" + id + "'");
+            u = (User) q.uniqueResult();
+            tx.commit();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            session.close();   
+        }
+        return u;
+    }
+    
     public static void main(String[] args){
         UserBean da = new UserBean();
 //        ArrayList<User> listMhs = da.getUser("tuyu");

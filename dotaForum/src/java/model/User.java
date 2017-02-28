@@ -83,6 +83,10 @@ public class User  implements java.io.Serializable {
         return this.lastName;
     }
     
+    public String getFullName(){
+        String full = this.firstName + " " + this.lastName;
+        return full;
+    }
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }

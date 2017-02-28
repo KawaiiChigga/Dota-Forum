@@ -105,23 +105,22 @@
                                     </td>
                                 </tr>
             <%
-//                User tmp = data.get(0);
-//                out.println("<tr>");
-//                out.println("<td>"+tmp.getFirstName()+"</td>");
-//                out.println("<td>"+tmp.getLastName()+"</td>");
-//                out.println("<td>"+tmp.getLevel()+"</td>");
-//                out.println("<td>"+tmp.getDateTime()+"</td>");
-//                out.println("<td>"+tmp.getJenisKelamin()+"</td>");
-//                out.println("<td>"+tmp.getEmail()+"</td>");
-//                out.println("</tr>");
-//                out.println("</table>");
-//                
-//                for(int i=0;i<post.size();i++){
-//                    out.println(post.get(i).getJudul());
-//                    out.println(post.get(i).getDateTime());
-//                    out.println(post.get(i).getLikePost());
-//                    out.println(post.get(i).getDislikePost());
-//                }
+               User tmp = data.get(0);
+                out.println("<tr>");
+                out.println("<td>"+tmp.getFirstName()+"</td>");
+                out.println("<td>"+tmp.getLastName()+"</td>");
+                out.println("<td>"+tmp.getLevel()+"</td>");
+               out.println("<td>"+tmp.getJenisKelamin()+"</td>");
+                out.println("<td>"+tmp.getEmail()+"</td>");
+                out.println("</tr>");
+                out.println("</table>");
+                
+                for(int i=0;i<post.size();i++){
+                    out.println(post.get(i).getJudul());
+                    out.println(post.get(i).getDateTime());
+                    out.println(post.get(i).getLikePost());
+                    out.println(post.get(i).getDislikePost());
+                }
             %>
         
                             </section>
