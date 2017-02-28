@@ -23,9 +23,7 @@ public class UserBean {
     public UserBean(){
         try{
             factory = new Configuration().configure().buildSessionFactory();
-            System.out.println("TEST");
         }catch(Exception e){
-            System.out.println("ERROR!!");
         }
     }
     

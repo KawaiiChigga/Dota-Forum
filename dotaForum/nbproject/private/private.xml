@@ -4,13 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/asus/Documents/GitHub/Dota-Forum/dotaForum/src/java/controller/UserBean.java</file>
-            <file>file:/C:/Users/asus/Documents/GitHub/Dota-Forum/dotaForum/web/dota/register.jsp</file>
             <file>file:/C:/Users/asus/Documents/GitHub/Dota-Forum/dotaForum/src/java/servlet/PostServlet.java</file>
-            <file>file:/C:/Users/asus/Documents/GitHub/Dota-Forum/dotaForum/web/dota/post.jsp</file>
-            <file>file:/C:/Users/asus/Documents/GitHub/Dota-Forum/dotaForum/src/java/controller/CommentBean.java</file>
+            <file>file:/C:/Users/asus/Documents/GitHub/Dota-Forum/dotaForum/web/register.jsp</file>
             <file>file:/C:/Users/asus/Documents/GitHub/Dota-Forum/dotaForum/src/java/servlet/LoginServlet.java</file>
             <file>file:/C:/Users/asus/Documents/GitHub/Dota-Forum/dotaForum/src/java/servlet/RegisterServlet.java</file>
-            <file>file:/C:/Users/asus/Documents/GitHub/Dota-Forum/dotaForum/src/java/controller/MessageBean.java</file>
         </group>
     </open-files>
 </project-private>
