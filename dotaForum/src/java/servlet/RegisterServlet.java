@@ -8,6 +8,7 @@ package servlet;
 import controller.UserBean;
 import static controller.UserBean.factory;
 import java.io.IOException;
+//import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,8 @@ public class RegisterServlet extends HttpServlet {
         Session session = null;
 
         try {
-            session = factory.openSession();
+            UserBean ub = new UserBean();
+            session = ub.factory.openSession();
             Transaction tx = session.beginTransaction();
 
             user.setEmail(request.getParameter("email"));
@@ -102,19 +104,18 @@ public class RegisterServlet extends HttpServlet {
 
             String confPassword = request.getParameter("password2");
             String temp = user.getUsername();
-            Query q = session.createQuery("from User where username = " + temp + " or email = " + user.getEmail());
+            Query q = session.createQuery("from User where username = '" + temp + "' or email = '" + user.getEmail() + "'");
             ArrayList<User> hasil = (ArrayList) q.list();
             if (hasil.isEmpty()) {
-
                 if (user.getPassword().length() > 4) {
                     if (user.getPassword().equals(confPassword)) {
                         berhasil = true;
-                        request.setAttribute("warningRegister", "Registrasi berhasil");
+                        request.setAttribute("berhasil", "Registrasi berhasil");
                     } else {
                         request.setAttribute("warningRegister", "Check Password and Confirm Password!");
                     }
                 } else {
-                    request.setAttribute("warningPassLength", "Password minimal 4 character!");
+                    request.setAttribute("warningRegister", "Password minimal 4 character!");
                 }
             } else {
                 request.setAttribute("warningRegister", "Username atau email sudah terdaftar!");
@@ -123,6 +124,7 @@ public class RegisterServlet extends HttpServlet {
             tx.commit();
 
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -130,9 +132,10 @@ public class RegisterServlet extends HttpServlet {
         if (berhasil) {
             UserBean register = new UserBean();
             register.insertUser(user);
-            response.sendRedirect("login.jsp");
+            request.setAttribute("username", user.getUsername());
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            response.sendRedirect("register.jsp");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }
 

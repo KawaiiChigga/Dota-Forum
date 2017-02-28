@@ -5,8 +5,6 @@
  */
 package servlet;
 
-import controller.UserBean;
-import static controller.UserBean.factory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,16 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.User;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
  * @author asus
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +39,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");
+            out.println("<title>Servlet LogoutServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LogoutServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,7 +60,21 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession logoutSession = request.getSession(false);
+
+        User user = (User) logoutSession.getAttribute("user");
+        String remember = (String) logoutSession.getAttribute("remember");
+        if (remember!=null) {
+            request.setAttribute("username", user.getUsername());
+            request.setAttribute("password", user.getPassword());
+        }else{
+            request.setAttribute("username", "");
+            request.setAttribute("password", "");
+        }
+
+//        logoutSession.invalidate();
+//        response.sendRedirect("login.jsp");
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /**
@@ -79,30 +88,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String remember = request.getParameter("remember");
         
-        UserBean ub = new UserBean();
-        User u = ub.checkLogIn(username, password);
-        if (u!=null) {
-            HttpSession sessionLogIn = request.getSession();
-//            if(remember!=null){
-//                request.setAttribute("username", username);
-//                request.setAttribute("password", password);
-//                
-//            }else{
-//                request.setAttribute("username","");
-//                request.setAttribute("password","");
-//            }
-            sessionLogIn.setAttribute("check", "yes");
-            sessionLogIn.setAttribute("user", u);
-            sessionLogIn.setAttribute("remember",remember);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        } else {
-            request.setAttribute("warning", "Username or password wrong!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
     }
 
     /**

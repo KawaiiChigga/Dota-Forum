@@ -47,10 +47,17 @@
 
                 <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                     <%
-                        String warning = request.getParameter("warning");
+                        String warning = (String)request.getAttribute("warning");
+                        String registerBerhasil = (String)request.getAttribute("berhasil");
+                        boolean accBaru = false;
                         if (warning != null) {
-                            out.println(warning);
+                            out.println("&nbsp&nbsp&nbsp&nbsp"+warning);
                         }
+                        if(registerBerhasil != null){
+                            out.println("&nbsp&nbsp&nbsp&nbsp"+registerBerhasil);
+                            accBaru = true;
+                        }
+                        request.setAttribute("berhasil", null);
 
                     %>
                     <div class="panel-body">
@@ -59,13 +66,28 @@
                             <h5>Enter Details to Login</h5>
                             <span></span>
                             <br>
+                            <%                                
+                                HttpSession loginSession = request.getSession();
+                                
+                                String x = "";
+                                String y = "";
+                                if (loginSession.getAttribute("check")!=null) {
+                                    x = (String) request.getAttribute("username");
+                                    y = (String) request.getAttribute("password");
+                                }else if(accBaru){
+                                    x = (String) request.getAttribute("username");
+                                }
+                                loginSession.invalidate();
+                            %>
                             <div class="form-group input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"  ></i></span>
-                                <input type="text" class="form-control" placeholder="Your Username" name="username" />
+                                <input type="text" class="form-control" placeholder="Your Username" name="username" value="<%=x%>"/>
                             </div>
+
                             <div class="form-group input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
-                                <input type="password" class="form-control"  placeholder="Your Password" name="password" />
+
+                                <input type="password" class="form-control"  placeholder="Your Password" name="password" value="<%=y%>"/>
                             </div>
                             <div class="form-group">
                                 <label class="checkbox-inline">
