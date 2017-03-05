@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import controller.CategoriesBean;
 import controller.PostBean;
 import controller.UserBean;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Categories;
 import model.Post;
 import model.User;
 
@@ -65,7 +67,14 @@ public class PostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(false);
+        if(session.getAttribute("check")!=null){
+            
+            request.getRequestDispatcher("post.jsp").forward(request, response);
+            
+        }else{
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -82,11 +91,16 @@ public class PostServlet extends HttpServlet {
         PostBean pb = new PostBean();
         String judul = request.getParameter("post_title");
         String isi = request.getParameter("post_isi");
+        String kategori = request.getParameter("category");
         
         HttpSession sessionLogIn = request.getSession();
         User user = (User) sessionLogIn.getAttribute("user");
         
-        Post p = new Post(user,judul,isi,null,0,0);
+        CategoriesBean cb = new CategoriesBean();
+        Categories category = cb.getCategory(kategori);
+        
+        
+        Post p = new Post(category,user,judul,isi,null,0,0);
         if(pb.insertPost(p)){
             String ALERT_FAIL = "fail";
             String fail = "0";

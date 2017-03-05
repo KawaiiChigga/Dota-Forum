@@ -38,6 +38,16 @@ public class PostBean {
         return hasil;
     }
     
+    public ArrayList<Post> getProfilePost(String user){
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Post where username='"+user+"'");
+        ArrayList<Post> hasil = (ArrayList) q.list();
+        tx.commit();
+        session.close();
+        return hasil;
+    }
+    
     public boolean insertPost(Post p){
         Session session = null;
         Transaction tx = null;
@@ -48,6 +58,7 @@ public class PostBean {
             tx.commit();
         }catch(Exception e){
             e.printStackTrace();
+            return false;
         }finally {
             session.close();   
         }

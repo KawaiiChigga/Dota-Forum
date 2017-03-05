@@ -67,7 +67,9 @@ public class ProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         int currUser = 0;
         HttpSession sessionLogin =  request.getSession();
-        ArrayList<User> profile = (ArrayList<User>) sessionLogin.getAttribute("user");
+        User temp = (User) sessionLogin.getAttribute("user");
+        ArrayList<User> profile = new ArrayList<User>();
+        profile.add(temp);
         profile.get(0).getFirstName();
         profile.get(0).getLastName();
         profile.get(0).getEmail();

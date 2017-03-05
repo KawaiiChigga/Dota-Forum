@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Feb 25, 2017 12:52:15 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 5, 2017 11:25:19 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.User" table="user" catalog="dota" optimistic-lock="version">
         <id name="idUser" type="java.lang.Integer">
@@ -38,6 +38,14 @@
         <property name="progressLevel" type="int">
             <column name="progress_level" not-null="true" />
         </property>
+        <set name="posts" table="dislikes" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="id_user" not-null="true" />
+            </key>
+            <many-to-many entity-name="model.Post">
+                <column name="id_post" not-null="true" />
+            </many-to-many>
+        </set>
         <set name="messagesForIdReceiver" table="message" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_receiver" not-null="true" />
@@ -49,6 +57,14 @@
                 <column name="id_user" not-null="true" />
             </key>
             <one-to-many class="model.Reply" />
+        </set>
+        <set name="posts_1" table="likes" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="id_user" not-null="true" />
+            </key>
+            <many-to-many entity-name="model.Post">
+                <column name="id_post" not-null="true" />
+            </many-to-many>
         </set>
         <set name="comments" table="comment" inverse="true" lazy="true" fetch="select">
             <key>
@@ -62,7 +78,7 @@
             </key>
             <one-to-many class="model.Message" />
         </set>
-        <set name="posts" table="post" inverse="true" lazy="true" fetch="select">
+        <set name="posts_2" table="post" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_user" not-null="true" />
             </key>

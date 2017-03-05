@@ -106,7 +106,11 @@ public class RegisterServlet extends HttpServlet {
             String temp = user.getUsername();
             Query q = session.createQuery("from User where username = '" + temp + "' or email = '" + user.getEmail() + "'");
             ArrayList<User> hasil = (ArrayList) q.list();
-            if (hasil.isEmpty()) {
+            if (user.getPassword().equals("") || user.getFirstName().equals("")
+                    || confPassword.equals("") || user.getEmail().equals("")
+                    || user.getUsername().equals("") || user.getLastName().equals("")) {
+                request.setAttribute("warningRegister", "Tolong lengkapi form");
+            } else if (hasil.isEmpty()) {
                 if (user.getPassword().length() > 4) {
                     if (user.getPassword().equals(confPassword)) {
                         berhasil = true;
@@ -131,9 +135,14 @@ public class RegisterServlet extends HttpServlet {
 
         if (berhasil) {
             UserBean register = new UserBean();
-            register.insertUser(user);
-            request.setAttribute("username", user.getUsername());
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            if (register.insertUser(user)) {
+                request.setAttribute("username", user.getUsername());
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }else{
+                request.setAttribute("warningRegister", "Registrasi Gagal!");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+            }
+
         } else {
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }

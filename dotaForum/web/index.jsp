@@ -15,6 +15,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+<<<<<<< HEAD
         <title>DotaForum</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="description" content="" />
@@ -32,10 +33,17 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <script src="css/5grid/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none&amp;mobileUI.openerWidth=52"></script>
         <!--[if IE 9]><link rel="stylesheet" href="css/style-ie9.css" /><![endif]-->
+=======
+        <title>Home-Dota Forum</title>
+>>>>>>> origin/master
     </head>
     <body>
         <div id="wrapper">
+            <%
+               String temp = request.getParameter("menu");
+            %>
             <div id="header-wrapper">
+<<<<<<< HEAD
                 <header id="header">
                     <div class="5grid-layout">
 
@@ -85,6 +93,9 @@
                         </div>
                     </div>
                 </header>
+=======
+                <jsp:include page="header.jsp?menu=<%=temp%>"/>
+>>>>>>> origin/master
             </div>
             <div id="page-wrapper" class="5grid-layout">
                 <div class="row">
@@ -137,7 +148,7 @@
                                     <ul class="style1">
                                         <form method="post" action="#">
                                             <li><input class="search" type="text" name="search" placeholder="Search"></li>
-                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="newpost" value="Start a new discussion" formaction="post.jsp"></li>
+                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="newpost" value="Start a new discussion" formaction="postServlet" formmethod="get"></li>
                                             <li><input style="width:100%;border-radius:5px;" type="submit" name="feedback" value="Feedback and Support"></li>
                                             <li><input style="width:100%;border-radius:5px;" type="submit" name="rules" value="Forum Rules"></li>
                                             <li>
@@ -154,45 +165,14 @@
                     </div>
                 </div>
             </div>
-            <div class="5grid-layout">
+            <div class="5grid-layout"> 
                 <div class="row" id="footer-content">
-                    <div class="6u" id="box1">
-                        <section>
-                            <h2>Maecenas luctus lectus</h2>
-                            <div>
-                                <p><img src="images/pics05.jpg" alt="" width="180" height="120" class="imgleft">In posuere eleifend odio. Quisque semper augue mattis wisi. Maecenas ligula. Pellentesque viverra vulputate enim. Aliquam erat volutpat. Pellentesque tristique ante ut risus. Quisque dictum. Integer nisl risus, sagittis convallis, rutrum id, elementum congue, nibh. Suspendisse dictum porta lectus. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget, tempus quis, ultrices in, est. Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem urna, consequat vel, suscipit in, mattis placerat, nulla. Sed ac leo. Pellentesque imperdiet. Etiam neque. Vivamus consequat lorem at nisl. Nullam non wisi a sem semper eleifend. Donec mattis libero eget urna. Duis pretium velit ac mauris. Proin eu wisi suscipit nulla suscipit interdum. Aenean lectus lorem, imperdiet at, ultrices eget, ornare et, wisi. </p>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="3u" id="box2">
-                        <section>
-                            <h2>Donec dictum metus</h2>
-                            <ul class="style4">
-                                <li class="first"><a href="#">Pellentesque quis elit non lectus gravida blandit sed dolore.</a></li>
-                                <li><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</a></li>
-                                <li><a href="#">Phasellus nec erat sit amet nibh pellentesque congue.</a></li>
-                                <li><a href="#">Cras vitae metus aliquam risus pellentesque pharetra.</a></li>
-                            </ul>
-                        </section>
-                    </div>
-                    <div class="3u" id="box3">
-                        <section>
-                            <h2>Nulla luctus eleifend</h2>
-                            <ul class="style4">
-                                <li class="first"><a href="#">Pellentesque quis elit non lectus gravida blandit sed dolore.</a></li>
-                                <li><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</a></li>
-                                <li><a href="#">Phasellus nec erat sit amet nibh pellentesque congue.</a></li>
-                                <li><a href="#">Cras vitae metus aliquam risus pellentesque pharetra.</a></li>
-                            </ul>
-                        </section>
-                    </div>
+                    <jsp:include page="footer.jsp"/>
                 </div>
             </div>
         </div>
         <div id="copyright" class="5grid-layout">
-            <section>
-                <p>&copy; DoFu (Dota Forum) | Images: <a href="http://fotogrph.com/">Fotogrph</a> | Design: <a href="http://templated.co/">TEMPLATED</a></p>
-            </section>
+            <jsp:include page="copyright.jsp"/>
         </div>
     </body>
 </html>
