@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home Dota Forum</title>
+        <title>Home-Dota Forum</title>
     </head>
     <body>
         <div id="wrapper">
@@ -72,7 +72,7 @@
                                     <ul class="style1">
                                         <form method="post" action="#">
                                             <li><input class="search" type="text" name="search" placeholder="Search"></li>
-                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="newpost" value="Start a new discussion" formaction="post.jsp"></li>
+                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="newpost" value="Start a new discussion" formaction="postServlet" formmethod="get"></li>
                                             <li><input style="width:100%;border-radius:5px;" type="submit" name="feedback" value="Feedback and Support"></li>
                                             <li><input style="width:100%;border-radius:5px;" type="submit" name="rules" value="Forum Rules"></li>
                                             <li>

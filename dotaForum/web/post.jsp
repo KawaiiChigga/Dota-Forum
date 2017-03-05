@@ -9,16 +9,18 @@
 <html>
     <head>
         <title>Post Dota Forum</title>
+
     </head>
     <%
+
         String fail = (String) request.getAttribute("fail");
         String err = "";
         if (fail != null) {
             if (fail.equals("0")) {
-                err = "Post not added";
-            } else if(fail.equals("1")){
                 err = "Post succesfully added";
-            }else{
+            } else if (fail.equals("1")) {
+                err = "Post not added";
+            } else {
                 err = "";
             }
         }
@@ -27,6 +29,7 @@
         <div id="wrapper">
             <div id="header-wrapper">
                 <jsp:include page="header.jsp"/>
+
             </div>
             <div id="page-wrapper" class="5grid-layout">
                 <div class="row">

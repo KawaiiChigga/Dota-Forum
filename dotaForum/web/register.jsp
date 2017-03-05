@@ -40,9 +40,9 @@
                     <%
                         String warning = (String) request.getAttribute("warningRegister");
                         if (warning != null) {
-                            out.println(warning);
+                            out.println("&nbsp&nbsp&nbsp"+warning);
                         }
-                        request.setAttribute("warningRegister", null);
+                        request.setAttribute("warningRegister", "");
                     %>
                     <div class="panel-body">
 
@@ -71,6 +71,7 @@
                                     if (passWarning != null) {
                                         out.print(passWarning);
                                     }
+                                    
                                 %>
                             </div>
                             <div class="form-group col-md-6">

@@ -1,5 +1,5 @@
 package model;
-// Generated Feb 25, 2017 12:52:14 PM by Hibernate Tools 4.3.1
+// Generated Mar 5, 2017 11:25:18 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,6 +13,7 @@ public class Post  implements java.io.Serializable {
 
 
      private Integer idPost;
+     private Categories categories;
      private User user;
      private String judul;
      private String isi;
@@ -21,12 +22,15 @@ public class Post  implements java.io.Serializable {
      private int dislikePost;
      private Set<Report> reports = new HashSet<Report>(0);
      private Set<Comment> comments = new HashSet<Comment>(0);
+     private Set<User> users = new HashSet<User>(0);
+     private Set<User> users_1 = new HashSet<User>(0);
 
     public Post() {
     }
 
 	
-    public Post(User user, String judul, String isi, Date dateTime, int likePost, int dislikePost) {
+    public Post(Categories categories, User user, String judul, String isi, Date dateTime, int likePost, int dislikePost) {
+        this.categories = categories;
         this.user = user;
         this.judul = judul;
         this.isi = isi;
@@ -34,7 +38,8 @@ public class Post  implements java.io.Serializable {
         this.likePost = likePost;
         this.dislikePost = dislikePost;
     }
-    public Post(User user, String judul, String isi, Date dateTime, int likePost, int dislikePost, Set<Report> reports, Set<Comment> comments) {
+    public Post(Categories categories, User user, String judul, String isi, Date dateTime, int likePost, int dislikePost, Set<Report> reports, Set<Comment> comments, Set<User> users, Set<User> users_1) {
+       this.categories = categories;
        this.user = user;
        this.judul = judul;
        this.isi = isi;
@@ -43,6 +48,8 @@ public class Post  implements java.io.Serializable {
        this.dislikePost = dislikePost;
        this.reports = reports;
        this.comments = comments;
+       this.users = users;
+       this.users_1 = users_1;
     }
    
     public Integer getIdPost() {
@@ -51,6 +58,13 @@ public class Post  implements java.io.Serializable {
     
     public void setIdPost(Integer idPost) {
         this.idPost = idPost;
+    }
+    public Categories getCategories() {
+        return this.categories;
+    }
+    
+    public void setCategories(Categories categories) {
+        this.categories = categories;
     }
     public User getUser() {
         return this.user;
@@ -108,11 +122,23 @@ public class Post  implements java.io.Serializable {
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
-
-    @Override
-    public String toString() {
-        return "Post{" + "idPost=" + idPost + ", judul=" + judul + ", isi=" + isi + ", dateTime=" + dateTime + ", likePost=" + likePost + ", dislikePost=" + dislikePost + '}';
+    public Set<User> getUsers() {
+        return this.users;
     }
+    
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+    public Set<User> getUsers_1() {
+        return this.users_1;
+    }
+    
+    public void setUsers_1(Set<User> users_1) {
+        this.users_1 = users_1;
+    }
+
+
+
 
 }
 

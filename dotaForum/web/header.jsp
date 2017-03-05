@@ -51,7 +51,7 @@
                 %>
                 <div class="row">
                     <div class="12u" id="logo"> <!-- Logo -->
-                        <h1><a href="#" class="mobileUI-site-name">Dofu</a></h1>
+                        <h1><a href="index.jsp" class="mobileUI-site-name">Dofu</a></h1>
                     </div>
 
                 </div>
@@ -69,6 +69,7 @@
                                     <li><a href="">Media</a></li>
                                     <li><a href="">Recruitment</a></li>
                                     <li><a href="">Strategy</a></li>
+                                    <li><a href="">Profile</a></li>
                                 </ul>
                             </nav>
                         </div>

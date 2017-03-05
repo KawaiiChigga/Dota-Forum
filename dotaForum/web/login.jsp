@@ -71,7 +71,6 @@
                                 
                                 String x = "";
                                 String y = "";
-                                System.out.println(loginSession.getAttribute("check"));
                                 if (loginSession.getAttribute("check")!=null) {
                                     x = (String) request.getAttribute("username");
                                     y = (String) request.getAttribute("password");
