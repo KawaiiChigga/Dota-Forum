@@ -69,73 +69,65 @@
                                 </div>
                             </section>
                             <section>
-                                 <div class="post">
-                                    <table border="1 solid black">
-                                        <%
-                                        ArrayList<User> data = (ArrayList<User>)
-                                        request.getAttribute("dataProfile");
-                                        ArrayList<Post> post = (ArrayList<Post>)
-                                        request.getAttribute("dataProfile");
-                                        
-                                        %>
+                                <%
+                                    ArrayList<User> data = (ArrayList<User>)
+                                    request.getAttribute("dataProfile");
+                                 %>
+                                <div class="post">
+                                <table border="1 solid black">
                                 <tr>
                                     <td>
                                        First Name:
+                                    </td>
+                                    <td>
+                                        <%=data.get(0).getFirstName()%>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Last Name:
                                     </td>
+                                    <td>
+                                        <%=data.get(0).getLastName()%>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Level: 
+                                    </td>
+                                    <td>
+                                        <%=data.get(0).getLevel()%>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Date Joined: 
                                     </td>
+                                    <td>
+                                        <%=data.get(0).getDateTime()%>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Gender: 
+                                    </td>
+                                    <td>
+                                        <%=data.get(0).getJenisKelamin()%>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         E-mail: 
                                     </td>
+                                    <td>
+                                        <%=data.get(0).getEmail()%>
+                                    </td>
                                 </tr>
-            <%
-                User tmp = data.get(0);
-                out.println("<tr>");
-                out.println("<td>"+tmp.getFirstName()+"</td>");
-                out.println("<td>"+tmp.getLastName()+"</td>");
-                out.println("<td>"+tmp.getLevel()+"</td>");
-                out.println("<td>"+tmp.getDateTime()+"</td>");
-                out.println("<td>"+tmp.getJenisKelamin()+"</td>");
-                out.println("<td>"+tmp.getEmail()+"</td>");
-                out.println("</tr>");
-                out.println("</table>");
-                
-                for(int i=0;i<post.size();i++){
-                    out.println(post.get(i).getJudul());
-                    out.println(post.get(i).getDateTime());
-                    out.println(post.get(i).getLikePost());
-                    out.println(post.get(i).getDislikePost());
-                }
-            %>
                                     </table>
                                     <table border="1 solid black">
-                                        <tr>
-                                            <th>Judul</th>
-                                            <th colspan="2">Isi</th>
-                                        </tr>
                                         <%
                                             PostBean pb = new PostBean();
-                                            ArrayList<Post> p = pb.getProfilePost();
+                                            ArrayList<Post> p = pb.getProfilePost(data.get(0).getUsername());
                                             for (int i = 0; i < p.size(); i++) {
                                         %>
 

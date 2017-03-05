@@ -40,6 +40,7 @@
 
                 <p>
                     <a href="LogoutServlet">Log out</a>
+                    <a href="ProfileServlet">Profile</a>
                 </p>
                 <%                            } else {
                 %><p>
