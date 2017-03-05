@@ -12,10 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <div id="copyright" class="5grid-layout">
-            <section>
-                <p>&copy; DoFu (Dota Forum) | Images: <a href="http://fotogrph.com/">Fotogrph</a> | Design: <a href="http://templated.co/">TEMPLATED</a></p>
-            </section>
-        </div>
+        <section>
+            <p>&copy; DoFu (Dota Forum) | Images: <a href="http://fotogrph.com/">Fotogrph</a> | Design: <a href="http://templated.co/">TEMPLATED</a></p>
+        </section>
+
     </body>
 </html>

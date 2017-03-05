@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Home Dota Forum</title>
     </head>
     <body>
         <div id="wrapper">
@@ -89,9 +90,13 @@
                 </div>
             </div>
             <div class="5grid-layout"> 
-                <jsp:include page="footer.jsp"/>
+                <div class="row" id="footer-content">
+                    <jsp:include page="footer.jsp"/>
+                </div>
             </div>
         </div>
-        <jsp:include page="copyright.jsp"/>
+        <div id="copyright" class="5grid-layout">
+            <jsp:include page="copyright.jsp"/>
+        </div>
     </body>
 </html>
