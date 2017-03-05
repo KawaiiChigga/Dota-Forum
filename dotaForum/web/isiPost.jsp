@@ -1,27 +1,18 @@
 <%-- 
-    Document   : index
-    Created on : Feb 25, 2017, 12:40:04 PM
-    Author     : Tuyu
+    Document   : isiPost
+    Created on : Mar 6, 2017, 12:42:02 AM
+    Author     : asus
 --%>
 
-<%@page import="java.util.ArrayList"%>
-<%@page import="controller.PostBean"%>
-<%@page import="model.Post"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home-Dota Forum</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
     </head>
     <body>
-        <div id="wrapper">
-            <%
-               String temp = request.getParameter("menu");
-            %>
-            <div id="header-wrapper">
-                <jsp:include page="header.jsp?menu=<%=temp%>"/>
-            </div>
-            <div id="page-wrapper" class="5grid-layout">
+        <div id="page-wrapper" class="5grid-layout">
                 <div class="row">
                     <div class="9u">
                         <div id="content">
@@ -92,14 +83,5 @@
                     </div>
                 </div>
             </div>
-            <div class="5grid-layout"> 
-                <div class="row" id="footer-content">
-                    <jsp:include page="footer.jsp"/>
-                </div>
-            </div>
-        </div>
-        <div id="copyright" class="5grid-layout">
-            <jsp:include page="copyright.jsp"/>
-        </div>
     </body>
 </html>

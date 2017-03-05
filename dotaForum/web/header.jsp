@@ -62,14 +62,43 @@
                         <div id="menu-wrapper">
                             <nav class="mobileUI-site-nav">
                                 <ul>
-                                    <li class="current_page_item"><a href="">All</a></li>
-                                    <li><a href="">Chat</a></li>
-                                    <li><a href="">Competitive</a></li>
-                                    <li><a href="">Custom Game</a></li>
-                                    <li><a href="">Media</a></li>
-                                    <li><a href="">Recruitment</a></li>
-                                    <li><a href="">Strategy</a></li>
-                                    <li><a href="">Profile</a></li>
+                                    <%
+                                        String temp[] = new String[8];
+                                        System.out.println(request.getParameter("menu"));
+                                        if (request.getParameter("menu") != null) {
+
+                                            String jenis = request.getParameter("menu");
+
+                                            if (jenis.equals("1")) {
+                                                temp[0] = "current_page_item";
+                                            } else if (jenis.equals("2")) {
+                                                temp[1] = "current_page_item";
+                                            } else if (jenis.equals("3")) {
+                                                temp[2] = "current_page_item";
+                                            } else if (jenis.equals("4")) {
+                                                temp[3] = "current_page_item";
+                                            } else if (jenis.equals("5")) {
+                                                temp[4] = "current_page_item";
+                                            } else if (jenis.equals("6")) {
+                                                temp[5] = "current_page_item";
+                                            } else if (jenis.equals("7")) {
+                                                temp[6] = "current_page_item";
+                                            } else if (jenis.equals("8")) {
+                                                temp[7] = "current_page_item";
+                                            }
+                                        } else {
+                                            temp[0] = "current_page_item";
+                                        }
+                                    %>
+
+                                    <li class="<%=temp[0]%>"><a href="index.jsp?menu=1">All</a></li>
+                                    <li class="<%=temp[1]%>"><a href="index.jsp?menu=2">Chat</a></li>
+                                    <li class="<%=temp[2]%>"><a href="index.jsp?menu=3">Competitive</a></li>
+                                    <li class="<%=temp[3]%>"><a href="index.jsp?menu=4">Custom Game</a></li>
+                                    <li class="<%=temp[4]%>"><a href="index.jsp?menu=5">Media</a></li>
+                                    <li class="<%=temp[5]%>"><a href="index.jsp?menu=6">Recruitment</a></li>
+                                    <li class="<%=temp[6]%>"><a href="index.jsp?menu=7">Strategy</a></li>
+                                    <li class="<%=temp[7]%>"><a href="index.jsp?menu=8">Profile</a></li>
                                 </ul>
                             </nav>
                         </div>
