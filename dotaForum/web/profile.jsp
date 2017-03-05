@@ -4,6 +4,7 @@
     Author     : Asus
 ---%>
 
+<%@page import="controller.PostBean"%>
 <%@page import="model.Post"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.User"%>
@@ -46,15 +47,6 @@
                             <div class="12u" id="menu">
                                 <div id="menu-wrapper">
                                     <nav class="mobileUI-site-nav">
-                                        <ul>
-                                            <li class="current_page_item"><a href="">All</a></li>
-                                            <li><a href="">Chat</a></li>
-                                            <li><a href="">Competitive</a></li>
-                                            <li><a href="">Custom Game</a></li>
-                                            <li><a href="">Media</a></li>
-                                            <li><a href="">Recruitement</a></li>
-                                            <li><a href="">Strategy</a></li>
-                                        </ul>
                                     </nav>
                                 </div>
                             </div>
@@ -77,53 +69,86 @@
                                 </div>
                             </section>
                             <section>
-                                <%
-                                    ArrayList<User> data = (ArrayList<User>)
-                                    request.getAttribute("dataProfile");
-                                    ArrayList<Post> post = (ArrayList<Post>)
-                                    request.getAttribute("dataProfile");
-                                %>
-                                <table>
+                                 <div class="post">
+                                    <table border="1 solid black">
+                                        <%
+                                        ArrayList<User> data = (ArrayList<User>)
+                                        request.getAttribute("dataProfile");
+                                        ArrayList<Post> post = (ArrayList<Post>)
+                                        request.getAttribute("dataProfile");
+                                        
+                                        %>
                                 <tr>
                                     <td>
                                        First Name:
                                     </td>
+                                </tr>
+                                <tr>
                                     <td>
                                         Last Name:
                                     </td>
+                                </tr>
+                                <tr>
                                     <td>
                                         Level: 
                                     </td>
+                                </tr>
+                                <tr>
                                     <td>
                                         Date Joined: 
                                     </td>
+                                </tr>
+                                <tr>
                                     <td>
                                         Gender: 
                                     </td>
+                                </tr>
+                                <tr>
                                     <td>
                                         E-mail: 
                                     </td>
                                 </tr>
             <%
-//                User tmp = data.get(0);
-//                out.println("<tr>");
-//                out.println("<td>"+tmp.getFirstName()+"</td>");
-//                out.println("<td>"+tmp.getLastName()+"</td>");
-//                out.println("<td>"+tmp.getLevel()+"</td>");
-//                out.println("<td>"+tmp.getDateTime()+"</td>");
-//                out.println("<td>"+tmp.getJenisKelamin()+"</td>");
-//                out.println("<td>"+tmp.getEmail()+"</td>");
-//                out.println("</tr>");
-//                out.println("</table>");
-//                
-//                for(int i=0;i<post.size();i++){
-//                    out.println(post.get(i).getJudul());
-//                    out.println(post.get(i).getDateTime());
-//                    out.println(post.get(i).getLikePost());
-//                    out.println(post.get(i).getDislikePost());
-//                }
+                User tmp = data.get(0);
+                out.println("<tr>");
+                out.println("<td>"+tmp.getFirstName()+"</td>");
+                out.println("<td>"+tmp.getLastName()+"</td>");
+                out.println("<td>"+tmp.getLevel()+"</td>");
+                out.println("<td>"+tmp.getDateTime()+"</td>");
+                out.println("<td>"+tmp.getJenisKelamin()+"</td>");
+                out.println("<td>"+tmp.getEmail()+"</td>");
+                out.println("</tr>");
+                out.println("</table>");
+                
+                for(int i=0;i<post.size();i++){
+                    out.println(post.get(i).getJudul());
+                    out.println(post.get(i).getDateTime());
+                    out.println(post.get(i).getLikePost());
+                    out.println(post.get(i).getDislikePost());
+                }
             %>
-        
+                                    </table>
+                                    <table border="1 solid black">
+                                        <tr>
+                                            <th>Judul</th>
+                                            <th colspan="2">Isi</th>
+                                        </tr>
+                                        <%
+                                            PostBean pb = new PostBean();
+                                            ArrayList<Post> p = pb.getProfilePost();
+                                            for (int i = 0; i < p.size(); i++) {
+                                        %>
+
+                                        <tr>
+                                            <td><%=p.get(i).getJudul()%></td>
+                                            <td colspan="2"><%=p.get(i).getIsi()%></td>
+                                        </tr>
+                                        <%
+                                            }
+                                        %>
+                                    </table>
+                                    </table>
+                                 </div>
                             </section>
                         </div>
                     </div>
