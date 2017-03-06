@@ -140,7 +140,8 @@
                                                 u = ub.getUserById(c.get(i).getUser().getIdUser());
                                         %>
                                         <div>
-                                            <p style="font-size:20px"><%= u.getUsername()%> - <%= c.get(i).getDateTime()%></p>
+                                            <p style="font-size:25px"><%= p.getJudul()%></p>
+                                            <p style="font-size:20px"><%= u.getUsername()%></p>
                                             <p style="font-size:15px"><%= c.get(i).getIsiComment()%></p>
                                             <hr>
                                         </div>
