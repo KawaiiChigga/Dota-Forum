@@ -88,7 +88,6 @@
                                         <%=data.get(0).getEmail()%>
                                     </td>
                                 </tr>
-<<<<<<< HEAD
             <%
                User tmp = data.get(0);
                 out.println("<tr>");
@@ -100,12 +99,12 @@
                 out.println("</tr>");
                 out.println("</table>");
                 
-                for(int i=0;i<post.size();i++){
-                    out.println(post.get(i).getJudul());
-                    out.println(post.get(i).getDateTime());
-                    out.println(post.get(i).getLikePost());
-                    out.println(post.get(i).getDislikePost());
-                }
+//                for(int i=0;i<post.size();i++){
+//                    out.println(post.get(i).getJudul());
+//                    out.println(post.get(i).getDateTime());
+//                    out.println(post.get(i).getLikePost());
+//                    out.println(post.get(i).getDislikePost());
+//                }
             %>
         
 =======
@@ -113,11 +112,8 @@
                                     <table border="1 solid black">
                                         <%
                                             PostBean pb = new PostBean();
-<<<<<<< HEAD
                                             ArrayList<Post> p = pb.getProfilePost(data.get(0).getUsername());
-=======
-                                            ArrayList<Post> p = pb.getAllPost();
->>>>>>> origin/master
+//                                            ArrayList<Post> p = pb.getAllPost();
                                             for (int i = 0; i < p.size(); i++) {
                                         %>
 

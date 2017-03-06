@@ -203,9 +203,10 @@ public class User  implements java.io.Serializable {
         this.reports = reports;
     }
 
-
-
-
+    public String getFullName(){
+        String name = firstName + " " + lastName;
+        return name;
+    }
 }
 
 

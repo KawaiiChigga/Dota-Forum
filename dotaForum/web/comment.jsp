@@ -38,8 +38,6 @@
             <div id="header-wrapper">
                 <header id="header">
                     <div class="5grid-layout">
-
-
                         <%
                             String fail = (String) request.getAttribute("fail");
                             String err = "";
@@ -129,8 +127,8 @@
                                         <p><%= u.getFullName()%> - <%= p.getDateTime()%></p>
                                         <p><%= p.getJudul()%></p>
                                         <p><%= p.getIsi()%></p>
-                                        <p><a href="#"><%= p.getLike()%></a> -  
-                                            <a href="#"><%= p.getDislike()%></a></p>
+                                        <p><a href="#"><%= p.getLikePost()%></a> -  
+                                            <a href="#"><%= p.getDislikePost()%></a></p>
                                         <hr><hr>
                                         <h2>Comments : </h2>
                                         <%
