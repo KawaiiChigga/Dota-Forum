@@ -1,5 +1,5 @@
 package model;
-// Generated Mar 5, 2017 11:25:18 PM by Hibernate Tools 4.3.1
+// Generated Mar 6, 2017 5:35:25 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -203,9 +203,10 @@ public class User  implements java.io.Serializable {
         this.reports = reports;
     }
 
-
-
-
+    public String getFullName(){
+        String name = firstName + " " + lastName;
+        return name;
+    }
 }
 
 

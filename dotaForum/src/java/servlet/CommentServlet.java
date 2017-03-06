@@ -5,8 +5,8 @@
  */
 package servlet;
 
-import controller.UserBean;
-import static controller.UserBean.factory;
+import controller.CommentBean;
+import controller.PostBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -16,17 +16,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Comment;
+import model.Post;
 import model.User;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
- * @author asus
+ * @author Tuyu
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "CommentServlet", urlPatterns = {"/CommentServlet"})
+public class CommentServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +44,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");
+            out.println("<title>Servlet CommentServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CommentServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -80,21 +79,36 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String remember = request.getParameter("remember");
+        CommentBean cb = new CommentBean();
+        String isi = request.getParameter("isi_comment");
+        String idpost = request.getParameter("id_post");
+        int id = Integer.parseInt(idpost);
+        PostBean pb = new PostBean();
+        Post p = pb.getPostById(id);
         
-        UserBean ub = new UserBean();
-        User u = ub.checkLogIn(username, password);
-        if (u!=null) {
-            HttpSession sessionLogIn = request.getSession();
-            sessionLogIn.setAttribute("check", "yes");
-            sessionLogIn.setAttribute("user", u);
-            sessionLogIn.setAttribute("remember",remember);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        } else {
-            request.setAttribute("warning", "Username or password wrong!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        HttpSession sessionLogIn = request.getSession();
+        User user = (User) sessionLogIn.getAttribute("user");
+        
+        Comment c = new Comment();
+        c.setPost(p);
+        c.setIsiComment(isi);
+        c.setUser(user);
+        if(cb.insertComment(c)){
+            String ALERT_FAIL = "fail";
+            String fail = "0";
+            request.setAttribute(ALERT_FAIL, fail);
+//            request.setAttribute("post", id);
+//            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+//            rd.include(request, response);
+            response.sendRedirect("comment.jsp?post="+idpost);
+        }else{
+            String ALERT_FAIL = "fail";
+            String fail = "1";
+            request.setAttribute(ALERT_FAIL, fail);
+            request.setAttribute("post", id);
+            RequestDispatcher rd = request.getRequestDispatcher("comment.jsp");
+            rd.include(request, response);
+            response.sendRedirect("index.jsp");
         }
     }
 
