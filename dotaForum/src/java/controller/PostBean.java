@@ -38,10 +38,10 @@ public class PostBean {
         return hasil;
     }
     
-    public ArrayList<Post> getProfilePost(String user){
+    public ArrayList<Post> getProfilePost(int user){
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Post where id_user='"+user+"'");
+        Query q = session.createQuery("from Post where id_user="+user+"");
         ArrayList<Post> hasil = (ArrayList) q.list();
         tx.commit();
         session.close();

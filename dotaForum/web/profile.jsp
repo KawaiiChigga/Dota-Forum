@@ -4,6 +4,8 @@
     Author     : Asus
 ---%>
 
+<%@page import="model.Comment"%>
+<%@page import="controller.CommentBean"%>
 <%@page import="controller.PostBean"%>
 <%@page import="model.Post"%>
 <%@page import="java.util.ArrayList"%>
@@ -41,62 +43,74 @@
                                 <table border="1 solid black">
                                 <tr>
                                     <td>
-                                       First Name:
+                                        <p style="font-size:15px">First Name:</p>
                                     </td>
                                     <td>
-                                        <%=data.getFirstName()%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Last Name:
-                                    </td>
-                                    <td>
-                                        <%=data.getLastName()%>
+                                        <p style="font-size:15px"><%=data.getFirstName()%></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Level: 
+                                        <p style="font-size:15px">Last Name:</p>
                                     </td>
                                     <td>
-                                        <%=data.getLevel()%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Date Joined: 
-                                    </td>
-                                    <td>
-                                        <%=data.getDateTime()%>
+                                        <p style="font-size:15px"><%=data.getLastName()%></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Gender: 
+                                        <p style="font-size:15px">Level:</p>
                                     </td>
                                     <td>
-                                        <%=data.getJenisKelamin()%>
+                                        <p style="font-size:15px"><%=data.getLevel()%></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        E-mail: 
+                                        <p style="font-size:15px">Date Joined:</p> 
                                     </td>
                                     <td>
-                                        <%=data.getEmail()%>
+                                        <p style="font-size:15px"><%=data.getDateTime()%></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p style="font-size:15px">Gender:</p> 
+                                    </td>
+                                    <td>
+                                        <p style="font-size:15px"><%=data.getJenisKelamin()%></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p style="font-size:15px">E-mail:</p>
+                                    </td>
+                                    <td>
+                                        <p style="font-size:15px"><%=data.getEmail()%></p>
                                     </td>
                                 </tr>
                                     </table>
+                                    <hr><hr>
                                     <table border="1 solid black">
                                         <%
                                             PostBean pb = new PostBean();
-                                            ArrayList<Post> p = pb.getProfilePost(data.getUsername());
+                                            CommentBean cb = new CommentBean();
+                                            ArrayList<Post> p = pb.getProfilePost(data.getIdUser());
                                             for (int i = 0; i < p.size(); i++) {
+                                                ArrayList<Comment> c = new ArrayList<Comment>();
+                                                c = cb.getCommentById(p.get(i).getIdPost());
                                         %>
 
                                         <tr>
-                                            <td><%=p.get(i).getJudul()%></td>
+                                            <td>
+                                            <p style="font-size:20px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"><%= p.get(i).getJudul()%></a></p>
+                                            <p style="font-size:15px">By <%= data.getUsername()%></p>
+                                            <p style="font-size:12px">Posted in: <%= p.get(i).getDateTime()%></p>
+                                            <p><a href="#"><%= p.get(i).getLikePost()%> Likes</a> -  
+                                                <a href="#"><%= p.get(i).getDislikePost()%> Dislikes</a></p>
+                                            <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment (<%= c.size()%>)</a></p>
+                                            <hr>
+                                            </td>
                                         </tr>
                                         <%
                                             }

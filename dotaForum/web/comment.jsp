@@ -56,8 +56,9 @@
                         %>
                         <p>
                             <a href="LogoutServlet">Log out</a>
+                            <a href="ProfileServlet">Profile</a>
                         </p>
-                        <%                            //} else {
+                        <%                            } else {
                         %>
                         <p>
                             <a href="login.jsp">Log In</a>&nbsp&nbsp&nbsp
@@ -124,21 +125,23 @@
                                             ArrayList<Comment> c = cb.getCommentById(idpost);
                                             User u = ub.getUserById(p.getUser().getIdUser());
                                         %>
-                                        <p><%= u.getFullName()%> - <%= p.getDateTime()%></p>
-                                        <p><%= p.getJudul()%></p>
-                                        <p><%= p.getIsi()%></p>
-                                        <p><a href="#"><%= p.getLikePost()%></a> -  
-                                            <a href="#"><%= p.getDislikePost()%></a></p>
+                                        
+                                        <p style="font-size:25px"><%= p.getJudul()%></p>
+                                        <p style="font-size:15px">By <%= u.getUsername()%></p>
+                                        <p style="font-size:12px">Posted in: <%= p.getDateTime()%></p>
+                                        <p style="font-size:20px"><%= p.getIsi()%></p>
+                                        <p><a href="#">Likes (<%= p.getLikePost()%>)</a> -  
+                                            <a href="#">Dislikes (<%= p.getDislikePost()%>)</a></p>
                                         <hr><hr>
-                                        <h2>Comments : </h2>
+                                        <p style="font-size:20px">Comments : </p>
                                         <%
 
                                             for (int i = 0; i < c.size(); i++) {
                                                 u = ub.getUserById(c.get(i).getUser().getIdUser());
                                         %>
                                         <div>
-                                            <p><%= u.getFullName()%> - <%= c.get(i).getDateTime()%></p>
-                                            <p><%= c.get(i).getIsiComment()%></p>
+                                            <p style="font-size:20px"><%= u.getUsername()%> - <%= c.get(i).getDateTime()%></p>
+                                            <p style="font-size:15px"><%= c.get(i).getIsiComment()%></p>
                                             <hr>
                                         </div>
                                         <%
@@ -147,12 +150,14 @@
                                     </table>
                                     <br><br>
                                     <form method="POST" action="CommentServlet" id="post_disc">
-                                        <h2>Post Comment!</h2>
+                                        <p style="font-size:20px">Post A Comment!</p>
                                         <center>
                                             <input type="hidden" name="id_post" value="<%= idpost%>"> 
-                                            <textarea placeholder="What do you wanna say?" name="isi_comment" id="post_disc" style="border-radius:5px;" rows="15"> </textarea><br><br>
-                                            <input type="submit" name="post_disc" value="Comment!" style="width:70%;height:50px;border-radius:5px;"><br><br>
-                                        </center>
+                                            <textarea placeholder="What do you wanna say?" name="isi_comment" id="post_disc" style="border-radius:5px;" rows="5"> </textarea>
+                                        </center><br><br>
+                                        <left>
+                                            <input type="submit" name="post_disc" value="Post Comment" style="width:30%;height:30px;border-radius:5px;"><br><br>
+                                        </left>
                                     </form>
                                 </div>
                             </section>
