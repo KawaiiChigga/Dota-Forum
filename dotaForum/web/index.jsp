@@ -73,12 +73,11 @@
                                                 ArrayList<Comment> c = new ArrayList<Comment>();
                                                 c = cb.getCommentById(p.get(i).getIdPost());
                                         %>
-                                        
-                                            <p><%= u.getFullName()%> - <%= p.get(i).getDateTime()%></p>
-                                            <p><%= p.get(i).getJudul()%></p>
-                                            <p><%= p.get(i).getIsi()%></p>
-                                            <p><a href="#"><%= p.get(i).getLikePost()%></a> -  
-                                                <a href="#"><%= p.get(i).getDislikePost()%></a></p>
+                                       
+                                            <h2><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"><%= p.get(i).getJudul()%></a></h2>
+                                            <p>by <%= u.getFullName()%>. Posted in: <%= p.get(i).getDateTime()%></p>
+                                            <p><a href="#"><%= p.get(i).getLikePost()%> Likes</a> -  
+                                                <a href="#"><%= p.get(i).getDislikePost()%> Dislikes</a></p>
                                             <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment (<%= c.size()%>)</a></p>
                                             <hr>
                                         

@@ -91,10 +91,7 @@
                                     <table border="1 solid black">
                                         <%
                                             PostBean pb = new PostBean();
-                                            
-
                                             ArrayList<Post> p = pb.getProfilePost(data.getUsername());
-
                                             for (int i = 0; i < p.size(); i++) {
                                         %>
 
