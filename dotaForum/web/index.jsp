@@ -43,59 +43,7 @@
                String temp = request.getParameter("menu");
             %>
             <div id="header-wrapper">
-<<<<<<< HEAD
-                <header id="header">
-                    <div class="5grid-layout">
-
-
-                        <%
-                            HttpSession Login = request.getSession(false);
-                            String check = (String) Login.getAttribute("check");
-                            if (check != null) {
-                        %>
-                        <p>
-                            <a href="LogoutServlet">Log out</a>
-                        </p>
-                        <%                            } else {
-                        %>
-                        <p>
-                            <a href="login.jsp">Log In</a>&nbsp&nbsp&nbsp
-                            <a href="register.jsp">Register</a>
-                        </p>
-                        <%
-                            }
-                        %>
-                        <div class="row">
-                            <div class="12u" id="logo"> <!-- Logo -->
-                                <h1><a href="#" class="mobileUI-site-name">Dofu</a></h1>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="5grid-layout">
-                        <div class="row">
-                            <div class="12u" id="menu">
-                                <div id="menu-wrapper">
-                                    <nav class="mobileUI-site-nav">
-                                        <ul>
-                                            <li class="current_page_item"><a href="">All</a></li>
-                                            <li><a href="">Chat</a></li>
-                                            <li><a href="">Competitive</a></li>
-                                            <li><a href="">Custom Game</a></li>
-                                            <li><a href="">Media</a></li>
-                                            <li><a href="">Recruitment</a></li>
-                                            <li><a href="">Strategy</a></li>
-                                            <li style="float:right;"><a href="profile.jsp">Profile</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-=======
                 <jsp:include page="header.jsp?menu=<%=temp%>"/>
->>>>>>> origin/master
             </div>
             <div id="page-wrapper" class="5grid-layout">
                 <div class="row">
