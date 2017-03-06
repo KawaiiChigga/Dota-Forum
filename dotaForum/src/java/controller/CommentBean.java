@@ -41,7 +41,7 @@ public class CommentBean {
     public static ArrayList<Comment> getCommentById(int id){
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Comment where id_thread = '"+id+"'");
+        Query q = session.createQuery("from Comment where id_post = '"+id+"'");
         ArrayList<Comment> hasil = (ArrayList) q.list();
         tx.commit();
         session.close();

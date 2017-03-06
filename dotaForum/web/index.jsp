@@ -15,7 +15,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-<<<<<<< HEAD
         <title>DotaForum</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="description" content="" />
@@ -33,9 +32,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <script src="css/5grid/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none&amp;mobileUI.openerWidth=52"></script>
         <!--[if IE 9]><link rel="stylesheet" href="css/style-ie9.css" /><![endif]-->
-=======
         <title>Home-Dota Forum</title>
->>>>>>> origin/master
     </head>
     <body>
         <div id="wrapper">
@@ -73,13 +70,9 @@
                                                 c = cb.getCommentById(p.get(i).getIdPost());
                                         %>
                                         <div>
-                                            <p><%= u.getFullName()%> - <%= p.get(i).getDateTime()%></p>
-                                            <p><%= p.get(i).getJudul()%></p>
-                                            <p><%= p.get(i).getIsi()%></p>
-                                            <p><a href="#"><%= p.get(i).getLike()%></a> -  
-                                                <a href="#"><%= p.get(i).getDislike()%></a></p>
-                                            <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment (<%= c.size()%>)</a></p>
-                                            <hr>
+                                            
+                                                
+                                            
                                         </div>
                                         <%
                                             }
