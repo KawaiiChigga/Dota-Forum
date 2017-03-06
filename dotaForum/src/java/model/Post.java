@@ -122,7 +122,7 @@ public class Post  implements java.io.Serializable {
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
-<<<<<<< HEAD
+
     
     public String getLike(){
         String ld = "Like ("+this.likePost+")";
@@ -137,14 +137,14 @@ public class Post  implements java.io.Serializable {
     @Override
     public String toString() {
         return "Post{" + "idPost=" + idPost + ", judul=" + judul + ", isi=" + isi + ", dateTime=" + dateTime + ", likePost=" + likePost + ", dislikePost=" + dislikePost + '}';
-=======
+    }
     public Set<User> getUsers() {
         return this.users;
     }
     
     public void setUsers(Set<User> users) {
         this.users = users;
->>>>>>> origin/master
+
     }
     public Set<User> getUsers_1() {
         return this.users_1;
