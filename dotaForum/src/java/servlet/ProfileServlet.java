@@ -70,7 +70,7 @@ public class ProfileServlet extends HttpServlet {
 //        ArrayList<Post> posts = PostBean.getAllPostById(currUser);
 
         request.setAttribute("dataProfile", temp);
-        RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("profile.jsp?menu=8");
         rd.forward(request, response);
     }
 

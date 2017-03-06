@@ -64,7 +64,6 @@
                                 <ul>
                                     <%
                                         String temp[] = new String[8];
-                                        System.out.println(request.getParameter("menu"));
                                         if (request.getParameter("menu") != null) {
 
                                             String jenis = request.getParameter("menu");
@@ -91,6 +90,9 @@
                                         }
                                     %>
 
+                                    <%
+                                        if (Login.getAttribute("check") != null) {
+                                    %>
                                     <li class="<%=temp[0]%>"><a href="index.jsp?menu=1">All</a></li>
                                     <li class="<%=temp[1]%>"><a href="index.jsp?menu=2">Chat</a></li>
                                     <li class="<%=temp[2]%>"><a href="index.jsp?menu=3">Competitive</a></li>
@@ -98,7 +100,20 @@
                                     <li class="<%=temp[4]%>"><a href="index.jsp?menu=5">Media</a></li>
                                     <li class="<%=temp[5]%>"><a href="index.jsp?menu=6">Recruitment</a></li>
                                     <li class="<%=temp[6]%>"><a href="index.jsp?menu=7">Strategy</a></li>
-                                    <li class="<%=temp[7]%>" style="float:right;"><a href="profile.jsp?menu=8">Profile</a></li>
+                                    <li class="<%=temp[7]%>" style="float:right;"><a href="ProfileServlet">Profile</a></li>
+                                        <%
+                                        } else {
+                                        %>
+                                    <li class="<%=temp[0]%>"><a href="index.jsp?menu=1">All</a></li>
+                                    <li class="<%=temp[1]%>"><a href="index.jsp?menu=2">Chat</a></li>
+                                    <li class="<%=temp[2]%>"><a href="index.jsp?menu=3">Competitive</a></li>
+                                    <li class="<%=temp[3]%>"><a href="index.jsp?menu=4">Custom Game</a></li>
+                                    <li class="<%=temp[4]%>"><a href="index.jsp?menu=5">Media</a></li>
+                                    <li class="<%=temp[5]%>"><a href="index.jsp?menu=6">Recruitment</a></li>
+                                    <li class="<%=temp[6]%>"><a href="index.jsp?menu=7">Strategy</a></li>
+                                        <%
+                                            }
+                                        %>
                                 </ul>
                             </nav>
                         </div>

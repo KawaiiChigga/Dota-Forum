@@ -50,44 +50,10 @@
                 <div class="row">
                     <div class="9u">
                         <div id="content">
-                            <section>
-                                <div id="menu" class="12u">
-                                    <ul>
-                                        <li class="current_page_item" style="float:left;">Hot</li>
-                                        <li style="float:left;">Top</li>
-                                        <li style="float:left;">New</li>
-                                        <li style="float:right;">1234</li>
-                                    </ul>
-                                </div>
-                            </section>
-                            <section>
-                                <div class="post">
-                                    <table border="1 solid black">
-                                        <%
-                                            PostBean pb = new PostBean();
-                                            UserBean ub = new UserBean();
-                                            CommentBean cb = new CommentBean();
-                                            ArrayList<Post> p = pb.getAllPost();
-                                            for (int i = 0; i < p.size(); i++) {
-                                                User u = ub.getUserById(p.get(i).getUser().getIdUser());
-                                                ArrayList<Comment> c = new ArrayList<Comment>();
-                                                c = cb.getCommentById(p.get(i).getIdPost());
-                                        %>
-                                       
-                                            <p style="font-size:20px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"><%= p.get(i).getJudul()%></a></p>
-                                            <p style="font-size:15px">By <%= u.getUsername()%></p>
-                                            <p style="font-size:12px">Posted in: <%= p.get(i).getDateTime()%></p>
-                                            <p><a href="#"><%= p.get(i).getLikePost()%> Likes</a> -  
-                                                <a href="#"><%= p.get(i).getDislikePost()%> Dislikes</a></p>
-                                            <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment (<%= c.size()%>)</a></p>
-                                            <hr>
-                                        
-                                        <%
-                                            }
-                                        %>
-                                    </table>
-                                </div>
-                            </section>
+                            <%
+                                String menu = request.getParameter("menu");
+                            %>
+                            <jsp:include page="content.jsp?menu=<%=menu%>"/>
                         </div>
                     </div>
                     <div class="3u">

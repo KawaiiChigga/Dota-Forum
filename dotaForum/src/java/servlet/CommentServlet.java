@@ -44,7 +44,7 @@ public class CommentServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CommentServlet</title>");            
+            out.println("<title>Servlet CommentServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CommentServlet at " + request.getContextPath() + "</h1>");
@@ -79,37 +79,42 @@ public class CommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CommentBean cb = new CommentBean();
-        String isi = request.getParameter("isi_comment");
-        String idpost = request.getParameter("id_post");
-        int id = Integer.parseInt(idpost);
-        PostBean pb = new PostBean();
-        Post p = pb.getPostById(id);
-        
-        HttpSession sessionLogIn = request.getSession();
-        User user = (User) sessionLogIn.getAttribute("user");
-        
-        Comment c = new Comment();
-        c.setPost(p);
-        c.setIsiComment(isi);
-        c.setUser(user);
-        if(cb.insertComment(c)){
-            String ALERT_FAIL = "fail";
-            String fail = "0";
-            request.setAttribute(ALERT_FAIL, fail);
+        HttpSession sessionLogIn = request.getSession(false);
+        if (sessionLogIn.getAttribute("check") != null) {
+            CommentBean cb = new CommentBean();
+            String isi = request.getParameter("isi_comment");
+            String idpost = request.getParameter("id_post");
+            int id = Integer.parseInt(idpost);
+            PostBean pb = new PostBean();
+            Post p = pb.getPostById(id);
+
+            User user = (User) sessionLogIn.getAttribute("user");
+
+            Comment c = new Comment();
+            c.setPost(p);
+            c.setIsiComment(isi);
+            c.setUser(user);
+            if (cb.insertComment(c)) {
+                String ALERT_FAIL = "fail";
+                String fail = "0";
+                request.setAttribute(ALERT_FAIL, fail);
 //            request.setAttribute("post", id);
 //            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 //            rd.include(request, response);
-            response.sendRedirect("comment.jsp?post="+idpost);
-        }else{
-            String ALERT_FAIL = "fail";
-            String fail = "1";
-            request.setAttribute(ALERT_FAIL, fail);
-            request.setAttribute("post", id);
-            RequestDispatcher rd = request.getRequestDispatcher("comment.jsp");
-            rd.include(request, response);
-            response.sendRedirect("index.jsp");
+                response.sendRedirect("comment.jsp?post=" + idpost);
+            } else {
+                String ALERT_FAIL = "fail";
+                String fail = "1";
+                request.setAttribute(ALERT_FAIL, fail);
+                request.setAttribute("post", id);
+                RequestDispatcher rd = request.getRequestDispatcher("comment.jsp");
+                rd.include(request, response);
+                response.sendRedirect("index.jsp");
+            }
+        } else {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
+
     }
 
     /**

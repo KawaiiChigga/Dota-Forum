@@ -15,23 +15,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Dota Forum</title>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
-        <noscript>
-        <link rel="stylesheet" href="css/5grid/core.css" />
-        <link rel="stylesheet" href="css/5grid/core-desktop.css" />
-        <link rel="stylesheet" href="css/5grid/core-1200px.css" />
-        <link rel="stylesheet" href="css/5grid/core-noscript.css" />
-        <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet" href="css/style-desktop.css" />
-
-        <link href="assets/css/bootstrap.css" rel="stylesheet" />
-        </noscript>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script src="css/5grid/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none&amp;mobileUI.openerWidth=52"></script>
-        <!--[if IE 9]><link rel="stylesheet" href="css/style-ie9.css" /><![endif]-->
+        <title>Post-Dota Forum</title>
     </head>
     <body>
         <div id="wrapper">
@@ -80,7 +64,7 @@
                                             ArrayList<Comment> c = cb.getCommentById(idpost);
                                             User u = ub.getUserById(p.getUser().getIdUser());
                                         %>
-
+                                        <%=err%>
                                         <p style="font-size:25px"><%= p.getJudul()%></p>
                                         <p style="font-size:15px">By <%= u.getUsername()%></p>
                                         <p style="font-size:12px">Posted in: <%= p.getDateTime()%></p>
