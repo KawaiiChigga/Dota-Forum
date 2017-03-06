@@ -1,5 +1,5 @@
 package model;
-// Generated Mar 5, 2017 11:25:18 PM by Hibernate Tools 4.3.1
+// Generated Mar 6, 2017 5:35:25 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -28,6 +28,13 @@ public class Comment  implements java.io.Serializable {
         this.user = user;
         this.isiComment = isiComment;
         this.dateTime = dateTime;
+    }
+    public Comment(Post post, User user, String isiComment, Date dateTime, Set<Reply> replies) {
+       this.post = post;
+       this.user = user;
+       this.isiComment = isiComment;
+       this.dateTime = dateTime;
+       this.replies = replies;
     }
    
     public Integer getIdComment() {
@@ -73,12 +80,9 @@ public class Comment  implements java.io.Serializable {
         this.replies = replies;
     }
 
-    @Override
-    public String toString() {
-        return "Comment{" + "idComment=" + idComment + ", isiComment=" + isiComment + ", dateTime=" + dateTime + '}';
-    }
 
-    }
 
+
+}
 
 
