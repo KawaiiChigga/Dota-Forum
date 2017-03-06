@@ -39,7 +39,7 @@
             <div class="row text-center " style="padding-top:100px;">
                 <div    class="col-md-12">
                     <div class="12u" id="logo"> <!-- Logo -->
-                        <h1><a href="index.jsp" class="mobileUI-site-name" style="color:#B22F2F;">Dofu</a></h1>
+                        <h1><a href="index.jsp?menu=1" class="mobileUI-site-name" style="color:#B22F2F;">Dofu</a></h1>
                     </div>
                 </div>
             </div>

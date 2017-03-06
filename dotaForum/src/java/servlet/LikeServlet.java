@@ -5,28 +5,23 @@
  */
 package servlet;
 
-import controller.UserBean;
-import static controller.UserBean.factory;
+import controller.PostBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.User;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import model.Post;
 
 /**
  *
  * @author asus
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "LikeServlet", urlPatterns = {"/LikeServlet"})
+public class LikeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +40,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");
+            out.println("<title>Servlet LikeServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LikeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,7 +61,18 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(false);
+        PostBean pb = new PostBean();
+        Post post = new Post();
+        post = (Post) session.getAttribute("post");
+        String url = "comment.jsp?id=" + post.getIdPost();
+        post.setLikePost(post.getLikePost() + 1);
+        if (pb.updatePost(post)) {
+            System.out.println("berhasil");
+        } else {
+            System.out.println("gagal");
+        }
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     /**
@@ -80,22 +86,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String remember = request.getParameter("remember");
-        
-        UserBean ub = new UserBean();
-        User u = ub.checkLogIn(username, password);
-        if (u!=null) {
-            HttpSession sessionLogIn = request.getSession();
-            sessionLogIn.setAttribute("check", "yes");
-            sessionLogIn.setAttribute("user", u);
-            sessionLogIn.setAttribute("remember",remember);
-            request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
-        } else {
-            request.setAttribute("warning", "Username or password wrong!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**

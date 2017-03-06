@@ -21,8 +21,7 @@
         <div id="wrapper">
             <div id="header-wrapper">
                 <jsp:include page="header.jsp"/>
-                <%
-                    String fail = (String) request.getAttribute("fail");
+                <%                    String fail = (String) request.getAttribute("fail");
                     String err = "";
                     if (fail != null) {
                         if (fail.equals("0")) {
@@ -69,8 +68,12 @@
                                         <p style="font-size:15px">By <%= u.getUsername()%></p>
                                         <p style="font-size:12px">Posted in: <%= p.getDateTime()%></p>
                                         <p style="font-size:20px"><%= p.getIsi()%></p>
-                                        <p><a href="#">Likes (<%= p.getLikePost()%>)</a> -  
-                                            <a href="#">Dislikes (<%= p.getDislikePost()%>)</a></p>
+                                        <%
+                                            session = request.getSession(false);
+                                            session.setAttribute("post", p);
+                                        %>
+                                        <p><a href="LikeServlet">Likes (<%= p.getLikePost()%>)</a> -  
+                                            <a href="DislikeServlet">Dislikes (<%= p.getDislikePost()%>)</a></p>
                                         <hr><hr>
                                         <p style="font-size:20px">Comments : </p>
                                         <%
@@ -82,6 +85,7 @@
                                             <p style="font-size:25px"><%= p.getJudul()%></p>
                                             <p style="font-size:20px"><%= u.getUsername()%></p>
                                             <p style="font-size:15px"><%= c.get(i).getIsiComment()%></p>
+                                            <p><a href="#">reply</a></p>
                                             <hr>
                                         </div>
                                         <%

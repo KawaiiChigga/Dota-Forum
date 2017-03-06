@@ -51,9 +51,8 @@
                 %>
                 <div class="row">
                     <div class="12u" id="logo"> <!-- Logo -->
-                        <h1><a href="index.jsp" class="mobileUI-site-name">Dofu</a></h1>
+                        <h1><a href="index.jsp?menu=1" class="mobileUI-site-name">Dofu</a></h1>
                     </div>
-
                 </div>
             </div>
             <div class="5grid-layout">

@@ -5,28 +5,20 @@
  */
 package servlet;
 
-import controller.UserBean;
-import static controller.UserBean.factory;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.User;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
  * @author asus
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "DislikeServlet", urlPatterns = {"/DislikeServlet"})
+public class DislikeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +37,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");
+            out.println("<title>Servlet DislikeServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DislikeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -80,22 +72,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String remember = request.getParameter("remember");
-        
-        UserBean ub = new UserBean();
-        User u = ub.checkLogIn(username, password);
-        if (u!=null) {
-            HttpSession sessionLogIn = request.getSession();
-            sessionLogIn.setAttribute("check", "yes");
-            sessionLogIn.setAttribute("user", u);
-            sessionLogIn.setAttribute("remember",remember);
-            request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
-        } else {
-            request.setAttribute("warning", "Username or password wrong!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**

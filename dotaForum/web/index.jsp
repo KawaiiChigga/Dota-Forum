@@ -41,7 +41,11 @@
     <body>
         <div id="wrapper">
             <%
-               String temp = request.getParameter("menu");
+               
+               String temp = (String) request.getParameter("menu");
+               if(request.getParameter("menu")==null){
+                   temp = "1";
+               }
             %>
             <div id="header-wrapper">
                 <jsp:include page="header.jsp?menu=<%=temp%>"/>
@@ -50,10 +54,7 @@
                 <div class="row">
                     <div class="9u">
                         <div id="content">
-                            <%
-                                String menu = request.getParameter("menu");
-                            %>
-                            <jsp:include page="content.jsp?menu=<%=menu%>"/>
+                            <jsp:include page="content.jsp?menu=<%=temp%>"/>
                         </div>
                     </div>
                     <div class="3u">
