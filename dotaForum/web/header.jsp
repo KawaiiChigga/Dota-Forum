@@ -98,7 +98,7 @@
                                     <li class="<%=temp[4]%>"><a href="index.jsp?menu=5">Media</a></li>
                                     <li class="<%=temp[5]%>"><a href="index.jsp?menu=6">Recruitment</a></li>
                                     <li class="<%=temp[6]%>"><a href="index.jsp?menu=7">Strategy</a></li>
-                                    <li class="<%=temp[7]%>"><a href="index.jsp?menu=8">Profile</a></li>
+                                    <li class="<%=temp[7]%>" style="float:right;"><a href="profile.jsp?menu=8">Profile</a></li>
                                 </ul>
                             </nav>
                         </div>
