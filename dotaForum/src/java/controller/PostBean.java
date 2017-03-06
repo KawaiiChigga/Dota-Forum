@@ -43,7 +43,7 @@ public class PostBean {
     public ArrayList<Post> getProfilePost(String user){
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Post where username='"+user+"'");
+        Query q = session.createQuery("from Post where id_user='"+user+"'");
         ArrayList<Post> hasil = (ArrayList) q.list();
         tx.commit();
         session.close();

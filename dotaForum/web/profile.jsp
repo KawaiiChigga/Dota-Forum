@@ -35,8 +35,7 @@
                             </section>
                             <section>
                                 <%
-                                    ArrayList<User> data = (ArrayList<User>)
-                                    request.getAttribute("dataProfile");
+                                    User data = (User) request.getAttribute("dataProfile");
                                  %>
                                 <div class="post">
                                 <table border="1 solid black">
@@ -45,7 +44,7 @@
                                        First Name:
                                     </td>
                                     <td>
-                                        <%=data.get(0).getFirstName()%>
+                                        <%=data.getFirstName()%>
                                     </td>
                                 </tr>
                                 <tr>
@@ -53,7 +52,7 @@
                                         Last Name:
                                     </td>
                                     <td>
-                                        <%=data.get(0).getLastName()%>
+                                        <%=data.getLastName()%>
                                     </td>
                                 </tr>
                                 <tr>
@@ -61,7 +60,7 @@
                                         Level: 
                                     </td>
                                     <td>
-                                        <%=data.get(0).getLevel()%>
+                                        <%=data.getLevel()%>
                                     </td>
                                 </tr>
                                 <tr>
@@ -69,7 +68,7 @@
                                         Date Joined: 
                                     </td>
                                     <td>
-                                        <%=data.get(0).getDateTime()%>
+                                        <%=data.getDateTime()%>
                                     </td>
                                 </tr>
                                 <tr>
@@ -77,7 +76,7 @@
                                         Gender: 
                                     </td>
                                     <td>
-                                        <%=data.get(0).getJenisKelamin()%>
+                                        <%=data.getJenisKelamin()%>
                                     </td>
                                 </tr>
                                 <tr>
@@ -85,24 +84,21 @@
                                         E-mail: 
                                     </td>
                                     <td>
-                                        <%=data.get(0).getEmail()%>
+                                        <%=data.getEmail()%>
                                     </td>
                                 </tr>
                                     </table>
                                     <table border="1 solid black">
                                         <%
                                             PostBean pb = new PostBean();
-<<<<<<< HEAD
-                                            ArrayList<Post> p = pb.getProfilePost(data.get(0).getUsername());
-=======
-                                            ArrayList<Post> p = pb.getAllPost();
->>>>>>> origin/master
+
+                                            ArrayList<Post> p = pb.getProfilePost(data.getUsername());
+                                            
                                             for (int i = 0; i < p.size(); i++) {
                                         %>
 
                                         <tr>
                                             <td><%=p.get(i).getJudul()%></td>
-                                            <td colspan="2"><%=p.get(i).getIsi()%></td>
                                         </tr>
                                         <%
                                             }

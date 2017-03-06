@@ -65,20 +65,11 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int currUser = 0;
         HttpSession sessionLogin =  request.getSession();
         User temp = (User) sessionLogin.getAttribute("user");
-        ArrayList<User> profile = new ArrayList<User>();
-        profile.add(temp);
-        profile.get(0).getFirstName();
-        profile.get(0).getLastName();
-        profile.get(0).getEmail();
-        profile.get(0).getDateTime();
-        profile.get(0).getJenisKelamin();
-        profile.get(0).getLevel();
 //        ArrayList<Post> posts = PostBean.getAllPostById(currUser);
 
-        request.setAttribute("dataProfile", profile);
+        request.setAttribute("dataProfile", temp);
         RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
         rd.forward(request, response);
     }
