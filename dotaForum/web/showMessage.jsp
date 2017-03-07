@@ -55,24 +55,25 @@
                     <div id="content">
                         <section>
                             <div  style = "width:70%" >
+                                <%! String time = "";%>
                                 <%
                                     for (int i = 0; i < msg.size(); i++) {
 //                                        User receiver = msg.get(i).getUserByIdReceiver();
 //                                        User sender = msg.get(i).getUserByIdSender();
                                         int receiver = msg.get(i).getUserByIdReceiver().getIdUser();
                                         if (user.getIdUser() == receiver) {
-//                                            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-//                                            String time = sdf.format(msg.get(i).getDateTime());
+                                            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                                            time = sdf.format(msg.get(i).getDateTime());
                                 %>
                                 <p style="font-size:15px;">
-                                    <%= byuser.getUsername()%> - 
+                                    <%= byuser.getUsername()%> - <%= time %>
                                     <br>
                                     <%= msg.get(i).getIsi()%>
                                 </p>
                                 <%
                                 } else {
                                 %>
-                                <p style="font-size:15px;"><%= user.getUsername()%> - 
+                                <p style="font-size:15px;"><%= user.getUsername()%> - <%= time %>
                                     <br>
                                     <%= msg.get(i).getIsi()%>
                                 </p>
@@ -95,7 +96,7 @@
                                     <input type="hidden" name="target" value="<%= byuser.getIdUser()%>">
                                 </center>
                             </form>
-                           
+
                         </section>
                     </div>
                 </div>

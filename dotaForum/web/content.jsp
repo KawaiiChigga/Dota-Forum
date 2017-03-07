@@ -64,7 +64,7 @@
                     %>
 
                     <p style="font-size:20px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"><%= p.get(i).getJudul()%></a></p>
-                    <p style="font-size:15px"><a href="ProfileServlet?userid=<%= u.getIdUser()%>">By <%= u.getUsername()%></p>
+                    <p style="font-size:15px"><a href="ProfileServlet?userid=<%= u.getIdUser()%>">By <%= u.getUsername()%></a></p>
                     <p style="font-size:12px">Posted in: <%= p.get(i).getDateTime()%></p>
                     <p><a href="#"><%= p.get(i).getLikePost()%> Likes</a> -  
                         <a href="#"><%= p.get(i).getDislikePost()%> Dislikes</a></p>

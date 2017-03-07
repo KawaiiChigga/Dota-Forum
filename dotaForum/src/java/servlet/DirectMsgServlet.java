@@ -64,7 +64,7 @@ public class DirectMsgServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession sessionLogin = request.getSession();
         User usession = (User) sessionLogin.getAttribute("user");
-
+        
         UserBean ub = new UserBean();
         int uid = Integer.parseInt(request.getParameter("userid"));
         User u = (User) ub.getUserById(uid);
@@ -74,8 +74,7 @@ public class DirectMsgServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("getMessage.jsp");
             rd.forward(request, response);
         }else{
-            request.setAttribute("user", u);
-            RequestDispatcher rd = request.getRequestDispatcher("sendMessage.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("showMessage.jsp?sender="+u.getIdUser()+"&receiver="+usession.getIdUser());
             rd.forward(request, response);
         }
     }
