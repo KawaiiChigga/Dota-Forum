@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 6, 2017 5:35:26 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 7, 2017 2:13:48 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Post" table="post" catalog="dota" optimistic-lock="version">
         <id name="idPost" type="java.lang.Integer">
@@ -35,27 +35,23 @@
             </key>
             <one-to-many class="model.Report" />
         </set>
+        <set name="likeses" table="likes" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_post" not-null="true" />
+            </key>
+            <one-to-many class="model.Likes" />
+        </set>
         <set name="comments" table="comment" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_post" not-null="true" />
             </key>
             <one-to-many class="model.Comment" />
         </set>
-        <set name="users" table="dislikes" inverse="true" lazy="true" fetch="select">
+        <set name="dislikeses" table="dislikes" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_post" not-null="true" />
             </key>
-            <many-to-many entity-name="model.User">
-                <column name="id_user" not-null="true" />
-            </many-to-many>
-        </set>
-        <set name="users_1" table="likes" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_post" not-null="true" />
-            </key>
-            <many-to-many entity-name="model.User">
-                <column name="id_user" not-null="true" />
-            </many-to-many>
+            <one-to-many class="model.Dislikes" />
         </set>
     </class>
 </hibernate-mapping>

@@ -1,5 +1,5 @@
 package model;
-// Generated Mar 6, 2017 5:35:25 PM by Hibernate Tools 4.3.1
+// Generated Mar 7, 2017 2:13:47 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -23,13 +23,13 @@ public class User  implements java.io.Serializable {
      private int level;
      private Date dateTime;
      private int progressLevel;
-     private Set<Post> posts = new HashSet<Post>(0);
+     private Set<Dislikes> dislikeses = new HashSet<Dislikes>(0);
      private Set<Message> messagesForIdReceiver = new HashSet<Message>(0);
      private Set<Reply> replies = new HashSet<Reply>(0);
-     private Set<Post> posts_1 = new HashSet<Post>(0);
+     private Set<Likes> likeses = new HashSet<Likes>(0);
      private Set<Comment> comments = new HashSet<Comment>(0);
      private Set<Message> messagesForIdSender = new HashSet<Message>(0);
-     private Set<Post> posts_2 = new HashSet<Post>(0);
+     private Set<Post> posts = new HashSet<Post>(0);
      private Set<Report> reports = new HashSet<Report>(0);
 
     public User() {
@@ -48,7 +48,7 @@ public class User  implements java.io.Serializable {
         this.dateTime = dateTime;
         this.progressLevel = progressLevel;
     }
-    public User(String firstName, String lastName, String email, String jenisKelamin, String urlFoto, String username, String password, int level, Date dateTime, int progressLevel, Set<Post> posts, Set<Message> messagesForIdReceiver, Set<Reply> replies, Set<Post> posts_1, Set<Comment> comments, Set<Message> messagesForIdSender, Set<Post> posts_2, Set<Report> reports) {
+    public User(String firstName, String lastName, String email, String jenisKelamin, String urlFoto, String username, String password, int level, Date dateTime, int progressLevel, Set<Dislikes> dislikeses, Set<Message> messagesForIdReceiver, Set<Reply> replies, Set<Likes> likeses, Set<Comment> comments, Set<Message> messagesForIdSender, Set<Post> posts, Set<Report> reports) {
        this.firstName = firstName;
        this.lastName = lastName;
        this.email = email;
@@ -59,13 +59,13 @@ public class User  implements java.io.Serializable {
        this.level = level;
        this.dateTime = dateTime;
        this.progressLevel = progressLevel;
-       this.posts = posts;
+       this.dislikeses = dislikeses;
        this.messagesForIdReceiver = messagesForIdReceiver;
        this.replies = replies;
-       this.posts_1 = posts_1;
+       this.likeses = likeses;
        this.comments = comments;
        this.messagesForIdSender = messagesForIdSender;
-       this.posts_2 = posts_2;
+       this.posts = posts;
        this.reports = reports;
     }
    
@@ -146,12 +146,12 @@ public class User  implements java.io.Serializable {
     public void setProgressLevel(int progressLevel) {
         this.progressLevel = progressLevel;
     }
-    public Set<Post> getPosts() {
-        return this.posts;
+    public Set<Dislikes> getDislikeses() {
+        return this.dislikeses;
     }
     
-    public void setPosts(Set<Post> posts) {
-        this.posts = posts;
+    public void setDislikeses(Set<Dislikes> dislikeses) {
+        this.dislikeses = dislikeses;
     }
     public Set<Message> getMessagesForIdReceiver() {
         return this.messagesForIdReceiver;
@@ -167,12 +167,12 @@ public class User  implements java.io.Serializable {
     public void setReplies(Set<Reply> replies) {
         this.replies = replies;
     }
-    public Set<Post> getPosts_1() {
-        return this.posts_1;
+    public Set<Likes> getLikeses() {
+        return this.likeses;
     }
     
-    public void setPosts_1(Set<Post> posts_1) {
-        this.posts_1 = posts_1;
+    public void setLikeses(Set<Likes> likeses) {
+        this.likeses = likeses;
     }
     public Set<Comment> getComments() {
         return this.comments;
@@ -188,12 +188,12 @@ public class User  implements java.io.Serializable {
     public void setMessagesForIdSender(Set<Message> messagesForIdSender) {
         this.messagesForIdSender = messagesForIdSender;
     }
-    public Set<Post> getPosts_2() {
-        return this.posts_2;
+    public Set<Post> getPosts() {
+        return this.posts;
     }
     
-    public void setPosts_2(Set<Post> posts_2) {
-        this.posts_2 = posts_2;
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
     }
     public Set<Report> getReports() {
         return this.reports;
@@ -204,8 +204,7 @@ public class User  implements java.io.Serializable {
     }
 
     public String getFullName(){
-        String name = firstName + " " + lastName;
-        return name;
+        return this.firstName+this.lastName;
     }
 }
 
