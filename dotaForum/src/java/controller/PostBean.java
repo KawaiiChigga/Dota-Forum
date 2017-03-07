@@ -34,7 +34,7 @@ public class PostBean {
         Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from Post order by like_post desc");
         if (jenis.equals("new")) {
-            q = session.createQuery("from Post order by date_time ");
+            q = session.createQuery("from Post order by date_time desc");
         }
         ArrayList<Post> hasil = (ArrayList) q.list();
         tx.commit();
