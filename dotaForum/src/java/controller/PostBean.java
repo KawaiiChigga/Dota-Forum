@@ -50,6 +50,18 @@ public class PostBean {
         session.close();
         return hasil;
     }
+    
+    public ArrayList<Post> getPostBySort(String jenis) {
+        int category = Integer.parseInt(jenis);
+        category--;
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Post where id_category='"+category+"' ORDER BY date_time");
+        ArrayList<Post> hasil = (ArrayList) q.list();
+        tx.commit();
+        session.close();
+        return hasil;
+    }
 
     public ArrayList<Post> getProfilePost(int user) {
         Session session = factory.openSession();

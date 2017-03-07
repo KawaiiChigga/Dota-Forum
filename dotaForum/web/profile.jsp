@@ -26,69 +26,63 @@
                     <div class="9u">
                         <div id="content">
                             <section>
-                                <div id="menu" class="12u">
-                                    <ul>
-                                        <li class="current_page_item" style="float:left;">Hot</li>
-                                        <li style="float:left;">Top</li>
-                                        <li style="float:left;">New</li>
-                                        <li style="float:right;">1234</li>
-                                    </ul>
-                                </div>
-                            </section>
-                            <section>
                                 <%
                                     User data = (User) request.getAttribute("dataProfile");
-                                 %>
+                                %>
                                 <div class="post">
-                                <table border="1 solid black">
-                                <tr>
-                                    <td>
-                                        <p style="font-size:15px">First Name:</p>
-                                    </td>
-                                    <td>
-                                        <p style="font-size:15px"><%=data.getFirstName()%></p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p style="font-size:15px">Last Name:</p>
-                                    </td>
-                                    <td>
-                                        <p style="font-size:15px"><%=data.getLastName()%></p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p style="font-size:15px">Level:</p>
-                                    </td>
-                                    <td>
-                                        <p style="font-size:15px"><%=data.getLevel()%></p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p style="font-size:15px">Date Joined:</p> 
-                                    </td>
-                                    <td>
-                                        <p style="font-size:15px"><%=data.getDateTime()%></p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p style="font-size:15px">Gender:</p> 
-                                    </td>
-                                    <td>
-                                        <p style="font-size:15px"><%=data.getJenisKelamin()%></p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p style="font-size:15px">E-mail:</p>
-                                    </td>
-                                    <td>
-                                        <p style="font-size:15px"><%=data.getEmail()%></p>
-                                    </td>
-                                </tr>
+                                    <table border="1 solid black">
+                                        <tr>
+                                            <th><p style="font-size:30px">Profile</p></th>
+                                            <th><p><a href="directMsgServlet?userid=<%= data.getIdUser() %>">Message(s)</p></a></th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p style="font-size:15px">First Name:</p>
+                                            </td>
+                                            <td>
+                                                <p style="font-size:15px"><%=data.getFirstName()%></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p style="font-size:15px">Last Name:</p>
+                                            </td>
+                                            <td>
+                                                <p style="font-size:15px"><%=data.getLastName()%></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p style="font-size:15px">Level:</p>
+                                            </td>
+                                            <td>
+                                                <p style="font-size:15px"><%=data.getLevel()%></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p style="font-size:15px">Date Joined:</p> 
+                                            </td>
+                                            <td>
+                                                <p style="font-size:15px"><%=data.getDateTime()%></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p style="font-size:15px">Gender:</p> 
+                                            </td>
+                                            <td>
+                                                <p style="font-size:15px"><%=data.getJenisKelamin()%></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p style="font-size:15px">E-mail:</p>
+                                            </td>
+                                            <td>
+                                                <p style="font-size:15px"><%=data.getEmail()%></p>
+                                            </td>
+                                        </tr>
                                     </table>
                                     <hr><hr>
                                     <table border="1 solid black">
@@ -103,13 +97,13 @@
 
                                         <tr>
                                             <td>
-                                            <p style="font-size:20px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"><%= p.get(i).getJudul()%></a></p>
-                                            <p style="font-size:15px">By <%= data.getUsername()%></p>
-                                            <p style="font-size:12px">Posted in: <%= p.get(i).getDateTime()%></p>
-                                            <p><a href="#"><%= p.get(i).getLikePost()%> Likes</a> -  
-                                                <a href="#"><%= p.get(i).getDislikePost()%> Dislikes</a></p>
-                                            <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment (<%= c.size()%>)</a></p>
-                                            <hr>
+                                                <p style="font-size:20px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"><%= p.get(i).getJudul()%></a></p>
+                                                <p style="font-size:15px">By <%= data.getUsername()%></p>
+                                                <p style="font-size:12px">Posted in: <%= p.get(i).getDateTime()%></p>
+                                                <p><a href="#"><%= p.get(i).getLikePost()%> Likes</a> -  
+                                                    <a href="#"><%= p.get(i).getDislikePost()%> Dislikes</a></p>
+                                                <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment (<%= c.size()%>)</a></p>
+                                                <hr>
                                             </td>
                                         </tr>
                                         <%
@@ -117,7 +111,7 @@
                                         %>
                                     </table>
                                     </table>
-                                 </div>
+                                </div>
                             </section>
                         </div>
                     </div>

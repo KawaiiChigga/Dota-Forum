@@ -5,11 +5,10 @@
  */
 package servlet;
 
-import controller.PostBean;
+import controller.MessageBean;
 import controller.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,15 +16,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Post;
+import model.Message;
 import model.User;
 
 /**
  *
- * @author asus
+ * @author Tuyu
  */
-@WebServlet(name = "ProfileServlet", urlPatterns = {"/ProfileServlet"})
-public class ProfileServlet extends HttpServlet {
+@WebServlet(name = "SendMsgServlet", urlPatterns = {"/sendMsgServlet"})
+public class SendMsgServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +43,10 @@ public class ProfileServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProfileServlet</title>");
+            out.println("<title>Servlet SendMsgServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProfileServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SendMsgServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,16 +64,7 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession sessionLogin =  request.getSession();
-//        User temp = (User) sessionLogin.getAttribute("user");
-//        ArrayList<Post> posts = PostBean.getAllPostById(currUser);
-        UserBean ub = new UserBean();
-        int uid = Integer.parseInt(request.getParameter("userid"));
-        User temp = (User) ub.getUserById(uid);
-
-        request.setAttribute("dataProfile", temp);
-        RequestDispatcher rd = request.getRequestDispatcher("profile.jsp?menu=8");
-        rd.forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -88,7 +78,32 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        MessageBean mb = new MessageBean();
+        String judul = request.getParameter("msg_title");
+        String isi = request.getParameter("msg_isi");
+        
+        HttpSession sessionLogIn = request.getSession();
+        User user = (User) sessionLogIn.getAttribute("user");
+        
+        UserBean ub = new UserBean();
+        User target = ub.getUserById(Integer.parseInt(request.getParameter("target")));
+        
+        Message m = new Message(target,user,isi,null);
+        if(mb.insertMessage(m)){
+            String ALERT_FAIL = "fail";
+            String fail = "0";
+            request.setAttribute(ALERT_FAIL, fail);
+            request.setAttribute("dataProfile", target);
+            RequestDispatcher rd = request.getRequestDispatcher("profile.jsp?menu=8");
+            rd.include(request, response);
+        }else{
+            String ALERT_FAIL = "fail";
+            String fail = "1";
+            request.setAttribute(ALERT_FAIL, fail);
+            request.setAttribute("dataProfile", target);
+            RequestDispatcher rd = request.getRequestDispatcher("profile.jsp?menu=8");
+            rd.include(request, response);
+        }
     }
 
     /**

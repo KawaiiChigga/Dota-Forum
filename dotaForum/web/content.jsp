@@ -22,10 +22,25 @@
         <section>
             <div id="menu" class="12u">
                 <ul>
-                    <li class="current_page_item" style="float:left;">Hot</li>
-                    <li style="float:left;">Top</li>
-                    <li style="float:left;">New</li>
-                    <li style="float:right;">1234</li>
+                    <%
+                        String temp[] = new String[8];
+                        if (request.getParameter("sort") != null) {
+                            String jenis = request.getParameter("sort");
+                            if (jenis.equals("1")) {
+                                temp[0] = "current_page_item";
+                            } else if (jenis.equals("2")) {
+                                temp[1] = "current_page_item";
+                            } else if (jenis.equals("3")) {
+                                temp[2] = "current_page_item";
+                            }
+                        } else {
+                            temp[0] = "current_page_item";
+                        }
+                        String jenis = request.getParameter("menu");
+                    %>
+                    <li class="<%=temp[0]%>" style="float:left;"><a href="index.jsp?sort=1&menu=<%= jenis %>">Hot</a></li>
+                    <li class="<%=temp[0]%>" style="float:left;"><a href="index.jsp?sort=2&menu=<%= jenis %>">Top</a></li>
+                    <li class="<%=temp[0]%>" style="float:left;"><a href="index.jsp?sort=3&menu=<%= jenis %>">New</a></li>
                 </ul>
             </div>
         </section>
@@ -49,7 +64,7 @@
                     %>
 
                     <p style="font-size:20px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"><%= p.get(i).getJudul()%></a></p>
-                    <p style="font-size:15px">By <%= u.getUsername()%></p>
+                    <p style="font-size:15px"><a href="ProfileServlet?userid=<%= u.getIdUser()%>">By <%= u.getUsername()%></p>
                     <p style="font-size:12px">Posted in: <%= p.get(i).getDateTime()%></p>
                     <p><a href="#"><%= p.get(i).getLikePost()%> Likes</a> -  
                         <a href="#"><%= p.get(i).getDislikePost()%> Dislikes</a></p>

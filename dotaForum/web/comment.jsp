@@ -65,7 +65,7 @@
                                         %>
                                         <%=err%>
                                         <p style="font-size:25px"><%= p.getJudul()%></p>
-                                        <p style="font-size:15px">By <%= u.getUsername()%></p>
+                                        <p style="font-size:20px">By <%= u.getUsername()%></p>
                                         <p style="font-size:12px">Posted in: <%= p.getDateTime()%></p>
                                         <p style="font-size:20px"><%= p.getIsi()%></p>
                                         <%
@@ -82,8 +82,9 @@
                                                 u = ub.getUserById(c.get(i).getUser().getIdUser());
                                         %>
                                         <div>
-                                            <p style="font-size:25px"><%= p.getJudul()%></p>
-                                            <p style="font-size:20px"><%= u.getUsername()%></p>
+                                            <p style="font-size:20px"><a href="ProfileServlet?userid=<%= u.getIdUser()%>"><%= u.getUsername()%></a> - 
+                                                <b style="font-size:15px">Commented in: <%= c.get(i).getDateTime() %></b>
+                                            </p>
                                             <p style="font-size:15px"><%= c.get(i).getIsiComment()%></p>
                                             <p><a href="#">reply</a></p>
                                             <hr>

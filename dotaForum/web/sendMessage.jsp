@@ -1,14 +1,15 @@
 <%-- 
-    Document   : post
-    Created on : Feb 25, 2017, 12:47:54 PM
+    Document   : sendMessage.jsp
+    Created on : Mar 7, 2017, 6:28:44 AM
     Author     : Tuyu
 --%>
 
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Post Dota Forum</title>
+        <title>Message | Dota Forum</title>
     </head>
     <%
 
@@ -16,13 +17,14 @@
         String err = "";
         if (fail != null) {
             if (fail.equals("0")) {
-                err = "Post succesfully added";
+                err = "Message sent";
             } else if (fail.equals("1")) {
-                err = "Post not added";
+                err = "Message not sent";
             } else {
                 err = "";
             }
         }
+        User target = (User) request.getAttribute("user");
     %>
     <body>
         <div id="wrapper">
@@ -36,22 +38,15 @@
                         <div id="content">
                             <section>
                                 <div class="post">
-                                    <form method="POST" action="postServlet" id="post_disc">
-                                        <h2>Post it!</h2>
+                                    <form method="POST" action="sendMsgServlet" id="post_disc">
+                                        <h2>Message to <a href="ProfileServlet?userid=<%= target.getIdUser()%>"><%= target.getUsername() %></a></h2>
                                         <p style="color:red"><b><%=err%></b><p>
                                         <center>
-                                            <input type="text" name="post_title" placeholder="Post Title" style="width:50%;height:30px;border-radius:5px;"><br><br>
-                                            <select name="category" style="width:50%;height:30px;border-radius:5px;">
-                                                <option value="Chat">Chat</option>
-                                                <option value="Competitive">Competitive</option>
-                                                <option value="Custom Game">Custom Game</option>
-                                                <option value="Media">Media</option>
-                                                <option value="Recruitment">Recruitment</option>
-                                                <option value="Strategy">Strategy</option>
-                                            </select>
-                                            <textarea placeholder="What do you wanna say?" name="post_isi" id="post_disc" style="border-radius:5px;" rows="15"> </textarea><br><br>
-                                            <input type="submit" name="post_disc" value="Post it!" style="width:70%;height:50px;border-radius:5px;"><br><br>
-                                            <input type="submit" name="post_cancel" value="Cancel" style="width:70%;height:30px;border-radius:5px;" formaction="index.jsp"><br>
+                                            <input type="text" name="msg_title" placeholder="Subject" style="width:50%;height:30px;border-radius:5px;"><br><br>
+                                            <textarea placeholder="What do you wanna say?" name="msg_isi" id="post_disc" style="border-radius:5px;" rows="15"> </textarea><br><br>
+                                            <input type="submit" name="msg_send" value="Send" style="width:70%;height:50px;border-radius:5px;"><br><br>
+                                            <input type="submit" name="msg_cancel" value="Cancel" style="width:70%;height:30px;border-radius:5px;" formaction="index.jsp"><br>
+                                            <input type="hidden" name="target" value="<%= target.getIdUser() %>">
                                         </center>
                                     </form>
                                 </div>

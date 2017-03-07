@@ -5,11 +5,9 @@
  */
 package servlet;
 
-import controller.PostBean;
 import controller.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,15 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Post;
 import model.User;
 
 /**
  *
- * @author asus
+ * @author Tuyu
  */
-@WebServlet(name = "ProfileServlet", urlPatterns = {"/ProfileServlet"})
-public class ProfileServlet extends HttpServlet {
+@WebServlet(name = "DirectMsgServlet", urlPatterns = {"/directMsgServlet"})
+public class DirectMsgServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +41,10 @@ public class ProfileServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProfileServlet</title>");
+            out.println("<title>Servlet DirectMsgServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProfileServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DirectMsgServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,16 +62,22 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession sessionLogin =  request.getSession();
-//        User temp = (User) sessionLogin.getAttribute("user");
-//        ArrayList<Post> posts = PostBean.getAllPostById(currUser);
+        HttpSession sessionLogin = request.getSession();
+        User usession = (User) sessionLogin.getAttribute("user");
+
         UserBean ub = new UserBean();
         int uid = Integer.parseInt(request.getParameter("userid"));
-        User temp = (User) ub.getUserById(uid);
+        User u = (User) ub.getUserById(uid);
 
-        request.setAttribute("dataProfile", temp);
-        RequestDispatcher rd = request.getRequestDispatcher("profile.jsp?menu=8");
-        rd.forward(request, response);
+        if (usession.getUsername().equals(u.getUsername())) {
+            request.setAttribute("user", u);
+            RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+            rd.forward(request, response);
+        }else{
+            request.setAttribute("user", u);
+            RequestDispatcher rd = request.getRequestDispatcher("sendMessage.jsp");
+            rd.forward(request, response);
+        }
     }
 
     /**
@@ -88,7 +91,22 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession sessionLogin = request.getSession();
+        User usession = (User) sessionLogin.getAttribute("user");
+
+        UserBean ub = new UserBean();
+        int uid = Integer.parseInt(request.getParameter("userid"));
+        User u = (User) ub.getUserById(uid);
+
+        if (usession.getUsername().equals(u.getUsername())) {
+            request.setAttribute("user", u);
+            RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+            rd.forward(request, response);
+        }else{
+            request.setAttribute("user", u);
+            RequestDispatcher rd = request.getRequestDispatcher("sendMessage.jsp");
+            rd.forward(request, response);
+        }
     }
 
     /**
