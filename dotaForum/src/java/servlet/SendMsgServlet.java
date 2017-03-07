@@ -79,7 +79,6 @@ public class SendMsgServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         MessageBean mb = new MessageBean();
-        String judul = request.getParameter("msg_title");
         String isi = request.getParameter("msg_isi");
         
         HttpSession sessionLogIn = request.getSession();

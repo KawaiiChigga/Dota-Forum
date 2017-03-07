@@ -60,8 +60,12 @@
                                             UserBean ub = new UserBean();
                                             CommentBean cb = new CommentBean();
                                             Post p = pb.getPostById(idpost);
+                                            int post = p.getIdPost();
+                                            
+                                            
                                             ArrayList<Comment> c = cb.getCommentById(idpost);
                                             User u = ub.getUserById(p.getUser().getIdUser());
+                                            int user = u.getIdUser();
                                         %>
                                         <%=err%>
                                         <p style="font-size:25px"><%= p.getJudul()%></p>
@@ -70,10 +74,9 @@
                                         <p style="font-size:20px"><%= p.getIsi()%></p>
                                         <%
                                             session = request.getSession(false);
-                                            session.setAttribute("post", p);
                                         %>
-                                        <p><a href="LikeServlet">Likes (<%= p.getLikePost()%>)</a> -  
-                                            <a href="DislikeServlet">Dislikes (<%= p.getDislikePost()%>)</a></p>
+                                        <p><a href="LikeServlet?user=<%=user%>&post=<%=post%>">Likes (<%= p.getLikePost()%>)</a> -  
+                                            <a href="DislikeServlet?user=<%=user%>&post=<%=post%>">Dislikes (<%= p.getDislikePost()%>)</a></p>
                                         <hr><hr>
                                         <p style="font-size:20px">Comments : </p>
                                         <%
