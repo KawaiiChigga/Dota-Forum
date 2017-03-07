@@ -15,11 +15,11 @@
             <section>
                 <div class="sbox1">
                     <ul class="style1">
-                        <form method="post" action="#">
-                            <li><input class="search" type="text" name="search" placeholder="Search"></li>
+                        <form method="post" action="search.jsp">
+                            <li><input class="search" type="text" name="search" placeholder="Search by Title Post"></li>
+                            <li><input style="width:100%;border-radius:5px;" type="submit" name="submitSearch" value="Search"></li>
                             <li><input style="width:100%;border-radius:5px;" type="submit" name="newpost" value="Start a new discussion" formaction="postServlet" formmethod="get"></li>
-                            <li><input style="width:100%;border-radius:5px;" type="submit" name="feedback" value="Feedback and Support"></li>
-                            <li><input style="width:100%;border-radius:5px;" type="submit" name="rules" value="Forum Rules"></li>
+                            <!--<li><input style="width:100%;border-radius:5px;" type="submit" name="rules" value="Forum Rules"></li>-->
                             <li>
                                 <div style="width:100%">
                                     <p><b>Please be kind to your fellow forum users.</b></p>

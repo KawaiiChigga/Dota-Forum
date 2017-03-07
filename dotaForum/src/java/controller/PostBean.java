@@ -41,6 +41,16 @@ public class PostBean {
         session.close();
         return hasil;
     }
+    
+    public ArrayList<Post> getPostSearch(String search) {
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Post where judul like '%"+search+"%'order by like_post desc");
+        ArrayList<Post> hasil = (ArrayList) q.list();
+        tx.commit();
+        session.close();
+        return hasil;
+    }
 
 //    public ArrayList<Post> getNewPost(int id){
 //        Session session = factory.openSession();

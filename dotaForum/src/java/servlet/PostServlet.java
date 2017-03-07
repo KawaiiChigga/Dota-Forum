@@ -69,7 +69,6 @@ public class PostServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if(session.getAttribute("check")!=null){
-            
             request.getRequestDispatcher("post.jsp").forward(request, response);
             
         }else{
