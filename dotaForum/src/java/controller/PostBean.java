@@ -106,12 +106,21 @@ public class PostBean {
         return true;
     }
 
-    public boolean deletePost(int id) {
+    public boolean deleteComment(int id) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        Post post = (Post) session.get(Post.class, id);
+        Query q = session.createQuery("delete from Comment where id_post="+id+"");
+        tx.commit();
+        session.close();
+        return true;
+    }
+    
+    public boolean deletePost(Post id) {
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Post post = (Post) session.get(Post.class, id.getIdPost());
         session.delete(post);
-        System.out.println("Delete = " + post);
+        System.out.println("Delete = " + post.getIdPost());
         tx.commit();
         session.close();
         return true;
@@ -134,12 +143,14 @@ public class PostBean {
     }
     
     public static void main(String[] args) {
-        PostBean da = new PostBean();
-        ArrayList<Post> p = new ArrayList<>();
-        p = da.getAllPost();
-//        System.out.println(p);
-        for (Post a : p) {
-            System.out.println("User : " + a.getUser());
+        /*PostBean da = new PostBean();
+        Post p = da.getPostById(5);
+        if(da.deletePost(p)){
+            System.out.println("Sasda");
         }
+        else{
+            System.out.println("zCzxc");
+        }*/
+        
     }
 }
