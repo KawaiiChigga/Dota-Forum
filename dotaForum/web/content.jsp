@@ -23,24 +23,24 @@
             <div id="menu" class="12u">
                 <ul>
                     <%
-                        String temp[] = new String[8];
+                        String temp[] = new String[2];
+                        String type = "top";
                         if (request.getParameter("sort") != null) {
                             String jenis = request.getParameter("sort");
                             if (jenis.equals("1")) {
                                 temp[0] = "current_page_item";
+                                type = "top";
                             } else if (jenis.equals("2")) {
                                 temp[1] = "current_page_item";
-                            } else if (jenis.equals("3")) {
-                                temp[2] = "current_page_item";
+                                type = "new";
                             }
                         } else {
                             temp[0] = "current_page_item";
                         }
                         String jenis = request.getParameter("menu");
                     %>
-                    <li class="<%=temp[0]%>" style="float:left;"><a href="index.jsp?sort=1&menu=<%= jenis %>">Hot</a></li>
-                    <li class="<%=temp[0]%>" style="float:left;"><a href="index.jsp?sort=2&menu=<%= jenis %>">Top</a></li>
-                    <li class="<%=temp[0]%>" style="float:left;"><a href="index.jsp?sort=3&menu=<%= jenis %>">New</a></li>
+                    <li class="<%=temp[0]%>" style="float:left;"><a href="index.jsp?sort=1&menu=<%= jenis %>">Top</a></li>
+                    <li class="<%=temp[1]%>" style="float:left;"><a href="index.jsp?sort=2&menu=<%= jenis %>">New</a></li>
                 </ul>
             </div>
         </section>
@@ -53,9 +53,9 @@
                         CommentBean cb = new CommentBean();
                         ArrayList<Post> p = new ArrayList<Post>();
                         if (request.getParameter("menu").equals("1")) {
-                            p = pb.getAllPost();
+                            p = pb.getAllPost(type);
                         } else {
-                            p = pb.getPostByCategory(request.getParameter("menu"));
+                            p = pb.getPostByCategory(request.getParameter("menu"),type);
                         }
                         for (int i = 0; i < p.size(); i++) {
                             User u = ub.getUserById(p.get(i).getUser().getIdUser());
