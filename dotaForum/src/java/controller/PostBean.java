@@ -29,34 +29,51 @@ public class PostBean {
         }
     }
 
-    public ArrayList<Post> getAllPost() {
+    public ArrayList<Post> getAllPost(String jenis) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Post");
+        Query q = session.createQuery("from Post order by like_post desc");
+        if (jenis.equals("new")) {
+            q = session.createQuery("from Post order by date_time ");
+        }
         ArrayList<Post> hasil = (ArrayList) q.list();
         tx.commit();
         session.close();
         return hasil;
     }
 
-    public ArrayList<Post> getPostByCategory(String jenis) {
+//    public ArrayList<Post> getNewPost(int id){
+//        Session session = factory.openSession();
+//        Transaction tx = session.beginTransaction();
+//        Query q = session.createQuery("from Post where id_category='"+id+"' order by date_time");
+//        ArrayList<Post> hasil = (ArrayList) q.list();
+//        tx.commit();
+//        session.close();
+//        return hasil;
+//    }
+    public ArrayList<Post> getPostByCategory(String jenis, String sort) {
         int category = Integer.parseInt(jenis);
         category--;
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Post where id_category='"+category+"'");
+        Query q = null;
+        if (sort.equals("new")) {
+           q = session.createQuery("from Post where id_category='" + category + "' order by date_time desc");
+        } else if(sort.equals("top")){
+            q = session.createQuery("from Post where id_category='" + category + "' order by like_post desc");
+        }
         ArrayList<Post> hasil = (ArrayList) q.list();
         tx.commit();
         session.close();
         return hasil;
     }
-    
+
     public ArrayList<Post> getPostBySort(String jenis) {
         int category = Integer.parseInt(jenis);
         category--;
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Post where id_category='"+category+"' ORDER BY date_time");
+        Query q = session.createQuery("from Post where id_category='" + category + "' ORDER BY date_time");
         ArrayList<Post> hasil = (ArrayList) q.list();
         tx.commit();
         session.close();
@@ -132,14 +149,14 @@ public class PostBean {
         }
         return p;
     }
-    
+
     public static void main(String[] args) {
-        PostBean da = new PostBean();
-        ArrayList<Post> p = new ArrayList<>();
-        p = da.getAllPost();
-//        System.out.println(p);
-        for (Post a : p) {
-            System.out.println("User : " + a.getUser());
-        }
+//        PostBean da = new PostBean();
+//        ArrayList<Post> p = new ArrayList<>();
+//        p = da.getAllPost();
+////        System.out.println(p);
+//        for (Post a : p) {
+//            System.out.println("User : " + a.getUser());
+//        }
     }
 }

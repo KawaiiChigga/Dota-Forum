@@ -25,8 +25,12 @@
             <%
 
                 String temp = (String) request.getParameter("menu");
+                String sort = "1";
                 if (request.getParameter("menu") == null) {
                     temp = "1";
+                }
+                if(request.getParameter("sort")!=null){
+                    sort = request.getParameter("sort");
                 }
             %>
             <div id="header-wrapper">
@@ -36,7 +40,7 @@
                 <div class="row">
                     <div class="9u">
                         <div id="content">
-                            <jsp:include page="content.jsp?menu=<%=temp%>"/>
+                            <jsp:include page="content.jsp?menu=<%=temp%>&sort=<%=sort%>"/>
                         </div>
                     </div>
                     <div class="3u">
