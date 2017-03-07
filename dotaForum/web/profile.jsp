@@ -105,6 +105,10 @@
                                                     <a href="#"><%= p.get(i).getDislikePost()%> Dislikes</a></p>
                                             <right>
                                                 <a href="edit.jsp?post=<%=p.get(i).getIdPost() %>">Edit Post</a>
+                                                <form method="post" action="DeleteServlet?post=<%=p.get(i).getIdPost() %>">
+                                                    <input type='submit' name="delete" value='Delete Post'/>
+                                                </form>
+                                                <%--<a href="DeleteServlet?post=<%=p.get(i).getIdPost() %>">Delete Post</a>--%>
                                             </right>
                                                 <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment (<%= c.size()%>)</a></p>
                                                 <hr>
