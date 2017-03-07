@@ -18,17 +18,18 @@ import org.hibernate.cfg.Configuration;
  * @author Tuyu
  */
 public class ReplyBean {
+
     public static SessionFactory factory;
-    
-    public ReplyBean(){
-        try{
+
+    public ReplyBean() {
+        try {
             factory = new Configuration().configure().buildSessionFactory();
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
         }
     }
-    
-    public static ArrayList<Reply> getAllReply(){
+
+    public static ArrayList<Reply> getAllReply() {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from Reply");
@@ -37,19 +38,29 @@ public class ReplyBean {
         session.close();
         return hasil;
     }
-    
-    public static boolean insertReply(Reply r){
+
+    public ArrayList<Reply> getReplyByCommentId(int id) {
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Reply where id_comment='"+id+"'");
+        ArrayList<Reply> hasil = (ArrayList) q.list();
+        tx.commit();
+        session.close();
+        return hasil;
+    }
+
+    public static boolean insertReply(Reply r) {
         Session session = null;
         Transaction tx = null;
-        try{
+        try {
             session = factory.openSession();
             tx = session.beginTransaction();
             session.save(r);
             tx.commit();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            session.close();   
+        } finally {
+            session.close();
         }
         return true;
     }
@@ -57,7 +68,7 @@ public class ReplyBean {
     public static boolean updateReply(Reply r) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        Reply reply = (Reply) session.get(Reply.class,r.getIdReply());
+        Reply reply = (Reply) session.get(Reply.class, r.getIdReply());
         System.out.println("UPDATE = " + reply);
         reply.setComment(r.getComment());
         reply.setUser(r.getUser());
@@ -78,8 +89,8 @@ public class ReplyBean {
         session.close();
         return true;
     }
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         ReplyBean da = new ReplyBean();
         ArrayList<Reply> listMhs = da.getAllReply();
         System.out.println(listMhs);

@@ -34,6 +34,26 @@ public class LikeDislikeBean {
         }
     }
 
+    public ArrayList<Likes> getAllLike(int id){
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Likes where id_post='"+id+"'");
+        ArrayList<Likes> hasil = (ArrayList) q.list();
+        tx.commit();
+        session.close();
+        return hasil;
+    }
+    
+    public ArrayList<Dislikes> getAllDislike(int id){
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Dislikes where id_post='"+id+"'");
+        ArrayList<Dislikes> hasil = (ArrayList) q.list();
+        tx.commit();
+        session.close();
+        return hasil;
+    }
+    
     public boolean addLike(Likes like){
         Session session = null;
         Transaction tx = null;
