@@ -38,6 +38,27 @@ public class MessageBean {
         return hasil;
     }
     
+    public static ArrayList<Message> getInbox(int id){
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Message where id_receiver='"+id+"' group by id_sender order by date_time");
+        ArrayList<Message> hasil = (ArrayList) q.list();
+        tx.commit();
+        session.close();
+        return hasil;
+    }
+    
+    public static ArrayList<Message> getMsgFromId(int idsender, int idreceiver){
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Message where (id_receiver='"+idreceiver+"' and id_sender='"+idsender+"')"
+                + "or (id_receiver='"+idsender+"' and id_sender='"+idreceiver+"') order by date_time");
+        ArrayList<Message> hasil = (ArrayList) q.list();
+        tx.commit();
+        session.close();
+        return hasil;
+    }
+    
     public static boolean insertMessage(Message m){
         Session session = null;
         Transaction tx = null;
@@ -80,11 +101,9 @@ public class MessageBean {
     }
     
     public static void main(String[] args){
-        MessageBean da = new MessageBean();
-        ArrayList<Message> listMhs = da.getAllMessage();
-        System.out.println(listMhs);
-//        for(int i=0;i<listMhs.size();i++){
-//            System.out.println(listMhs.get(i).getNim()+" - "+listMhs.get(i).getNama()+" - "+listMhs.get(i).getAlamat());
-//        }
+        MessageBean mb = new MessageBean();
+        ArrayList<Message> msg = new ArrayList();
+        msg = mb.getInbox(1);
+        System.out.println(msg);
     }
 }

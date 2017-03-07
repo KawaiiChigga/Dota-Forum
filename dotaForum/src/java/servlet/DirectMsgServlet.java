@@ -71,7 +71,7 @@ public class DirectMsgServlet extends HttpServlet {
 
         if (usession.getUsername().equals(u.getUsername())) {
             request.setAttribute("user", u);
-            RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("getMessage.jsp");
             rd.forward(request, response);
         }else{
             request.setAttribute("user", u);
@@ -91,22 +91,22 @@ public class DirectMsgServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession sessionLogin = request.getSession();
-        User usession = (User) sessionLogin.getAttribute("user");
-
-        UserBean ub = new UserBean();
-        int uid = Integer.parseInt(request.getParameter("userid"));
-        User u = (User) ub.getUserById(uid);
-
-        if (usession.getUsername().equals(u.getUsername())) {
-            request.setAttribute("user", u);
-            RequestDispatcher rd = request.getRequestDispatcher("message.jsp");
-            rd.forward(request, response);
-        }else{
-            request.setAttribute("user", u);
-            RequestDispatcher rd = request.getRequestDispatcher("sendMessage.jsp");
-            rd.forward(request, response);
-        }
+//        HttpSession sessionLogin = request.getSession();
+//        User usession = (User) sessionLogin.getAttribute("user");
+//
+//        UserBean ub = new UserBean();
+//        int uid = Integer.parseInt(request.getParameter("userid"));
+//        User u = (User) ub.getUserById(uid);
+//
+//        if (usession.getUsername().equals(u.getUsername())) {
+//            request.setAttribute("user", u);
+//            RequestDispatcher rd = request.getRequestDispatcher("getMessage.jsp");
+//            rd.forward(request, response);
+//        }else{
+//            request.setAttribute("user", u);
+//            RequestDispatcher rd = request.getRequestDispatcher("sendMessage.jsp");
+//            rd.forward(request, response);
+//        }
     }
 
     /**

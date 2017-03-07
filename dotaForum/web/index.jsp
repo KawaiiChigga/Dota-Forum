@@ -18,34 +18,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
-        <noscript>
-        <link rel="stylesheet" href="css/5grid/core.css" />
-        <link rel="stylesheet" href="css/5grid/core-desktop.css" />
-        <link rel="stylesheet" href="css/5grid/core-1200px.css" />
-        <link rel="stylesheet" href="css/5grid/core-noscript.css" />
-        <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet" href="css/style-desktop.css" />
-
-        <link href="assets/css/bootstrap.css" rel="stylesheet" />
-        </noscript>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script src="css/5grid/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none&amp;mobileUI.openerWidth=52"></script>
-        <!--[if IE 9]><link rel="stylesheet" href="css/style-ie9.css" /><![endif]-->
-
         <title>Home-Dota Forum</title>
-
     </head>
     <body>
         <div id="wrapper">
             <%
-               
-               String temp = (String) request.getParameter("menu");
-               if(request.getParameter("menu")==null){
-                   temp = "1";
-               }
+
+                String temp = (String) request.getParameter("menu");
+                if (request.getParameter("menu") == null) {
+                    temp = "1";
+                }
             %>
             <div id="header-wrapper">
                 <jsp:include page="header.jsp?menu=<%=temp%>"/>
@@ -59,24 +41,7 @@
                     </div>
                     <div class="3u">
                         <div id="sidebar2">
-                            <section>
-                                <div class="sbox1">
-                                    <ul class="style1">
-                                        <form method="post" action="#">
-                                            <li><input class="search" type="text" name="search" placeholder="Search"></li>
-                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="newpost" value="Start a new discussion" formaction="postServlet" formmethod="get"></li>
-                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="feedback" value="Feedback and Support"></li>
-                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="rules" value="Forum Rules"></li>
-                                            <li>
-                                                <div style="width:100%">
-                                                    <p><b>Please be kind to your fellow forum users.</b></p>
-                                                    <p>Administrators/Moderators reserve the right to move, change or delete any content at any time if they feel it is inappropiate or unsuitable. </p>
-                                                </div>
-                                            </li>
-                                        </form>
-                                    </ul>
-                                </div>
-                            </section>
+                            <jsp:include page="sidebar.jsp"/>
                         </div>
                     </div>
                 </div>

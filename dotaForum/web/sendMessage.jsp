@@ -42,7 +42,6 @@
                                         <h2>Message to <a href="ProfileServlet?userid=<%= target.getIdUser()%>"><%= target.getUsername() %></a></h2>
                                         <p style="color:red"><b><%=err%></b><p>
                                         <center>
-                                            <input type="text" name="msg_title" placeholder="Subject" style="width:50%;height:30px;border-radius:5px;"><br><br>
                                             <textarea placeholder="What do you wanna say?" name="msg_isi" id="post_disc" style="border-radius:5px;" rows="15"> </textarea><br><br>
                                             <input type="submit" name="msg_send" value="Send" style="width:70%;height:50px;border-radius:5px;"><br><br>
                                             <input type="submit" name="msg_cancel" value="Cancel" style="width:70%;height:30px;border-radius:5px;" formaction="index.jsp"><br>
