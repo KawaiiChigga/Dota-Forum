@@ -1,5 +1,5 @@
 package model;
-// Generated Mar 6, 2017 5:35:25 PM by Hibernate Tools 4.3.1
+// Generated Mar 7, 2017 2:13:47 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -21,9 +21,9 @@ public class Post  implements java.io.Serializable {
      private int likePost;
      private int dislikePost;
      private Set<Report> reports = new HashSet<Report>(0);
+     private Set<Likes> likeses = new HashSet<Likes>(0);
      private Set<Comment> comments = new HashSet<Comment>(0);
-     private Set<User> users = new HashSet<User>(0);
-     private Set<User> users_1 = new HashSet<User>(0);
+     private Set<Dislikes> dislikeses = new HashSet<Dislikes>(0);
 
     public Post() {
     }
@@ -38,7 +38,7 @@ public class Post  implements java.io.Serializable {
         this.likePost = likePost;
         this.dislikePost = dislikePost;
     }
-    public Post(Categories categories, User user, String judul, String isi, Date dateTime, int likePost, int dislikePost, Set<Report> reports, Set<Comment> comments, Set<User> users, Set<User> users_1) {
+    public Post(Categories categories, User user, String judul, String isi, Date dateTime, int likePost, int dislikePost, Set<Report> reports, Set<Likes> likeses, Set<Comment> comments, Set<Dislikes> dislikeses) {
        this.categories = categories;
        this.user = user;
        this.judul = judul;
@@ -47,9 +47,9 @@ public class Post  implements java.io.Serializable {
        this.likePost = likePost;
        this.dislikePost = dislikePost;
        this.reports = reports;
+       this.likeses = likeses;
        this.comments = comments;
-       this.users = users;
-       this.users_1 = users_1;
+       this.dislikeses = dislikeses;
     }
    
     public Integer getIdPost() {
@@ -115,6 +115,13 @@ public class Post  implements java.io.Serializable {
     public void setReports(Set<Report> reports) {
         this.reports = reports;
     }
+    public Set<Likes> getLikeses() {
+        return this.likeses;
+    }
+    
+    public void setLikeses(Set<Likes> likeses) {
+        this.likeses = likeses;
+    }
     public Set<Comment> getComments() {
         return this.comments;
     }
@@ -122,19 +129,12 @@ public class Post  implements java.io.Serializable {
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
-    public Set<User> getUsers() {
-        return this.users;
+    public Set<Dislikes> getDislikeses() {
+        return this.dislikeses;
     }
     
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-    public Set<User> getUsers_1() {
-        return this.users_1;
-    }
-    
-    public void setUsers_1(Set<User> users_1) {
-        this.users_1 = users_1;
+    public void setDislikeses(Set<Dislikes> dislikeses) {
+        this.dislikeses = dislikeses;
     }
 
 

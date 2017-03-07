@@ -9,11 +9,13 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <mapping resource="model/Post.hbm.xml"/>
+    <mapping resource="model/Likes.hbm.xml"/>
     <mapping resource="model/Categories.hbm.xml"/>
     <mapping resource="model/User.hbm.xml"/>
     <mapping resource="model/Message.hbm.xml"/>
     <mapping resource="model/Reply.hbm.xml"/>
     <mapping resource="model/Report.hbm.xml"/>
     <mapping resource="model/Comment.hbm.xml"/>
+    <mapping resource="model/Dislikes.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

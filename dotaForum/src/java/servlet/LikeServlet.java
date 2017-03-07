@@ -5,16 +5,26 @@
  */
 package servlet;
 
+import controller.LikeDislikeBean;
 import controller.PostBean;
+import controller.UserBean;
+import java.awt.Point;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Dislikes;
+import model.Likes;
 import model.Post;
+import model.User;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -61,18 +71,59 @@ public class LikeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        PostBean pb = new PostBean();
-        Post post = new Post();
-        post = (Post) session.getAttribute("post");
-        String url = "comment.jsp?id=" + post.getIdPost();
-        post.setLikePost(post.getLikePost() + 1);
-        if (pb.updatePost(post)) {
-            System.out.println("berhasil");
-        } else {
-            System.out.println("gagal");
+        Session session = null;
+
+        String u = request.getParameter("user");
+        System.out.println(u);
+        String p = request.getParameter("post");
+        System.out.println(p);
+        try {
+            LikeDislikeBean ld = new LikeDislikeBean();
+            session = ld.factory.openSession();
+            Transaction tx = session.beginTransaction();
+
+            Query q = session.createQuery("from Likes where id_post='" + p + "' and id_user='" + u + "'");
+            ArrayList<Likes> hasil = (ArrayList) q.list();
+
+            Query q2 = session.createQuery("from Dislikes where id_post='" + p + "' and id_user='" + u + "'");
+            ArrayList<Dislikes> hasil2 = (ArrayList) q2.list();
+
+            q = session.createQuery("from User where id_user='" + u + "'");
+            ArrayList<User> hasilUser = (ArrayList) q.list();
+            q = session.createQuery("from Post where id_post='" + p + "'");
+            ArrayList<Post> hasilPost = (ArrayList) q.list();
+            boolean dis = false;
+            if (hasil.isEmpty()) {
+                PostBean pb = new PostBean();
+                if (hasil2.isEmpty()) {
+
+                } else {
+                    dis = true;
+                }
+                Likes like = new Likes(hasilPost.get(0), hasilUser.get(0));
+                if (ld.addLike(like)) {
+                    if (dis) {
+                        ld.deleteDislike(hasil2.get(0).getIdDislike());
+                        hasilPost.get(0).setDislikePost(hasilPost.get(0).getDislikePost() - 1);
+                        pb.updatePost(hasilPost.get(0));
+                    }
+                    hasilPost.get(0).setLikePost(hasilPost.get(0).getLikePost() + 1);
+                    pb.updatePost(hasilPost.get(0));
+                    System.out.println("berhasil");
+                } else {
+                    System.out.println("salah");
+                }
+            } else {
+                System.out.println("sudah ada");
+            }
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+            request.getRequestDispatcher("comment.jsp?post=" + p).forward(request, response);
         }
-        request.getRequestDispatcher(url).forward(request, response);
+
     }
 
     /**
