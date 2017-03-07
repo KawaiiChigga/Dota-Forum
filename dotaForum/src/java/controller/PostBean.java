@@ -133,6 +133,15 @@ public class PostBean {
         session.close();
         return true;
     }
+    
+    public boolean deleteCommentPost(int id) {
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("delete from Post where id_post='" + id + "'");
+        tx.commit();
+        session.close();
+        return true;
+    }
 
     public static Post getPostById(int id) {
         Session session = factory.openSession();

@@ -63,13 +63,15 @@ public class DeleteServlet extends HttpServlet {
         int pid = Integer.parseInt(request.getParameter("post"));
         Post temp = pb.getPostById(pid);
         try{
-            if(pb.deletePost(temp)){
                 if(temp.getComments().size()>0){
-                    pb.deleteComment(temp.getIdPost());
+                    for(int i=0;i<temp.getComments().size();i++){
+                        pb.deleteCommentPost(temp.getIdPost());
+                    }
                 }
-                request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
-            }
-        }catch (Exception e) {
+                if(pb.deletePost(pid)){
+                    request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
+                }
+            }catch (Exception e) {
             e.printStackTrace();
         }
     }
