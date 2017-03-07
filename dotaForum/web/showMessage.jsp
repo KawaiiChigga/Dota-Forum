@@ -55,14 +55,16 @@
                     <div id="content">
                         <section>
                             <div  style = "width:70%" >
+                                <p style="font-size:25px;">Message <span style="font-size:15px">from <a href="ProfileServlet?userid=<%= byuser.getIdUser()%>"><%= byuser.getUsername()%></a></span></p>
+                                <hr>
                                 <%! String time = "";%>
                                 <%
                                     for (int i = 0; i < msg.size(); i++) {
 //                                        User receiver = msg.get(i).getUserByIdReceiver();
 //                                        User sender = msg.get(i).getUserByIdSender();
                                         int receiver = msg.get(i).getUserByIdReceiver().getIdUser();
+                                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
                                         if (user.getIdUser() == receiver) {
-                                            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                                             time = sdf.format(msg.get(i).getDateTime());
                                 %>
                                 <p style="font-size:15px;">
@@ -72,6 +74,7 @@
                                 </p>
                                 <%
                                 } else {
+                                    time = sdf.format(msg.get(i).getDateTime());
                                 %>
                                 <p style="font-size:15px;"><%= user.getUsername()%> - <%= time %>
                                     <br>
@@ -87,7 +90,7 @@
                             </div>
                             <br>
                             <form method="POST" action="sendMsgServlet" id="formMsg">
-                                <h2>Reply Message to <a href="ProfileServlet?userid=<%= byuser.getIdUser()%>"><%= byuser.getUsername()%></a></h2>
+                                <h2 style="font-size:25px">Reply Message to <a href="ProfileServlet?userid=<%= byuser.getIdUser()%>"><%= byuser.getUsername()%></a></h2>
                                 <p style="color:red"><b><%=err%></b><p>
                                 <center>
                                     <textarea placeholder="What do you wanna say?" name="msg_isi" id="post_disc" style="border-radius:5px;" rows="15"> </textarea><br><br>

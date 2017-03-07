@@ -32,6 +32,7 @@
                     <div id="content">
                         <section>
                                 <p style="font-size:25px;">Messages</p>
+                                <hr>
                                 <%
                                     for (int i = 0; i < msg.size(); i++) {
                                         User sender = new User();
