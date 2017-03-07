@@ -67,28 +67,9 @@
                     </div>
                     <div class="3u">
                         <div id="sidebar2">
-                            <section>
-                                <div class="sbox1">
-                                    <ul class="style1">
-                                        <li><input class="search" type="text" name="search" placeholder="Search"></li>
-                                        <li><input style="width:100%;border-radius:5px;" type="button" name="newpost" value="Feedback and Support"></li>
-                                        <li><input style="width:100%;border-radius:5px;" type="button" name="newpost" value="Forum Rules"></li>
-                                        <li>
-                                            <div style="width:100%">
-                                                <p><b>Please be kind to your fellow forum users.</b></p>
-                                                <p>Administrators/Moderators reserve the right to move, change or delete any content at any time if they feel it is inappropiate or unsuitable. </p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </section>
+                            <jsp:include page="sidebar.jsp"/>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="5grid-layout">
-                <div class="row" id="footer-content">
-                    <jsp:include page="footer.jsp"/>
                 </div>
             </div>
         </div>

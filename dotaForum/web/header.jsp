@@ -30,21 +30,19 @@
 
         <header id="header">
             <div class="5grid-layout">
-
-
                 <%
                     HttpSession Login = request.getSession(false);
 
                     if (Login.getAttribute("check") != null) {
                 %>
 
-                <p>
-                    <a href="LogoutServlet">Log out</a>
+                <p style="font-size:17px;">
+                    <a href="LogoutServlet" style="color:black;">Log out</a>
                 </p>
                 <%                            } else {
-                %><p>
-                    <a href="login.jsp">Log In</a>&nbsp&nbsp&nbsp
-                    <a href="register.jsp">Register</a>
+                %><p style="font-size:17px;color:black;">
+                    <a href="login.jsp" style="color:black;">Log In</a>&nbsp&nbsp&nbsp
+                    <a href="register.jsp" style="color:black;">Register</a>
                 </p>
                 <%
                     }

@@ -4,6 +4,7 @@
     Author     : Tuyu
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.Comment"%>
 <%@page import="controller.CommentBean"%>
 <%@page import="controller.UserBean"%>
@@ -18,6 +19,15 @@
         <title>Post-Dota Forum</title>
     </head>
     <body>
+        <script src=jquery-1.11.3.min.js></script>
+        <script>
+            $(document).ready(function () {
+                $("#formComment").hide();
+                $("#btnComment").click(function () {
+                    $("#formComment").toggle(750);
+                });
+            });
+        </script>
         <div id="wrapper">
             <div id="header-wrapper">
                 <jsp:include page="header.jsp"/>
@@ -43,16 +53,6 @@
                     <div class="9u">
                         <div id="content">
                             <section>
-                                <div id="menu" class="12u">
-                                    <ul>
-                                        <li class="current_page_item" style="float:left;">Hot</li>
-                                        <li style="float:left;">Top</li>
-                                        <li style="float:left;">New</li>
-                                        <li style="float:right;">1234</li>
-                                    </ul>
-                                </div>
-                            </section>
-                            <section>
                                 <div class="post">
                                     <table border="1 solid black">
                                         <%
@@ -61,16 +61,19 @@
                                             CommentBean cb = new CommentBean();
                                             Post p = pb.getPostById(idpost);
                                             int post = p.getIdPost();
-                                            
-                                            
+
                                             ArrayList<Comment> c = cb.getCommentById(idpost);
                                             User u = ub.getUserById(p.getUser().getIdUser());
                                             int user = u.getIdUser();
+
+                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+                                            String time = "";
+                                            time = sdf.format(p.getDateTime());
                                         %>
                                         <%=err%>
                                         <p style="font-size:25px"><%= p.getJudul()%></p>
                                         <p style="font-size:20px">By <%= u.getUsername()%></p>
-                                        <p style="font-size:12px">Posted in: <%= p.getDateTime()%></p>
+                                        <p style="font-size:12px">Posted in: <%= time%></p>
                                         <p style="font-size:20px"><%= p.getIsi()%></p>
                                         <%
                                             session = request.getSession(false);
@@ -83,13 +86,13 @@
 
                                             for (int i = 0; i < c.size(); i++) {
                                                 u = ub.getUserById(c.get(i).getUser().getIdUser());
+                                                time = sdf.format(c.get(i).getDateTime());
                                         %>
                                         <div>
                                             <p style="font-size:20px"><a href="ProfileServlet?userid=<%= u.getIdUser()%>"><%= u.getUsername()%></a> - 
-                                                <b style="font-size:15px">Commented in: <%= c.get(i).getDateTime() %></b>
+                                                <b style="font-size:15px">Commented in: <%= time%></b>
                                             </p>
                                             <p style="font-size:15px"><%= c.get(i).getIsiComment()%></p>
-                                            <p><a href="#">reply</a></p>
                                             <hr>
                                         </div>
                                         <%
@@ -97,47 +100,26 @@
                                         %>
                                     </table>
                                     <br><br>
-                                    <form method="POST" action="CommentServlet" id="post_disc">
-                                        <p style="font-size:20px">Post A Comment!</p>
+                                    <form method="POST" action="CommentServlet" id="formComment">
+                                        <p style="font-size:20px">Post a Comment!</p>
                                         <center>
                                             <input type="hidden" name="id_post" value="<%= idpost%>"> 
                                             <textarea placeholder="What do you wanna say?" name="isi_comment" id="post_disc" style="border-radius:5px;" rows="5"> </textarea>
                                         </center><br><br>
-                                        <left>
-                                            <input type="submit" name="post_disc" value="Post Comment" style="width:30%;height:30px;border-radius:5px;"><br><br>
-                                        </left>
+                                        <center>
+                                            <input type="submit" name="post_disc" value="Post Comment" style="width:80%;height:30px;border-radius:5px;"><br><br>
+                                        </center>
                                     </form>
+                                    <center><button style="border-radius:5px;width:80%;height:40px;background-color:#193149;color:whitesmoke;font-family:Trebuchet MS;font-size:20px;" id="btnComment">Comment Post</button></center>
                                 </div>
                             </section>
                         </div>
                     </div>
                     <div class="3u">
                         <div id="sidebar2">
-                            <section>
-                                <div class="sbox1">
-                                    <ul class="style1">
-                                        <form method="post" action="#">
-                                            <li><input class="search" type="text" name="search" placeholder="Search"></li>
-                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="newpost" value="Start a new discussion" formaction="post.jsp"></li>
-                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="feedback" value="Feedback and Support"></li>
-                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="rules" value="Forum Rules"></li>
-                                            <li>
-                                                <div style="width:100%">
-                                                    <p><b>Please be kind to your fellow forum users.</b></p>
-                                                    <p>Administrators/Moderators reserve the right to move, change or delete any content at any time if they feel it is inappropiate or unsuitable. </p>
-                                                </div>
-                                            </li>
-                                        </form>
-                                    </ul>
-                                </div>
-                            </section>
+                            <jsp:include page="sidebar.jsp"/>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="5grid-layout">
-                <div class="row" id="footer-content">
-                    <jsp:include page="footer.jsp"/>
                 </div>
             </div>
         </div>

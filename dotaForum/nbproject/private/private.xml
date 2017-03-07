@@ -2,15 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/servlet/DirectMsgServlet.java</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/sendMessage.jsp</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/comment.jsp</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/controller/MessageBean.java</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/content.jsp</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/index.jsp</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/getMessage.jsp</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/showMessage.jsp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

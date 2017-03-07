@@ -38,6 +38,7 @@
         msg = mb.getMsgFromId(byuser.getIdUser(), user.getIdUser());
     %>
     <body>
+        <script src=jquery-1.11.3.min.js></script>
         <script>
             $(document).ready(function () {
                 $("#formMsg").hide();
@@ -99,7 +100,8 @@
                                     <input type="hidden" name="target" value="<%= byuser.getIdUser()%>">
                                 </center>
                             </form>
-
+                                <br>
+                                <button style="border-radius:5px;width:100%;height:40px;background-color:#193149;color:whitesmoke;font-family:Trebuchet MS;font-size:20px;" id="btnReply">Reply Message</button>
                         </section>
                     </div>
                 </div>
@@ -108,11 +110,6 @@
                         <jsp:include page="sidebar.jsp"/>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="5grid-layout"> 
-            <div class="row" id="footer-content">
-                <jsp:include page="footer.jsp"/>
             </div>
         </div>
         <div id="copyright" class="5grid-layout">

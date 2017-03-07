@@ -38,10 +38,15 @@
                                 CommentBean cb = new CommentBean();
                                 ArrayList<Post> p = new ArrayList<Post>();
                                 p = pb.getPostSearch(search);
-                                for (int i = 0; i < p.size(); i++) {
-                                    User u = ub.getUserById(p.get(i).getUser().getIdUser());
-                                    ArrayList<Comment> c = new ArrayList<Comment>();
-                                    c = cb.getCommentById(p.get(i).getIdPost());
+                                if (p.size() == 0) {
+                                    %>
+                                    <p>No result found for "<%= search %>"</p>
+                            <%
+                                } else {
+                                    for (int i = 0; i < p.size(); i++) {
+                                        User u = ub.getUserById(p.get(i).getUser().getIdUser());
+                                        ArrayList<Comment> c = new ArrayList<Comment>();
+                                        c = cb.getCommentById(p.get(i).getIdPost());
                             %>
 
                             <p style="font-size:20px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"><%= p.get(i).getJudul()%></a></p>
@@ -53,6 +58,7 @@
                             <hr>
 
                             <%
+                                    }
                                 }
                             %>
                         </div>
@@ -62,11 +68,6 @@
                             <jsp:include page="sidebar.jsp"/>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="5grid-layout"> 
-                <div class="row" id="footer-content">
-                    <jsp:include page="footer.jsp"/>
                 </div>
             </div>
         </div>

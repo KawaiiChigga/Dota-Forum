@@ -13,7 +13,7 @@
     </head>
     <body>
         <section>
-            <p>&copy; DoFu (Dota Forum) | Images: <a href="http://fotogrph.com/">Fotogrph</a> | Design: <a href="http://templated.co/">TEMPLATED</a></p>
+            <p>&copy; DoFu (Dota Forum) | Design: <a href="http://templated.co/">TEMPLATED</a> | Made By: Evan, Ferhandi, Tuyu</p>
         </section>
 
     </body>
