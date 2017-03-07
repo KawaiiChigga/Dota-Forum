@@ -84,6 +84,7 @@
                                             </td>
                                         </tr>
                                     </table>
+                                                <a href="editprofile.jsp?userid=<%=data.getIdUser()%>">Edit Profile</a>
                                     <hr><hr>
                                     <table border="1 solid black">
                                         <%
@@ -102,6 +103,9 @@
                                                 <p style="font-size:12px">Posted in: <%= p.get(i).getDateTime()%></p>
                                                 <p><a href="#"><%= p.get(i).getLikePost()%> Likes</a> -  
                                                     <a href="#"><%= p.get(i).getDislikePost()%> Dislikes</a></p>
+                                            <right>
+                                                <a href="edit.jsp?post=<%=p.get(i).getIdPost() %>">Edit Post</a>
+                                            </right>
                                                 <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment (<%= c.size()%>)</a></p>
                                                 <hr>
                                             </td>

@@ -5,7 +5,9 @@
  */
 package controller;
 
+import static controller.PostBean.factory;
 import java.util.ArrayList;
+import model.Post;
 import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -26,6 +28,7 @@ public class UserBean {
         }catch(Exception e){
         }
     }
+    
     
     public static ArrayList<User> getAllUser(){
         Session session = factory.openSession();
@@ -74,11 +77,10 @@ public class UserBean {
         return true;
     }
 
-    public static boolean updateUser(User newUser) {
+    public boolean updateUser(User newUser) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        User user = (User) session.get(User.class,
-                newUser.getIdUser());
+        User user = (User) session.get(User.class, newUser.getIdUser());
         System.out.println("UPDATE = " + user);
         
         user.setFirstName(newUser.getFirstName());
