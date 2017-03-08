@@ -83,7 +83,7 @@
                             <div class="form-group col-md-6">
                                 <label for="gender">Gender</label> &nbsp;&nbsp;&nbsp;
                                 <input type="radio" name="gender" value="L"> Male
-                                <input type="radio" name="gender" value="M"> Female
+                                <input type="radio" name="gender" value="P"> Female
                                 <span class="alert-danger"><?php echo $genderErr; ?></span>
                             </div>
                             <div class="form-group col-md-12">

@@ -87,9 +87,9 @@
                             time = sdf.format(p.get(i).getDateTime());
                     %>
                     <div onclick="window.location = 'comment.jsp?post=<%=p.get(i).getIdPost()%>';" style="cursor: pointer;">
-                        <p style="font-size:20px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"><%= p.get(i).getJudul()%></a></p>
+                        <p style="font-size:25px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"> <%= p.get(i).getJudul()%></a></p>
                         <p style="font-size:15px"><a href="ProfileServlet?userid=<%= u.getIdUser()%>">By <%= u.getUsername()%></a></p>
-                        <p style="font-size:12px">Posted in: <%= time%></p>
+                        <p style="font-size:13px">Posted on: <%= time%></p>
                         <p><%= p.get(i).getLikePost()%> Likes -  
                             <%= p.get(i).getDislikePost()%> Dislikes</p>
                         <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment(s) (<%= c.size()%>)</a></p>

@@ -111,7 +111,7 @@ public class RegisterServlet extends HttpServlet {
                     || user.getUsername().equals("") || user.getLastName().equals("")) {
                 request.setAttribute("warningRegister", "Tolong lengkapi form");
             } else if (hasil.isEmpty()) {
-                if (user.getPassword().length() > 4) {
+                if (user.getPassword().length() >= 4) {
                     if (user.getPassword().equals(confPassword)) {
                         berhasil = true;
                         request.setAttribute("berhasil", "Registrasi berhasil");

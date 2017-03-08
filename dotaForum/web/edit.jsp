@@ -46,7 +46,7 @@
                                     <form method="POST" action="EditServlet?postid=<%=p.getIdPost()%>" id="post_disc">
                                         <h2>Post it!</h2>
                                         <p style="color:red"><b><%=err%></b><p>
-                                        <cente>
+                                        <center>
                                             <input type="text" name="post_title" placeholder="Post Title" value="<%=p.getJudul() %>" style="width:50%;height:30px;border-radius:5px;"><br><br>
                                             <select name="category" style="width:50%;height:30px;border-radius:5px;">
                                                 <option value="Chat">Chat</option>

@@ -29,7 +29,8 @@
                             <section>
                                 <%
                                     User data = (User) request.getAttribute("dataProfile");
-
+                                    HttpSession sessionLogin = request.getSession();
+                                    User sessionUser = (User) sessionLogin.getAttribute("user");
                                 %>
                                 <div class="post">
                                     <table border="1 solid black">
@@ -91,7 +92,13 @@
                                             </td>
                                         </tr>
                                     </table>
+                                    <%
+                                        if (sessionUser.getUsername().equals(data.getUsername())) {
+                                    %>
                                     <a href="editprofile.jsp?userid=<%=data.getIdUser()%>">Edit Profile</a>
+                                    <%
+                                        }
+                                    %>
                                     <hr><hr>
                                     <table border="1 solid black">
                                         <%
@@ -108,15 +115,20 @@
                                             <td>
                                                 <p style="font-size:20px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"><%= p.get(i).getJudul()%></a></p>
                                                 <p style="font-size:15px">By <%= data.getUsername()%></p>
-                                                <p style="font-size:12px">Posted in: <%= time %></p>
+                                                <p style="font-size:12px">Posted in: <%= time%></p>
                                                 <p><%= p.get(i).getLikePost()%> Likes -  
                                                     <%= p.get(i).getDislikePost()%> Dislikes</p>
                                         <right>
+                                            <%
+                                                if (sessionUser.getUsername().equals(data.getUsername())) {
+                                            %>
                                             <a href="edit.jsp?post=<%=p.get(i).getIdPost()%>">Edit Post</a>
                                             <form method="post" action="DeleteServlet?post=<%=p.get(i).getIdPost()%>">
                                                 <input type='submit' name="delete" value='Delete Post'/>
                                             </form>
-                                            <%--<a href="DeleteServlet?post=<%=p.get(i).getIdPost() %>">Delete Post</a>--%>
+                                            <%
+                                                }
+                                            %>
                                         </right>
                                         <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment(s) (<%= c.size()%>)</a></p>
                                         <hr>
@@ -133,24 +145,7 @@
                     </div>
                     <div class="3u">
                         <div id="sidebar2">
-                            <section>
-                                <div class="sbox1">
-                                    <ul class="style1">
-                                        <form method="post" action="#">
-                                            <li><input class="search" type="text" name="search" placeholder="Search"></li>
-                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="newpost" value="Start a new discussion" formaction="post.jsp"></li>
-                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="feedback" value="Feedback and Support"></li>
-                                            <li><input style="width:100%;border-radius:5px;" type="submit" name="rules" value="Forum Rules"></li>
-                                            <li>
-                                                <div style="width:100%">
-                                                    <p><b>Please be kind to your fellow forum users.</b></p>
-                                                    <p>Administrators/Moderators reserve the right to move, change or delete any content at any time if they feel it is inappropiate or unsuitable. </p>
-                                                </div>
-                                            </li>
-                                        </form>
-                                    </ul>
-                                </div>
-                            </section>
+                            <jsp:include page="sidebar.jsp"/>
                         </div>
                     </div>
                 </div>
