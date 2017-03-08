@@ -77,9 +77,22 @@
                                         <p style="font-size:20px"><%= p.getIsi()%></p>
                                         <%
                                             session = request.getSession(false);
+                                            if (session.getAttribute("check") != null) {
+                                        %>  <p>
+                                            <a href="LikeServlet?user=<%=user%>&post=<%=post%>">Likes (<%= p.getLikePost()%>)</a> -  
+                                            <a href="DislikeServlet?user=<%=user%>&post=<%=post%>">Dislikes (<%= p.getDislikePost()%>)</a>
+                                        </p>
+
+                                        <%
+                                        } else {
                                         %>
-                                        <p><a href="LikeServlet?user=<%=user%>&post=<%=post%>">Likes (<%= p.getLikePost()%>)</a> -  
-                                            <a href="DislikeServlet?user=<%=user%>&post=<%=post%>">Dislikes (<%= p.getDislikePost()%>)</a></p>
+                                        <p><a href="#">Likes (<%= p.getLikePost()%>)</a> -  
+                                            <a href="#">Dislikes (<%= p.getDislikePost()%>)</a></p>
+
+                                        <%
+                                            }
+                                        %>
+                                        
                                         <hr><hr>
                                         <p style="font-size:20px">Comments : </p>
                                         <%

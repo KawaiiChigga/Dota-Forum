@@ -56,7 +56,7 @@
                     <div id="content">
                         <section>
                             <div  style = "width:70%" >
-                                <p style="font-size:25px;">Message <span style="font-size:15px">from <a href="ProfileServlet?userid=<%= byuser.getIdUser()%>"><%= byuser.getUsername()%></a></span></p>
+                                <p style="font-size:25px;">Message <span style="font-size:15px">with <a href="ProfileServlet?userid=<%= byuser.getIdUser()%>"><%= byuser.getUsername()%></a></span></p>
                                 <hr>
                                 <%! String time = "";%>
                                 <%
