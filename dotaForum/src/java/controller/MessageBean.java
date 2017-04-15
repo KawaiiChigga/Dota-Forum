@@ -105,14 +105,14 @@ public class MessageBean {
     }
 
     public static void main(String[] args) throws ParseException {
-        MessageBean mb = new MessageBean();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        ArrayList<Message> msg = new ArrayList();
-        msg = mb.getAllMessage();
-        sdf = new SimpleDateFormat("dd/MM/YYYY");
-        Date date = sdf.parse("4/03/2017");
-        int test = date.compareTo(msg.get(0).getDateTime());
-        System.out.println("test : "+test);
+//        MessageBean mb = new MessageBean();
+//        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+//        ArrayList<Message> msg = new ArrayList();
+//        msg = mb.getAllMessage();
+//        sdf = new SimpleDateFormat("dd/MM/YYYY");
+//        Date date = sdf.parse("4/03/2017");
+//        int test = date.compareTo(msg.get(0).getDateTime());
+//        System.out.println("test : "+test);
 //        String time = sdf.format(msg.get(0).getDateTime());
 //        String date = sdf.format(msg.get(0).getDateTime());
 //        System.out.println(time);

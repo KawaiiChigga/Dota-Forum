@@ -45,7 +45,7 @@ public class PostBean {
     public ArrayList<Post> getPostSearch(String search) {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Post where judul like '%"+search+"%'order by like_post desc");
+        Query q = session.createQuery("from Post where judul like '%"+search+"%' order by like_post desc");
         ArrayList<Post> hasil = (ArrayList) q.list();
         tx.commit();
         session.close();
@@ -61,6 +61,7 @@ public class PostBean {
 //        session.close();
 //        return hasil;
 //    }
+    
     public ArrayList<Post> getPostByCategory(String jenis, String sort) {
         int category = Integer.parseInt(jenis);
         category--;

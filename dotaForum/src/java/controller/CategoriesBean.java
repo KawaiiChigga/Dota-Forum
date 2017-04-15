@@ -30,33 +30,6 @@ public class CategoriesBean {
         }
     }
 
-    public ArrayList<Post> getAllCategories() {
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Categories");
-        ArrayList<Post> hasil = (ArrayList) q.list();
-        tx.commit();
-        session.close();
-        return hasil;
-    }
-
-    public boolean insertCategory(Categories c) {
-        Session session = null;
-        Transaction tx = null;
-        try {
-            session = factory.openSession();
-            tx = session.beginTransaction();
-            session.save(c);
-            tx.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            session.close();
-        }
-        return true;
-    }
-
     public Categories getCategory(String c){
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
