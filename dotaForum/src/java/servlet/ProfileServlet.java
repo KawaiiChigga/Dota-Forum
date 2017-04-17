@@ -5,11 +5,13 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import controller.PostBean;
 import controller.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Post;
 import model.User;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -68,9 +71,25 @@ public class ProfileServlet extends HttpServlet {
 //        HttpSession sessionLogin =  request.getSession();
 //        User temp = (User) sessionLogin.getAttribute("user");
 //        ArrayList<Post> posts = PostBean.getAllPostById(currUser);
-        UserBean ub = new UserBean();
+//        UserBean ub = new UserBean();
+        NewJerseyClient jc = new NewJerseyClient();
         int uid = Integer.parseInt(request.getParameter("userid"));
-        User temp = (User) ub.getUserById(uid);
+        JSONObject obj = jc.getUserById(Integer.toString(uid));
+        User temp = new User();
+        temp.setFirstName(obj.get("first_name").toString());
+        temp.setLastName(obj.get("last_name").toString());
+        temp.setIdUser((int)obj.get("id_user"));
+        temp.setEmail(obj.get("email").toString());
+        temp.setJenisKelamin(obj.get("jenis_kelamin").toString());
+        temp.setUrlFoto(obj.get("url_foto").toString());
+        temp.setUsername(obj.get("username").toString());
+        temp.setPassword(obj.get("password").toString());
+        temp.setLevel((int)obj.get("level"));
+        temp.setDateTime((Date)obj.get("date_time"));
+        temp.setProgressLevel((int)obj.get("progress_level"));
+        
+        
+//        User temp = (User) ub.getUserById(uid);
 
         request.setAttribute("dataProfile", temp);
         RequestDispatcher rd = request.getRequestDispatcher("profile.jsp?menu=8");

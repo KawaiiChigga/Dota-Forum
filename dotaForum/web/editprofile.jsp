@@ -4,6 +4,8 @@
     Author     : Asus
 --%>
 
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="client.NewJerseyClient"%>
 <%@page import="model.User"%>
 <%@page import="controller.UserBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -45,25 +47,26 @@
                             out.println("&nbsp&nbsp&nbsp"+warning);
                         }
                         request.setAttribute("warningRegister", "");
-                        
-                        UserBean ub = new UserBean();
+                        NewJerseyClient jc = new NewJerseyClient();
+//                        UserBean ub = new UserBean();
                         int uid = Integer.parseInt(request.getParameter("userid"));
-                        User temp = (User) ub.getUserById(uid);
+                        JSONObject temp = jc.getUserById(Integer.toString(uid));
+//                        User temp = (User) ub.getUserById(uid);
                     %>
                     <div class="panel-body">
 
                         <form method="post" action="EditProfileServlet?userid=<%=uid%>">
                             <div class="form-group col-md-6">
                                 <label for="first_name">First name:</label>
-                                <input type="text" class="form-control" name = "first_name" value="<%=temp.getFirstName()%>" placeholder="First name">
+                                <input type="text" class="form-control" name = "first_name" value="<%=temp.get("first_name").toString()%>" placeholder="First name">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="last_name">Last name:</label>
-                                <input type="text" class="form-control" name = "last_name" value="<%=temp.getLastName()%>" placeholder="Last name">
+                                <input type="text" class="form-control" name = "last_name" value="<%=temp.get("last_name").toString()%>" placeholder="Last name">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="email">Email address:</label><span class="alert-danger"><?php echo $emailErr; ?></span>
-                                <input type="email" class="form-control" name="email" value="<%=temp.getEmail()%>" placeholder="Email address">
+                                <input type="email" class="form-control" name="email" value="<%=temp.get("email").toString()%>" placeholder="Email address">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="password">New Password:</label><span class="alert-danger"><?php echo $passErr; ?></span>

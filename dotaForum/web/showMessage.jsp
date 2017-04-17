@@ -4,6 +4,9 @@
     Author     : Tuyu
 --%>
 
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="client.NewJerseyClient"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.Message"%>
 <%@page import="java.util.ArrayList"%>
@@ -30,13 +33,17 @@
                 err = "";
             }
         }
-        UserBean ub = new UserBean();
-        User user = ub.getUserById(Integer.parseInt(request.getParameter("receiver")));
-        User byuser = ub.getUserById(Integer.parseInt(request.getParameter("sender")));
-        MessageBean mb = new MessageBean();
-        ArrayList<Message> msg = new ArrayList();
-        msg = mb.getMsgFromId(byuser.getIdUser(), user.getIdUser());
-    %>
+        NewJerseyClient jc = new NewJerseyClient();
+//        UserBean ub = new UserBean();
+        JSONObject user = jc.getUserById(request.getParameter("receiver"));
+        JSONObject byuser = jc.getUserById(request.getParameter("sender"));
+//        User user = ub.getUserById(Integer.parseInt(request.getParameter("receiver")));
+//        User byuser = ub.getUserById(Integer.parseInt(request.getParameter("sender")));
+//        MessageBean mb = new MessageBean();
+//        ArrayList<Message> msg = new ArrayList();
+        JSONArray msg = jc.getMsgFromId(byuser.get("id_user").toString(), user.get("id_user").toString());
+//        msg = mb.getMsgFromId(byuser.getIdUser(), user.getIdUser());
+%>
     <body>
         <script src=jquery-1.11.3.min.js></script>
         <script>
@@ -56,30 +63,32 @@
                     <div id="content">
                         <section>
                             <div  style = "width:70%" >
-                                <p style="font-size:25px;">Message <span style="font-size:15px">with <a href="ProfileServlet?userid=<%= byuser.getIdUser()%>"><%= byuser.getUsername()%></a></span></p>
+                                <p style="font-size:25px;">Message <span style="font-size:15px">with <a href="ProfileServlet?userid=<%= byuser.get("id_user").toString()%>"><%= byuser.get("username").toString()%></a></span></p>
                                 <hr>
                                 <%! String time = "";%>
                                 <%
                                     for (int i = 0; i < msg.size(); i++) {
 //                                        User receiver = msg.get(i).getUserByIdReceiver();
 //                                        User sender = msg.get(i).getUserByIdSender();
-                                        int receiver = msg.get(i).getUserByIdReceiver().getIdUser();
+                                        JSONObject obj = (JSONObject) msg.get(i);
+//                                        int receiver = msg.get(i).getUserByIdReceiver().getIdUser();
+                                        int receiver = (int) obj.get("id_user");
                                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
-                                        if (user.getIdUser() == receiver) {
-                                            time = sdf.format(msg.get(i).getDateTime());
+                                        if ((int) user.get("id_user") == receiver) {
+                                            time = sdf.format(obj.get("date_time"));
                                 %>
                                 <p style="font-size:15px;">
-                                    <%= byuser.getUsername()%> - <%= time %>
+                                    <%= byuser.get("username").toString()%> - <%= time%>
                                     <br>
-                                    <%= msg.get(i).getIsi()%>
+                                    <%= obj.get("isi").toString()%>
                                 </p>
                                 <%
                                 } else {
-                                    time = sdf.format(msg.get(i).getDateTime());
+                                    time = sdf.format(obj.get("date_time"));
                                 %>
-                                <p style="font-size:15px;"><%= user.getUsername()%> - <%= time %>
+                                <p style="font-size:15px;"><%= user.get("username").toString()%> - <%= time%>
                                     <br>
-                                    <%= msg.get(i).getIsi()%>
+                                    <%= obj.get("isi").toString()%>
                                 </p>
                                 <%
                                     }
@@ -91,17 +100,17 @@
                             </div>
                             <br>
                             <form method="POST" action="sendMsgServlet" id="formMsg">
-                                <h2 style="font-size:25px">Reply Message to <a href="ProfileServlet?userid=<%= byuser.getIdUser()%>"><%= byuser.getUsername()%></a></h2>
+                                <h2 style="font-size:25px">Reply Message to <a href="ProfileServlet?userid=<%= byuser.get("id_user").toString()%>"><%= byuser.get("username").toString()%></a></h2>
                                 <p style="color:red"><b><%=err%></b><p>
                                 <center>
                                     <textarea placeholder="What do you wanna say?" name="msg_isi" id="post_disc" style="border-radius:5px;" rows="15"> </textarea><br><br>
                                     <input type="submit" name="msg_send" value="Send" style="width:70%;height:50px;border-radius:5px;"><br><br>
                                     <input type="submit" name="msg_cancel" value="Cancel" style="width:70%;height:30px;border-radius:5px;" formaction="index.jsp"><br>
-                                    <input type="hidden" name="target" value="<%= byuser.getIdUser()%>">
+                                    <input type="hidden" name="target" value="<%= byuser.get("id_user").toString()%>">
                                 </center>
                             </form>
-                                <br>
-                                <button style="border-radius:5px;width:100%;height:40px;background-color:#193149;color:whitesmoke;font-family:Trebuchet MS;font-size:20px;" id="btnReply">Reply Message</button>
+                            <br>
+                            <button style="border-radius:5px;width:100%;height:40px;background-color:#193149;color:whitesmoke;font-family:Trebuchet MS;font-size:20px;" id="btnReply">Reply Message</button>
                         </section>
                     </div>
                 </div>

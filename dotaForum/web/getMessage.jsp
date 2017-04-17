@@ -4,6 +4,9 @@
     Author     : Tuyu
 --%>
 
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="client.NewJerseyClient"%>
 <%@page import="controller.UserBean"%>
 <%@page import="model.Message"%>
 <%@page import="java.util.ArrayList"%>
@@ -16,11 +19,14 @@
         <title>Message | Dota Forum</title>
     </head>
     <%
-        UserBean ub = new UserBean();
+        NewJerseyClient jc = new NewJerseyClient();
+//        UserBean ub = new UserBean();
+
         User user = (User) request.getAttribute("user");
-        MessageBean mb = new MessageBean();
-        ArrayList<Message> msg = new ArrayList();
-        msg = mb.getInbox(user.getIdUser());
+//        MessageBean mb = new MessageBean();
+//        ArrayList<Message> msg = new ArrayList();
+        JSONArray msg = jc.getInbox(Integer.toString(user.getIdUser()));
+//        msg = mb.getInbox(user.getIdUser());
     %>
     <body>
         <div id="header-wrapper">
@@ -31,20 +37,22 @@
                 <div class="9u">
                     <div id="content">
                         <section>
-                                <p style="font-size:25px;">Messages</p>
+                            <p style="font-size:25px;">Messages</p>
+                            <hr>
+                            <%
+                                for (int i = 0; i < msg.size(); i++) {
+//                                        User sender = new User();
+                                    JSONObject obj = (JSONObject) msg.get(i);
+                                    JSONObject sender = jc.getUserById(pk);
+                                    sender = ub.getUserById(msg.get(i).getUserByIdSender().getIdUser());
+                            %><div onclick="window.location = 'showMessage.jsp?sender=<%= sender.get("id_user").toString()%>&receiver=<%= user.getIdUser()%>';" style="cursor: pointer;">
+                                <p>from <b style="font-size:20px"><a href="ProfileServlet?userid=<%= sender.get("id_user").toString()%>"><%= sender.get("username")%></a></b></p>
+                                <p><%= obj.get("isi").toString()%></p>
                                 <hr>
-                                <%
-                                    for (int i = 0; i < msg.size(); i++) {
-                                        User sender = new User();
-                                        sender = ub.getUserById(msg.get(i).getUserByIdSender().getIdUser());
-                                %><div onclick="window.location = 'showMessage.jsp?sender=<%= sender.getIdUser()%>&receiver=<%= user.getIdUser()%>';" style="cursor: pointer;">
-                                    <p>from <b style="font-size:20px"><a href="ProfileServlet?userid=<%= sender.getIdUser()%>"><%= sender.getUsername()%></a></b></p>
-                                    <p><%= msg.get(i).getIsi()%></p>
-                                    <hr>
-                                </div>
-                                <%
-                                    }
-                                %>
+                            </div>
+                            <%
+                                }
+                            %>
                         </section>
                     </div>
                 </div>

@@ -4,6 +4,9 @@
     Author     : Asus
 ---%>
 
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="client.NewJerseyClient"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.Comment"%>
 <%@page import="controller.CommentBean"%>
@@ -102,35 +105,40 @@
                                     <hr><hr>
                                     <table border="1 solid black">
                                         <%
-                                            PostBean pb = new PostBean();
-                                            CommentBean cb = new CommentBean();
-                                            ArrayList<Post> p = pb.getProfilePost(data.getIdUser());
-                                            for (int i = 0; i < p.size(); i++) {
-                                                ArrayList<Comment> c = new ArrayList<Comment>();
-                                                c = cb.getCommentById(p.get(i).getIdPost());
-                                                time = sdf.format(p.get(i).getDateTime());
+                                            NewJerseyClient jc = new NewJerseyClient();
+
+//                                            PostBean pb = new PostBean();
+//                                            CommentBean cb = new CommentBean();
+//                                            ArrayList<Post> p = pb.getProfilePost(data.getIdUser());
+                                            JSONArray post = jc.getProfilePost(data.getIdUser().toString());
+                                            for (int i = 0; i < post.size(); i++) {
+//                                                ArrayList<Comment> c = new ArrayList<Comment>();
+                                                JSONObject obj = (JSONObject) post.get(i);
+                                                JSONArray c = jc.getCommentById(obj.get("id_post").toString());
+//                                                c = cb.getCommentById(p.get(i).getIdPost());
+                                                time = sdf.format(obj.get("date_time"));
                                         %>
 
                                         <tr>
                                             <td>
-                                                <p style="font-size:20px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"><%= p.get(i).getJudul()%></a></p>
+                                                <p style="font-size:20px"><a href="comment.jsp?post=<%=obj.get("id_post").toString()%>"><%= obj.get("judul").toString()%></a></p>
                                                 <p style="font-size:15px">By <%= data.getUsername()%></p>
                                                 <p style="font-size:12px">Posted in: <%= time%></p>
-                                                <p><%= p.get(i).getLikePost()%> Likes -  
-                                                    <%= p.get(i).getDislikePost()%> Dislikes</p>
+                                                <p><%= obj.get("like_post").toString()%> Likes -  
+                                                    <%= obj.get("dislike_post").toString()%> Dislikes</p>
                                         <right>
                                             <%
                                                 if (sessionUser.getUsername().equals(data.getUsername())) {
                                             %>
-                                            <a href="edit.jsp?post=<%=p.get(i).getIdPost()%>">Edit Post</a>
-                                            <form method="post" action="DeleteServlet?post=<%=p.get(i).getIdPost()%>">
+                                            <a href="edit.jsp?post=<%=obj.get("id_post").toString()%>">Edit Post</a>
+                                            <form method="post" action="DeleteServlet?post=<%=obj.get("id_post").toString()%>">
                                                 <input type='submit' name="delete" value='Delete Post'/>
                                             </form>
                                             <%
                                                 }
                                             %>
                                         </right>
-                                        <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment(s) (<%= c.size()%>)</a></p>
+                                        <p><a href="comment.jsp?post=<%=obj.get("id_post").toString()%>">Comment(s) (<%= c.size()%>)</a></p>
                                         <hr>
                                         </td>
                                         </tr>

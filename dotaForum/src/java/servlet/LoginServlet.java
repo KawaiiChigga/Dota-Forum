@@ -5,10 +5,12 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import controller.UserBean;
 import static controller.UserBean.factory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +22,7 @@ import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -83,14 +86,31 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String remember = request.getParameter("remember");
-        
-        UserBean ub = new UserBean();
-        User u = ub.checkLogIn(username, password);
-        if (u!=null) {
+
+//        UserBean ub = new UserBean();
+        NewJerseyClient jc = new NewJerseyClient();
+//        User u = ub.checkLogIn(username, password);
+        JSONObject user = new JSONObject();
+        user.put("username", username);
+        user.put("password", password);
+        JSONObject obj = jc.checkLogIn(user);
+        if (obj != null) {
             HttpSession sessionLogIn = request.getSession();
+            User temp = new User();
+            temp.setFirstName(obj.get("first_name").toString());
+            temp.setLastName(obj.get("last_name").toString());
+            temp.setIdUser((int) obj.get("id_user"));
+            temp.setEmail(obj.get("email").toString());
+            temp.setJenisKelamin(obj.get("jenis_kelamin").toString());
+            temp.setUrlFoto(obj.get("url_foto").toString());
+            temp.setUsername(obj.get("username").toString());
+            temp.setPassword(obj.get("password").toString());
+            temp.setLevel((int) obj.get("level"));
+            temp.setDateTime((Date) obj.get("date_time"));
+            temp.setProgressLevel((int) obj.get("progress_level"));
             sessionLogIn.setAttribute("check", "yes");
-            sessionLogIn.setAttribute("user", u);
-            sessionLogIn.setAttribute("remember",remember);
+            sessionLogIn.setAttribute("user", temp);
+            sessionLogIn.setAttribute("remember", remember);
             request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
         } else {
             request.setAttribute("warning", "Username or password wrong!");

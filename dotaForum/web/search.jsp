@@ -4,6 +4,9 @@
     Author     : Tuyu
 --%>
 
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="client.NewJerseyClient"%>
 <%@page import="model.User"%>
 <%@page import="model.Comment"%>
 <%@page import="java.util.ArrayList"%>
@@ -33,28 +36,33 @@
                             <hr>
                             <%
                                 String search = request.getParameter("search");
-                                PostBean pb = new PostBean();
-                                UserBean ub = new UserBean();
-                                CommentBean cb = new CommentBean();
-                                ArrayList<Post> p = new ArrayList<Post>();
-                                p = pb.getPostSearch(search);
-                                if (p.size() == 0) {
-                                    %>
-                                    <p>No result found for "<%= search %>"</p>
+                                NewJerseyClient jc = new NewJerseyClient();
+//                                PostBean pb = new PostBean();
+//                                UserBean ub = new UserBean();
+//                                CommentBean cb = new CommentBean();
+//                                ArrayList<Post> p = new ArrayList<Post>();
+                                JSONArray post = jc.getPostSearch(search);
+//                                p = pb.getPostSearch(search);
+                                if (post.size() == 0) {
+                            %>
+                            <p>No result found for "<%= search%>"</p>
                             <%
-                                } else {
-                                    for (int i = 0; i < p.size(); i++) {
-                                        User u = ub.getUserById(p.get(i).getUser().getIdUser());
-                                        ArrayList<Comment> c = new ArrayList<Comment>();
-                                        c = cb.getCommentById(p.get(i).getIdPost());
+                            } else {
+                                for (int i = 0; i < post.size(); i++) {
+                                    JSONObject obj = (JSONObject) post.get(i);
+                                    JSONObject user = jc.getUserById(obj.get("id_user").toString());
+//                                    User u = ub.getUserById(p.get(i).getUser().getIdUser());
+//                                    ArrayList<Comment> c = new ArrayList<Comment>();
+                                    JSONArray c = jc.getCommentById(obj.get("id_post").toString());
+//                                    c = cb.getCommentById(p.get(i).getIdPost());
                             %>
 
-                            <p style="font-size:20px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"><%= p.get(i).getJudul()%></a></p>
-                            <p style="font-size:15px"><a href="ProfileServlet?userid=<%= u.getIdUser()%>">By <%= u.getUsername()%></a></p>
-                            <p style="font-size:12px">Posted in: <%= p.get(i).getDateTime()%></p>
-                            <p><a href="#"><%= p.get(i).getLikePost()%> Likes</a> -  
-                                <a href="#"><%= p.get(i).getDislikePost()%> Dislikes</a></p>
-                            <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment (<%= c.size()%>)</a></p>
+                            <p style="font-size:20px"><a href="comment.jsp?post=<%=obj.get("id_post")%>"><%= obj.get("judul").toString()%></a></p>
+                            <p style="font-size:15px"><a href="ProfileServlet?userid=<%= user.get("id_user").toString()%>">By <%= user.get("username").toString()%></a></p>
+                            <p style="font-size:12px">Posted in: <%= obj.get("date_time").toString()%></p>
+                            <p><a href="#"><%= obj.get("like_post").toString()%> Likes</a> -  
+                                <a href="#"><%= obj.get("dislike_post").toString()%> Dislikes</a></p>
+                            <p><a href="comment.jsp?post=<%=obj.get("id_post").toString()%>">Comment (<%= c.size()%>)</a></p>
                             <hr>
 
                             <%

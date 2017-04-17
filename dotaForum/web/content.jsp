@@ -4,6 +4,10 @@
     Author     : asus
 --%>
 
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="com.sun.faces.facelets.tag.DefaultTagDecorator.Namespace.p"%>
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="client.NewJerseyClient"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.Post"%>
 <%@page import="model.Comment"%>
@@ -69,30 +73,41 @@
             <div class="post">
                 <table border="1 solid black">
                     <%
+                        NewJerseyClient jc = new NewJerseyClient();
+
                         PostBean pb = new PostBean();
                         UserBean ub = new UserBean();
                         CommentBean cb = new CommentBean();
-                        ArrayList<Post> p = new ArrayList<Post>();
+//                        ArrayList<Post> p = new ArrayList<Post>();
+                        JSONArray post;
                         if (request.getParameter("menu").equals("1")) {
-                            p = pb.getAllPost(type);
+//                            p = pb.getAllPost(type);
+                            post = (JSONArray) jc.getAllPost(type);
                         } else {
-                            p = pb.getPostByCategory(request.getParameter("menu"), type);
+                            post = jc.getPostByCategory(request.getParameter("menu"), type);
                         }
-                        for (int i = 0; i < p.size(); i++) {
-                            User u = ub.getUserById(p.get(i).getUser().getIdUser());
-                            ArrayList<Comment> c = new ArrayList<Comment>();
-                            c = cb.getCommentById(p.get(i).getIdPost());
+                        for (int i = 0; i < post.size(); i++) {
+//                            User u = ub.getUserById(p.get(i).getUser().getIdUser());
+                            JSONObject obj  = (JSONObject) post.get(i);
+                            JSONObject u = jc.getUserById(obj.get("id_user").toString());
+                            
+//                            ArrayList<Comment> c = new ArrayList<Comment>();
+                            JSONArray c ;
+//                            c = cb.getCommentById(p.get(i).getIdPost());
+                            c = jc.getCommentById(obj.get("id_post").toString());
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
                             String time = "";
-                            time = sdf.format(p.get(i).getDateTime());
+//                            time = sdf.format(p.get(i).getDateTime());
+                            time = sdf.format(obj.get("date_time"));
                     %>
-                    <div onclick="window.location = 'comment.jsp?post=<%=p.get(i).getIdPost()%>';" style="cursor: pointer;">
-                        <p style="font-size:25px"><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>"> <%= p.get(i).getJudul()%></a></p>
-                        <p style="font-size:15px"><a href="ProfileServlet?userid=<%= u.getIdUser()%>">By <%= u.getUsername()%></a></p>
+                    <div onclick="window.location = 'comment.jsp?post=<%=obj.get("id_post").toString()%>';" style="cursor: pointer;">
+                        <p style="font-size:25px"><a href="comment.jsp?post=<%=obj.get("id_post").toString()%>"> <%= obj.get("judul").toString() %></a></p>
+                        <p style="font-size:25px"><a href="comment.jsp?post=<%=obj.get("id_post").toString()%>"> <%= obj.get("judul").toString()%></a></p>
+                        <p style="font-size:15px"><a href="ProfileServlet?userid=<%= u.get("id_user").toString()%>">By <%= u.get("username").toString()%></a></p>
                         <p style="font-size:13px">Posted on: <%= time%></p>
-                        <p><%= p.get(i).getLikePost()%> Likes -  
-                            <%= p.get(i).getDislikePost()%> Dislikes</p>
-                        <p><a href="comment.jsp?post=<%=p.get(i).getIdPost()%>">Comment(s) (<%= c.size()%>)</a></p>
+                        <p><%= obj.get("like_post").toString()%> Likes -  
+                            <%= obj.get("dislike_post").toString()%> Dislikes</p>
+                        <p><a href="comment.jsp?post=<%=obj.get("id_post")%>">Comment(s) (<%= c.size()%>)</a></p>
                         <hr>
                     </div>
                     <%

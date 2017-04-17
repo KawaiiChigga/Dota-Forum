@@ -4,6 +4,8 @@
     Author     : Asus
 --%>
 
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="client.NewJerseyClient"%>
 <%@page import="controller.PostBean"%>
 <%@page import="model.Post"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -39,15 +41,17 @@
                             <section>
                                 <%
                                     int id = Integer.parseInt(request.getParameter("post"));
-                                    PostBean pb = new PostBean();
-                                    Post p = pb.getPostById(id);
+                                    NewJerseyClient jc = new NewJerseyClient();
+                                    JSONObject post = jc.getPostById(Integer.toString(id));
+//                                    PostBean pb = new PostBean();
+//                                    Post p = pb.getPostById(id);
                                 %>
                                 <div class="post">
-                                    <form method="POST" action="EditServlet?postid=<%=p.getIdPost()%>" id="post_disc">
+                                    <form method="POST" action="EditServlet?postid=<%=post.get("id_post").toString()%>" id="post_disc">
                                         <h2>Post it!</h2>
                                         <p style="color:red"><b><%=err%></b><p>
                                         <center>
-                                            <input type="text" name="post_title" placeholder="Post Title" value="<%=p.getJudul() %>" style="width:50%;height:30px;border-radius:5px;"><br><br>
+                                            <input type="text" name="post_title" placeholder="Post Title" value="<%=post.get("judul").toString() %>" style="width:50%;height:30px;border-radius:5px;"><br><br>
                                             <select name="category" style="width:50%;height:30px;border-radius:5px;">
                                                 <option value="Chat">Chat</option>
                                                 <option value="Competitive">Competitive</option>
@@ -56,7 +60,7 @@
                                                 <option value="Recruitment">Recruitment</option>
                                                 <option value="Strategy">Strategy</option>
                                             </select>
-                                            <textarea placeholder="What do you wanna say?" name="post_isi" id="post_disc" style="border-radius:5px;" rows="15"><%=p.getIsi() %></textarea><br><br>
+                                            <textarea placeholder="What do you wanna say?" name="post_isi" id="post_disc" style="border-radius:5px;" rows="15"><%=post.get("isi").toString() %></textarea><br><br>
                                             <input type="submit" name="post_disc" value="Edit Post" style="width:70%;height:50px;border-radius:5px;"><br><br>
                                             <input type="submit" name="post_cancel" value="Cancel" style="width:70%;height:30px;border-radius:5px;" formaction="index.jsp"><br>
                                         </center>
