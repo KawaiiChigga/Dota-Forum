@@ -171,28 +171,27 @@ public class NewJerseyClient {
     }
 
 //---------------------------- COMMENT ----------------------------
-    
     public boolean insertComment(JSONObject obj) {
         WebTarget resource = webTarget;
         resource = resource.path("comment");
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
         return true;
     }
-    
+
     public JSONArray getCommentById(String id_post) {
         WebTarget resource = webTarget;
         resource = resource.path("comment").path(id_post);
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
         return (JSONArray) JSONValue.parse(json);
     }
-    
+
     public boolean deleteComment(String pk) {
         WebTarget resource = webTarget;
         resource = resource.path("reply").path("delete").path(pk);
         Response json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
         return true;
     }
-    
+
 //---------------------------- LIKE ----------------------------
     public boolean addLike(JSONObject obj) {
         WebTarget resource = webTarget;
@@ -200,42 +199,63 @@ public class NewJerseyClient {
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
         return true;
     }
-    
+
     public JSONArray getAllLikes(String id_post) {
         WebTarget resource = webTarget;
         resource = resource.path("likes").path(id_post);
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
         return (JSONArray) JSONValue.parse(json);
     }
-    
+
+    public boolean checkLikeUser(String id_post, String id_user) {
+        WebTarget resource = webTarget;
+        resource = resource.path("likes").path("check").path(id_post).path(id_user);
+        String json = "";
+        json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        if (!json.equals("")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean deleteLike(String pk) {
         WebTarget resource = webTarget;
         resource = resource.path("likes").path("delete").path(pk);
         Response json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
         return true;
     }
-    
+
     public boolean addDislike(JSONObject obj) {
         WebTarget resource = webTarget;
         resource = resource.path("dislike");
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
         return true;
     }
-    
+
     public JSONArray getAllDislike(String id_post) {
         WebTarget resource = webTarget;
         resource = resource.path("dislikes").path(id_post);
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
         return (JSONArray) JSONValue.parse(json);
     }
-    
+
+    public boolean checkDislikeUser(String id_post, String id_user) {
+        WebTarget resource = webTarget;
+        resource = resource.path("dislikes").path("check").path(id_post).path(id_user);
+        String json = "";
+        json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        JSONObject obj = (JSONObject) JSONValue.parse(json);
+        return Boolean.parseBoolean(obj.get("message").toString());
+    }
+
     public boolean deleteDislike(String pk) {
         WebTarget resource = webTarget;
         resource = resource.path("dislikes").path("delete").path(pk);
         Response json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
         return true;
     }
-    
+
 //---------------------------- USER ----------------------------
     public void close() {
         client.close();
