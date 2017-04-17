@@ -88,7 +88,7 @@
                                             }
 //                                            User u = ub.getUserById(p.getUser().getIdUser());
                                             int u = (int)user.get("id_user");
-
+//a
                                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
                                             String time = "";
 //                                            time = sdf.format(p.getDateTime());
