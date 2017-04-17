@@ -137,9 +137,6 @@ public class Post  implements java.io.Serializable {
         this.dislikeses = dislikeses;
     }
 
-
-
-
 }
 
 
