@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import controller.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -74,7 +76,8 @@ public class EditProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserBean ub = new UserBean();
+        NewJerseyClient jc = new NewJerseyClient();
+//        UserBean ub = new UserBean();
         String newfirst = request.getParameter("first_name");
         String newlast = request.getParameter("last_name");
         String newpass = request.getParameter("password");
@@ -83,22 +86,23 @@ public class EditProfileServlet extends HttpServlet {
         String newjk = request.getParameter("gender");
         boolean berhasil=false;
         
+        JSONObject nu = jc.getUserById(request.getParameter("userid"));
+//        User nu = ub.getUserById(Integer.parseInt(request.getParameter("userid")));
+        JSONObject obj = new JSONObject();
+        obj.put("first_name",newfirst );
+        obj.put("jenis_kelamin",newjk);
+        obj.put("last_name",newlast);
+        obj.put("email",newmail);
+        obj.put("password",newpass);
+        obj.put("url_foto",newlast);
         
-        User nu = ub.getUserById(Integer.parseInt(request.getParameter("userid")));
-        nu.setFirstName(newfirst);
-        nu.setJenisKelamin(newjk);
-        nu.setLastName(newlast);
-        nu.setEmail(newmail);
-        nu.setPassword(newpass);
-        nu.setUrlFoto(newlast);
-        
-         if (nu.getPassword().equals("") || nu.getFirstName().equals("")
-                    || newpass2.equals("") || nu.getEmail().equals("")
-                    || nu.getLastName().equals("")) {
+         if (nu.get("password").toString().equals("") || nu.get("first_name").toString().equals("")
+                    || newpass2.equals("") || nu.get("email").toString().equals("")
+                    || nu.get("last_name").toString().equals("")) {
                 request.setAttribute("warningRegister", "Tolong lengkapi form");
             }
-                if (nu.getPassword().length() > 4) {
-                    if (nu.getPassword().equals(newpass2)) {
+                if (nu.get("password").toString().length() > 4) {
+                    if (nu.get("password").toString().equals(newpass2)) {
                         berhasil = true;
                         request.setAttribute("berhasil", "Update berhasil");
                     } else {
@@ -108,7 +112,7 @@ public class EditProfileServlet extends HttpServlet {
                     request.setAttribute("warningRegister", "Password minimal 4 character!");
                 }
                 if(berhasil){
-                    if(ub.updateUser(nu)){
+                    if(jc.updateUser(obj, nu.get("id_user").toString())){
                         request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
                     }else{
                         

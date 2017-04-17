@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import controller.LikeDislikeBean;
 import controller.PostBean;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -68,56 +70,66 @@ public class DislikeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Session session = null;
+        NewJerseyClient jc = new NewJerseyClient();
+//        Session session = null;
 
         String u = request.getParameter("user");
         String p = request.getParameter("post");
-        try {
-            LikeDislikeBean ld = new LikeDislikeBean();
-            session = ld.factory.openSession();
-            Transaction tx = session.beginTransaction();
+//        try {
+//            LikeDislikeBean ld = new LikeDislikeBean();
+//            session = ld.factory.openSession();
+//            Transaction tx = session.beginTransaction();
+//
+//            Query q = session.createQuery("from Likes where id_post='" + p + "' and id_user='" + u + "'");
+//            ArrayList<Likes> hasil2 = (ArrayList) q.list();
+//
+//            Query q2 = session.createQuery("from Dislikes where id_post='" + p + "' and id_user='" + u + "'");
+//            ArrayList<Dislikes> hasil = (ArrayList) q2.list();
+//
+//            q = session.createQuery("from User where id_user='" + u + "'");
+//            ArrayList<User> hasilUser = (ArrayList) q.list();
+//            q = session.createQuery("from Post where id_post='" + p + "'");
+//            ArrayList<Post> hasilPost = (ArrayList) q.list();\
 
-            Query q = session.createQuery("from Likes where id_post='" + p + "' and id_user='" + u + "'");
-            ArrayList<Likes> hasil2 = (ArrayList) q.list();
+        boolean pernah = false;
+        if (!jc.checkDislikeUser(p, u)) {
+//                PostBean pb = new PostBean();
+            JSONObject post = jc.getPostById(p);
+            if (jc.checkLikeUser(p, u)) {
 
-            Query q2 = session.createQuery("from Dislikes where id_post='" + p + "' and id_user='" + u + "'");
-            ArrayList<Dislikes> hasil = (ArrayList) q2.list();
-
-            q = session.createQuery("from User where id_user='" + u + "'");
-            ArrayList<User> hasilUser = (ArrayList) q.list();
-            q = session.createQuery("from Post where id_post='" + p + "'");
-            ArrayList<Post> hasilPost = (ArrayList) q.list();
-            boolean pernah = false;
-            if (hasil.isEmpty()) {
-                PostBean pb = new PostBean();
-                if (hasil2.isEmpty()) {
-
-                } else {
-                    pernah = true;
-                }
-                Dislikes dislike = new Dislikes(hasilPost.get(0), hasilUser.get(0));
-                if (ld.addDislike(dislike)) {
-                    if (pernah) {
-                        ld.deleteLike(hasil2.get(0).getIdLike());
-                        hasilPost.get(0).setLikePost(hasilPost.get(0).getLikePost() - 1);
-                        pb.updatePost(hasilPost.get(0));
-                    }
-                    hasilPost.get(0).setDislikePost(hasilPost.get(0).getDislikePost() + 1);
-                    pb.updatePost(hasilPost.get(0));
-                    System.out.println("berhasil");
-                } else {
-                    System.out.println("salah");
-                }
             } else {
-                System.out.println("sudah ada");
+                pernah = true;
             }
-            tx.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-            request.getRequestDispatcher("comment.jsp?post=" + p).forward(request, response);
+            JSONObject obj = new JSONObject();
+            obj.put("id_post", p);
+            obj.put("id_user", u);
+//                Dislikes dislike = new Dislikes(hasilPost.get(0), hasilUser.get(0));
+            if (!jc.addDislike(obj)) {
+                JSONObject objUpdate = new JSONObject();
+                if (pernah) {
+                    jc.deleteLike(p, u);
+//                        hasilPost.get(0).setLikePost(hasilPost.get(0).getLikePost() - 1);
+                    objUpdate.put("like_post", (int) post.get("like_post") - 1);
+                    jc.updatePost(objUpdate, p);
+                }
+//                    hasilPost.get(0).setDislikePost(hasilPost.get(0).getDislikePost() + 1);
+                objUpdate = new JSONObject();
+                objUpdate.put("dislike_post", (int) post.get("dislike_post") + 1);
+                jc.updatePost(objUpdate, p);
+                System.out.println("berhasil");
+            } else {
+                System.out.println("salah");
+            }
+        } else {
+            System.out.println("sudah ada");
         }
+//            tx.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            session.close();
+        request.getRequestDispatcher("comment.jsp?post=" + p).forward(request, response);
+//        }
     }
 
     /**

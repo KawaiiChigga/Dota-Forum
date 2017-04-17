@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import controller.CommentBean;
 import controller.PostBean;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import model.Comment;
 import model.Post;
 import model.User;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -80,21 +82,28 @@ public class CommentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sessionLogIn = request.getSession(false);
+        NewJerseyClient jc = new NewJerseyClient();
         if (sessionLogIn.getAttribute("check") != null) {
-            CommentBean cb = new CommentBean();
+
+//            CommentBean cb = new CommentBean();
             String isi = request.getParameter("isi_comment");
             String idpost = request.getParameter("id_post");
             int id = Integer.parseInt(idpost);
-            PostBean pb = new PostBean();
-            Post p = pb.getPostById(id);
+//            PostBean pb = new PostBean();
+            JSONObject p = jc.getPostById(Integer.toString(id));
+//            Post p = pb.getPostById(id);
 
             User user = (User) sessionLogIn.getAttribute("user");
 
-            Comment c = new Comment();
-            c.setPost(p);
-            c.setIsiComment(isi);
-            c.setUser(user);
-            if (cb.insertComment(c)) {
+//            Comment c = new Comment();
+//            c.setPost(p);
+//            c.setIsiComment(isi);
+//            c.setUser(user);
+            JSONObject obj = new JSONObject();
+            obj.put("isi", isi);
+            obj.put("id_post",p.get("id_post").toString());
+            obj.put("id_user",user.getIdUser().toString());
+            if (jc.insertComment(obj)) {
                 String ALERT_FAIL = "fail";
                 String fail = "0";
                 request.setAttribute(ALERT_FAIL, fail);

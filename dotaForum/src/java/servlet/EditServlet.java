@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import controller.CategoriesBean;
 import controller.PostBean;
 import controller.UserBean;
@@ -21,6 +22,7 @@ import model.Post;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -84,13 +86,18 @@ public class EditServlet extends HttpServlet {
         String isibaru = request.getParameter("post_isi");
         String judulbaru = request.getParameter("post_title");
         
-        PostBean pb = new PostBean();
+        NewJerseyClient jc = new NewJerseyClient();
+//        PostBean pb = new PostBean();
         int pid = Integer.parseInt(request.getParameter("postid"));
-        Post temp = (Post)pb.getPostById(pid);
-        temp.setIsi(isibaru);
-        temp.setJudul(judulbaru);
+        JSONObject temp = jc.getPostById(Integer.toString(pid));
+//        Post temp = (Post)pb.getPostById(pid);
+        JSONObject obj = new JSONObject();
+        obj.put("isi",isibaru);
+        obj.put("judul",judulbaru);
+//        temp.setIsi(isibaru);
+//        temp.setJudul(judulbaru);
         try{
-            if(pb.updatePost(temp)){
+            if(jc.updatePost(obj,Integer.toString(pid))){
                 request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
             }
         }

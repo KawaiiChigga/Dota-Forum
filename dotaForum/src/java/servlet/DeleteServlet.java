@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import controller.CommentBean;
 import controller.LikeDislikeBean;
 import controller.PostBean;
@@ -24,6 +25,8 @@ import model.Dislikes;
 import model.Likes;
 import model.Post;
 import model.Reply;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -67,54 +70,63 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        PostBean pb = new PostBean();
-        CommentBean cb = new CommentBean();
-        ReplyBean rb = new ReplyBean();
-        LikeDislikeBean ldb = new LikeDislikeBean();
+        NewJerseyClient jc = new NewJerseyClient();
+//        PostBean pb = new PostBean();
+//        CommentBean cb = new CommentBean();
+//        ReplyBean rb = new ReplyBean();
+//        LikeDislikeBean ldb = new LikeDislikeBean();
 
         int pid = Integer.parseInt(request.getParameter("post"));
-        Post temp = pb.getPostById(pid);
+        JSONObject temp = jc.getPostById(Integer.toString(pid));
+//        Post temp = pb.getPostById(pid);
 
-        ArrayList<Comment> comment = new ArrayList<Comment>();
-        comment = cb.getCommentById(pid);
-        
-        ArrayList<Likes> like = new ArrayList<Likes>();
-        like = ldb.getAllLike(pid);
-        
-        ArrayList<Dislikes> dislike = new ArrayList<Dislikes>();
-        dislike = ldb.getAllDislike(pid);
+//        ArrayList<Comment> comment = new ArrayList<Comment>();
+        JSONArray comment = jc.getCommentById(Integer.toString(pid));
+//        comment = cb.getCommentById(pid);
 
-        ArrayList<Reply> reply = new ArrayList<Reply>();
+//        ArrayList<Likes> like = new ArrayList<Likes>();
+//        like = ldb.getAllLike(pid);
+        JSONArray like = jc.getAllLikes(Integer.toString(pid));
 
-        try {
-            if (comment.size() > 0) {
-                for (int i = 0; i < comment.size(); i++) {
+//        ArrayList<Dislikes> dislike = new ArrayList<Dislikes>();
+//        dislike = ldb.getAllDislike(pid);
+        JSONArray dislike = jc.getAllDislike(Integer.toString(pid));
 
-                    reply = rb.getReplyByCommentId(comment.get(0).getIdComment());
-                    if (reply.size() > 0) {
-                        rb.deleteReply(reply.get(0).getIdReply());
-                    }
-                    cb.deleteComment(comment.get(i).getIdComment());
+//        try {
+        if (comment.size() > 0) {
+            JSONArray reply;
+            for (int i = 0; i < comment.size(); i++) {
+
+                JSONObject obj = (JSONObject) comment.get(i);
+                reply = jc.getReplyByCommentId(obj.get("id_comment").toString());
+                if (reply.size() > 0) {
+                    JSONObject objReply = (JSONObject) reply.get(0);
+                    jc.deleteReply(objReply.get("id_reply").toString());
+//                        teReply(reply.get(0).getIdReply());
                 }
+                jc.deleteComment(obj.get("id_comment").toString());
             }
-            if(like.size()>0){
-                for(int i=0;i<like.size();i++){
-                    ldb.deleteLike(like.get(i).getIdLike());
-                }
-            }
-            if(dislike.size()>0){
-                for(int i=0;i<dislike.size();i++){
-                    ldb.deleteDislike(dislike.get(i).getIdDislike());
-                }
-            }
-            pb.deletePost(pid);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("gagal");
-        }finally{
-            request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
         }
+        if (like.size() > 0) {
+            for (int i = 0; i < like.size(); i++) {
+                JSONObject objLike = (JSONObject) like.get(i);
+                jc.deleteLike(objLike.get("id_like").toString());
+            }
+        }
+        if (dislike.size() > 0) {
+            for (int i = 0; i < dislike.size(); i++) {
+//                    ldb.deleteDislike(dislike.get(i).getIdDislike());
+                JSONObject objDislike = (JSONObject) dislike.get(i);
+                jc.deleteLike(objDislike.get("id_dislike").toString());
+            }
+        }
+        jc.deletePost(pid);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.out.println("gagal");
+//        } finally {
+        request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
+//        }
     }
 
     /**

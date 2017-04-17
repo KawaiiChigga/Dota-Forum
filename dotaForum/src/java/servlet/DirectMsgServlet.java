@@ -5,9 +5,11 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import controller.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.User;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -64,17 +67,32 @@ public class DirectMsgServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession sessionLogin = request.getSession();
         User usession = (User) sessionLogin.getAttribute("user");
-        
-        UserBean ub = new UserBean();
-        int uid = Integer.parseInt(request.getParameter("userid"));
-        User u = (User) ub.getUserById(uid);
 
-        if (usession.getUsername().equals(u.getUsername())) {
-            request.setAttribute("user", u);
+        NewJerseyClient jc = new NewJerseyClient();
+//        UserBean ub = new UserBean();
+        int uid = Integer.parseInt(request.getParameter("userid"));
+        JSONObject u = jc.getUserById(Integer.toString(uid));
+//        User u = (User) ub.getUserById(uid);
+
+        if (usession.getUsername().equals(u.get("username").toString())) {
+            User temp = new User();
+            temp.setFirstName(u.get("first_name").toString());
+            temp.setLastName(u.get("last_name").toString());
+            temp.setIdUser((int) u.get("id_user"));
+            temp.setEmail(u.get("email").toString());
+            temp.setJenisKelamin(u.get("jenis_kelamin").toString());
+            temp.setUrlFoto(u.get("url_foto").toString());
+            temp.setUsername(u.get("username").toString());
+            temp.setPassword(u.get("password").toString());
+            temp.setLevel((int) u.get("level"));
+            temp.setDateTime((Date) u.get("date_time"));
+            temp.setProgressLevel((int) u.get("progress_level"));
+
+            request.setAttribute("user", temp);
             RequestDispatcher rd = request.getRequestDispatcher("getMessage.jsp");
             rd.forward(request, response);
-        }else{
-            RequestDispatcher rd = request.getRequestDispatcher("showMessage.jsp?sender="+u.getIdUser()+"&receiver="+usession.getIdUser());
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher("showMessage.jsp?sender=" + u.get("id_user").toString() + "&receiver=" + usession.getIdUser());
             rd.forward(request, response);
         }
     }

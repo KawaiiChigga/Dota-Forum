@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import controller.CategoriesBean;
 import controller.PostBean;
 import controller.UserBean;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import model.Categories;
 import model.Post;
 import model.User;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -46,7 +48,7 @@ public class PostServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet postServlet</title>");            
+            out.println("<title>Servlet postServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet postServlet at " + request.getContextPath() + "</h1>");
@@ -68,10 +70,10 @@ public class PostServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("check")!=null){
+        if (session.getAttribute("check") != null) {
             request.getRequestDispatcher("post.jsp").forward(request, response);
-            
-        }else{
+
+        } else {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
@@ -87,26 +89,36 @@ public class PostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PostBean pb = new PostBean();
+        NewJerseyClient jc = new NewJerseyClient();
+//        PostBean pb = new PostBean();
         String judul = request.getParameter("post_title");
         String isi = request.getParameter("post_isi");
         String kategori = request.getParameter("category");
-        
+
         HttpSession sessionLogIn = request.getSession();
         User user = (User) sessionLogIn.getAttribute("user");
+
+//        CategoriesBean cb = new CategoriesBean();
+        JSONObject category = jc.getCategory(kategori);
+//        Categories category = cb.getCategory(kategori);
+        JSONObject obj = new JSONObject();
+        obj.put("id_user",user.getIdUser());
+        obj.put("judul",judul);
+        obj.put("isi",isi);
+        obj.put("date_time");
+        obj.put("like_post",0);
+        obj.put("dislike_post",0);
+        obj.put("id_category",kategori);
         
-        CategoriesBean cb = new CategoriesBean();
-        Categories category = cb.getCategory(kategori);
+//        Post p = new Post(category, user, judul, isi, null, 0, 0);
         
-        
-        Post p = new Post(category,user,judul,isi,null,0,0);
-        if(pb.insertPost(p)){
+        if (jc.insertPost(obj)) {
             String ALERT_FAIL = "fail";
             String fail = "0";
             request.setAttribute(ALERT_FAIL, fail);
             RequestDispatcher rd = request.getRequestDispatcher("post.jsp");
             rd.include(request, response);
-        }else{
+        } else {
             String ALERT_FAIL = "fail";
             String fail = "1";
             request.setAttribute(ALERT_FAIL, fail);

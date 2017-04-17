@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import controller.LikeDislikeBean;
 import controller.PostBean;
 import controller.UserBean;
@@ -25,6 +26,7 @@ import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -71,44 +73,50 @@ public class LikeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Session session = null;
-
+//        Session session = null;
+        NewJerseyClient jc = new NewJerseyClient();
         String u = request.getParameter("user");
-        System.out.println(u);
         String p = request.getParameter("post");
-        System.out.println(p);
-        try {
-            LikeDislikeBean ld = new LikeDislikeBean();
-            session = ld.factory.openSession();
-            Transaction tx = session.beginTransaction();
+//        try {
+//            LikeDislikeBean ld = new LikeDislikeBean();
+//            session = ld.factory.openSession();
+//            Transaction tx = session.beginTransaction();
 
-            Query q = session.createQuery("from Likes where id_post='" + p + "' and id_user='" + u + "'");
-            ArrayList<Likes> hasil = (ArrayList) q.list();
-
-            Query q2 = session.createQuery("from Dislikes where id_post='" + p + "' and id_user='" + u + "'");
-            ArrayList<Dislikes> hasil2 = (ArrayList) q2.list();
-
-            q = session.createQuery("from User where id_user='" + u + "'");
-            ArrayList<User> hasilUser = (ArrayList) q.list();
-            q = session.createQuery("from Post where id_post='" + p + "'");
-            ArrayList<Post> hasilPost = (ArrayList) q.list();
+//            Query q = session.createQuery("from Likes where id_post='" + p + "' and id_user='" + u + "'");
+//            ArrayList<Likes> hasil = (ArrayList) q.list();
+//
+//            Query q2 = session.createQuery("from Dislikes where id_post='" + p + "' and id_user='" + u + "'");
+//            ArrayList<Dislikes> hasil2 = (ArrayList) q2.list();
+//
+//            q = session.createQuery("from User where id_user='" + u + "'");
+//            ArrayList<User> hasilUser = (ArrayList) q.list();
+//            q = session.createQuery("from Post where id_post='" + p + "'");
+//            ArrayList<Post> hasilPost = (ArrayList) q.list();
             boolean dis = false;
-            if (hasil.isEmpty()) {
-                PostBean pb = new PostBean();
-                if (hasil2.isEmpty()) {
+            if (!jc.checkLikeUser(p, u)) {
+//                PostBean pb = new PostBean();
+                JSONObject post = jc.getPostById(p);
+                if (!jc.checkDislikeUser(p, u)) {
 
                 } else {
                     dis = true;
                 }
-                Likes like = new Likes(hasilPost.get(0), hasilUser.get(0));
-                if (ld.addLike(like)) {
+//                Likes like = new Likes(hasilPost.get(0), hasilUser.get(0));
+                JSONObject obj = new JSONObject();
+                obj.put("id_user", u);
+                obj.put("id_post", p);
+                if (jc.addLike(obj)) {
+                    JSONObject objUpdate = new JSONObject();
                     if (dis) {
-                        ld.deleteDislike(hasil2.get(0).getIdDislike());
-                        hasilPost.get(0).setDislikePost(hasilPost.get(0).getDislikePost() - 1);
-                        pb.updatePost(hasilPost.get(0));
+                        jc.deleteDislike(p, u);
+//                        hasilPost.get(0).setDislikePost(hasilPost.get(0).getDislikePost() - 1);
+                        objUpdate.put("dislike_post", (int) post.get("dislike_post") - 1);
+                        jc.updatePost(objUpdate, p);
                     }
-                    hasilPost.get(0).setLikePost(hasilPost.get(0).getLikePost() + 1);
-                    pb.updatePost(hasilPost.get(0));
+                    objUpdate = new JSONObject();
+                    objUpdate.put("like_post", (int) post.get("like_post") + 1);
+//                    hasilPost.get(0).setLikePost(hasilPost.get(0).getLikePost() + 1);
+                    jc.updatePost(objUpdate, p);
                     System.out.println("berhasil");
                 } else {
                     System.out.println("salah");
@@ -116,38 +124,41 @@ public class LikeServlet extends HttpServlet {
             } else {
                 System.out.println("sudah ada");
             }
-            tx.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
+//            tx.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            session.close();
             request.getRequestDispatcher("comment.jsp?post=" + p).forward(request, response);
+//        }
+
         }
 
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        /**
+         * Handles the HTTP <code>POST</code> method.
+         *
+         * @param request servlet request
+         * @param response servlet response
+         * @throws ServletException if a servlet-specific error occurs
+         * @throws IOException if an I/O error occurs
+         */
+        @Override
+        protected void doPost
+        (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+            processRequest(request, response);
+        }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
+        /**
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
+         */
+        @Override
+        public String getServletInfo
+        
+            () {
         return "Short description";
-    }// </editor-fold>
+        }// </editor-fold>
 
-}
+    }
