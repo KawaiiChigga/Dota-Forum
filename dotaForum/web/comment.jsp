@@ -65,7 +65,7 @@
                                             JSONObject post = jc.getPostById(Integer.toString(idpost));
                                             JSONObject user = jc.getUserById(post.get("id_user").toString());
 
-                                            int idPost = (int)post.get("id_post");
+                                            int idPost = Integer.parseInt(post.get("id_post").toString());
 
 //                                            PostBean pb = new PostBean();
 //                                            UserBean ub = new UserBean();

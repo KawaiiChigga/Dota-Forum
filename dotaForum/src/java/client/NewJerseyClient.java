@@ -181,7 +181,7 @@ public class NewJerseyClient {
     
     public JSONArray getCommentById(String id_post) {
         WebTarget resource = webTarget;
-        resource = resource.path("comment").path("id_post");
+        resource = resource.path("comment").path(id_post);
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
         return (JSONArray) JSONValue.parse(json);
     }
