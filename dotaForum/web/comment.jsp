@@ -72,7 +72,7 @@
 //                                            CommentBean cb = new CommentBean();
 //                                            Post p = pb.getPostById(idpost);
 //                                            int post_id = post.getIdPost();
-                                            JSONArray comment = jc.getCommentById(idpost);
+                                            JSONArray comment = jc.getCommentById(Integer.toString(idPost));
                                             ArrayList<Comment> c = new ArrayList<>();
                                             ArrayList<Integer> idUserComment = new ArrayList<>();
                                             int idUser;
