@@ -4,6 +4,7 @@
     Author     : Tuyu
 --%>
 
+<%@page import="fb.FBConnection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -47,34 +48,41 @@
 
                 <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                     <%
-                        String warning = (String)request.getAttribute("warning");
-                        String registerBerhasil = (String)request.getAttribute("berhasil");
+                        String warning = (String) request.getAttribute("warning");
+                        String registerBerhasil = (String) request.getAttribute("berhasil");
                         boolean accBaru = false;
                         if (warning != null) {
-                            out.println("&nbsp&nbsp&nbsp&nbsp"+warning);
+                            out.println("&nbsp&nbsp&nbsp&nbsp" + warning);
                         }
-                        if(registerBerhasil != null){
-                            out.println("&nbsp&nbsp&nbsp&nbsp"+registerBerhasil);
+                        if (registerBerhasil != null) {
+                            out.println("&nbsp&nbsp&nbsp&nbsp" + registerBerhasil);
                             accBaru = true;
                         }
                         request.setAttribute("berhasil", null);
-
+                        FBConnection fbConnection = new FBConnection();
                     %>
                     <div class="panel-body">
                         <form action="login" method="post">
                             <hr />
-                            <h5>Enter Details to Login</h5>
-                            <span></span>
+                            <div class="form-group input-group"
+                                 style="background-image: url(./img/fbloginbckgrnd.jpg); height: 32px; width: 61px;">
+                                <center>
+                                    <a href="<%=fbConnection.getFBAuthUrl()%>"> <img
+                                            style="margin-top: 10px;" src="./img/facebookloginbutton.png" />
+                                    </a>
+                                </center>
+                            </div>
+                            <center><h5>OR</h5></center>
                             <br>
-                            <%                                
+                            <%
                                 HttpSession loginSession = request.getSession();
-                                
+
                                 String x = "";
                                 String y = "";
-                                if (loginSession.getAttribute("check")!=null) {
+                                if (loginSession.getAttribute("check") != null) {
                                     x = (String) request.getAttribute("username");
                                     y = (String) request.getAttribute("password");
-                                }else if(accBaru){
+                                } else if (accBaru) {
                                     x = (String) request.getAttribute("username");
                                 }
                                 loginSession.invalidate();

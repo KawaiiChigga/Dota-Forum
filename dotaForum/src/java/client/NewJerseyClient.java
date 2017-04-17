@@ -236,7 +236,6 @@ public class NewJerseyClient {
         return true;
     }
     
-    
 //---------------------------- USER ----------------------------
     public void close() {
         client.close();
