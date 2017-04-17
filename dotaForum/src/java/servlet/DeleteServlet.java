@@ -120,7 +120,7 @@ public class DeleteServlet extends HttpServlet {
                 jc.deleteLike(objDislike.get("id_dislike").toString());
             }
         }
-        jc.deletePost(pid);
+        jc.deletePost(Integer.toString(pid));
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //            System.out.println("gagal");

@@ -95,7 +95,7 @@ public class SendMsgServlet extends HttpServlet {
         obj.put("id_sender",user.getIdUser());
         obj.put("id_receiver",target.get("id_user").toString());
         obj.put("isi",isi);
-        obj.put("date_time");
+        obj.put("date_time",);
         
         User temp = new User();
         temp.setFirstName(target.get("first_name").toString());

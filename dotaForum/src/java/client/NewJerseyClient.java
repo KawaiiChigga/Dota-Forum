@@ -139,7 +139,13 @@ public class NewJerseyClient {
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
         return (JSONArray) JSONValue.parse(json);
     }
-
+    
+    public boolean deletePost(String pk) {
+        WebTarget resource = webTarget;
+        resource = resource.path("post").path("delete").path(pk);
+        Response json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        return true;
+    }
 //---------------------------- MESSAGE ----------------------------
     public boolean insertMessage(JSONObject obj) {
         WebTarget resource = webTarget;
