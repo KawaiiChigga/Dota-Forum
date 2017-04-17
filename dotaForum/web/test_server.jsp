@@ -23,13 +23,15 @@
             JSONObject u = jc.getUserById("17");
             out.println(u.get("first_name").toString());
             
-//            JSONArray arr = (JSONArray) JSONValue.parse(jc.getAllUser());
+//            JSONArray arr = jc.getReplyByCommentId("8");
 //            for (int i = 0; i < arr.size(); i++) {
-//                JSONObject ob = 
+//                JSONObject ob = (JSONObject) arr.get(i);
+//                String id = ob.get("id_user").toString();
 //            }
 
-            JSONObject insert = new JSONObject();
-            insert.put("first_name", "tuyu");
+            JSONObject update = new JSONObject();
+            update.put("first_name", "tuyu");
+//            jc.insertUser(update,id);
         %>
     </body>
 </html>

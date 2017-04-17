@@ -9,6 +9,8 @@ import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -34,26 +36,210 @@ public class NewJerseyClient {
         client = javax.ws.rs.client.ClientBuilder.newClient();
         webTarget = client.target(BASE_URI);
     }
+    // ? -> query
+    // / -> path
 
-    public JSONObject getUserById(String id){
+//---------------------------- USER ----------------------------
+    public JSONObject getUserById(String pk) {
         WebTarget resource = webTarget;
-        // ? -> query
-        // / -> path
-        resource = resource.path("user").path(id);
-        String a = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
-        return (JSONObject) JSONValue.parse(a);
+        resource = resource.path("user").path(pk);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONObject) JSONValue.parse(json);
+    }
+
+    public boolean insertUser(JSONObject obj) {
+        WebTarget resource = webTarget;
+        resource = resource.path("user");
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
+        return true;
+    }
+
+    public JSONObject checkLogIn(JSONObject obj) {
+        WebTarget resource = webTarget;
+        resource = resource.path("user").path("login");
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(Entity.json(obj.toJSONString()), String.class);
+        return (JSONObject) JSONValue.parse(json);
+    }
+
+    public boolean updateUser(JSONObject obj, String pk) {
+        WebTarget resource = webTarget;
+        resource = resource.path("user").path(pk);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
+        return true;
+    }
+
+//---------------------------- REPLY ----------------------------
+    public JSONArray getReplyByCommentId(String id_comment) {
+        WebTarget resource = webTarget;
+        resource = resource.path("reply").path(id_comment);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
+
+    public boolean insertReply(JSONObject obj) {
+        WebTarget resource = webTarget;
+        resource = resource.path("reply");
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
+        return true;
+    }
+
+    public boolean deleteReply(String pk) {
+        WebTarget resource = webTarget;
+        resource = resource.path("reply").path("delete").path(pk);
+        Response json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        return true;
+    }
+
+//---------------------------- POST ----------------------------
+    public boolean insertPost(JSONObject obj) {
+        WebTarget resource = webTarget;
+        resource = resource.path("post");
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
+        return true;
+    }
+
+    public boolean updatePost(JSONObject obj, String pk) {
+        WebTarget resource = webTarget;
+        resource = resource.path("post").path(pk);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
+        return true;
+    }
+
+    public JSONObject getPostById(String pk) {
+        WebTarget resource = webTarget;
+        resource = resource.path("post").path(pk);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONObject) JSONValue.parse(json);
+    }
+
+    public JSONArray getAllPost(String jenis) {
+        WebTarget resource = webTarget;
+        resource = resource.path("post").path(jenis);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
+
+    public JSONArray getPostByCategory(String jenis, String sort) {
+        WebTarget resource = webTarget;
+        resource = resource.path("post").path("category").path(jenis).path(sort);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
+
+    public JSONArray getProfilePost(String id_user) {
+        WebTarget resource = webTarget;
+        resource = resource.path("post").path("profile").path(id_user);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
+
+    public JSONArray getPostSearch(String judul) {
+        WebTarget resource = webTarget;
+        resource = resource.path("post").path("search").path(judul);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
+
+//---------------------------- MESSAGE ----------------------------
+    public boolean insertMessage(JSONObject obj) {
+        WebTarget resource = webTarget;
+        resource = resource.path("message");
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
+        return true;
+    }
+
+    public JSONArray getInbox(String id_receiver) {
+        WebTarget resource = webTarget;
+        resource = resource.path("message").path("inbox").path(id_receiver);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
+
+    public JSONArray getMsgFromId(String id_sender, String id_receiver) {
+        WebTarget resource = webTarget;
+        resource = resource.path("message").path("inbox").path(id_sender).path(id_receiver);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
+
+//---------------------------- CATEGORIES ----------------------------
+    public JSONObject getCategory(String category) {
+        WebTarget resource = webTarget;
+        resource = resource.path("category").path(category);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONObject) JSONValue.parse(json);
+    }
+
+//---------------------------- COMMENT ----------------------------
+    
+    public boolean insertComment(JSONObject obj) {
+        WebTarget resource = webTarget;
+        resource = resource.path("comment");
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
+        return true;
     }
     
-    public String insertUser(JSONObject id){
+    public JSONArray getCommentById(String id_post) {
         WebTarget resource = webTarget;
-        // ? -> query
-        // / -> path
-        resource = resource.path("user");
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(id.toJSONString()), String.class);
+        resource = resource.path("comment").path("id_post");
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
     }
-
+    
+    public boolean deleteComment(String pk) {
+        WebTarget resource = webTarget;
+        resource = resource.path("reply").path("delete").path(pk);
+        Response json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        return true;
+    }
+    
+//---------------------------- LIKE ----------------------------
+    public boolean addLike(JSONObject obj) {
+        WebTarget resource = webTarget;
+        resource = resource.path("likes");
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
+        return true;
+    }
+    
+    public JSONArray getAllLikes(String id_post) {
+        WebTarget resource = webTarget;
+        resource = resource.path("likes").path("id_post");
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
+    
+    public boolean deleteLike(String pk) {
+        WebTarget resource = webTarget;
+        resource = resource.path("likes").path("delete").path(pk);
+        Response json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        return true;
+    }
+    
+    public boolean addDislike(JSONObject obj) {
+        WebTarget resource = webTarget;
+        resource = resource.path("dislike");
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
+        return true;
+    }
+    
+    public JSONArray getAllDislike(String id_post) {
+        WebTarget resource = webTarget;
+        resource = resource.path("dislikes").path("id_post");
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
+    
+    public boolean deleteDislike(String pk) {
+        WebTarget resource = webTarget;
+        resource = resource.path("dislikes").path("delete").path(pk);
+        Response json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        return true;
+    }
+    
+    
+//---------------------------- USER ----------------------------
     public void close() {
         client.close();
     }
-    
+
 }
