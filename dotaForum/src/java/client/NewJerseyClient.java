@@ -203,7 +203,7 @@ public class NewJerseyClient {
     
     public JSONArray getAllLikes(String id_post) {
         WebTarget resource = webTarget;
-        resource = resource.path("likes").path("id_post");
+        resource = resource.path("likes").path(id_post);
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
         return (JSONArray) JSONValue.parse(json);
     }
@@ -224,7 +224,7 @@ public class NewJerseyClient {
     
     public JSONArray getAllDislike(String id_post) {
         WebTarget resource = webTarget;
-        resource = resource.path("dislikes").path("id_post");
+        resource = resource.path("dislikes").path(id_post);
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
         return (JSONArray) JSONValue.parse(json);
     }
