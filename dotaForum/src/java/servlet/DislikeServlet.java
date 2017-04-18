@@ -6,8 +6,6 @@
 package servlet;
 
 import client.NewJerseyClient;
-import controller.LikeDislikeBean;
-import controller.PostBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,10 +14,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Dislikes;
-import model.Likes;
-import model.Post;
-import model.User;
 import org.json.simple.JSONObject;
 
 /**

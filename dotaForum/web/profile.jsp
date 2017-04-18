@@ -7,13 +7,7 @@
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="client.NewJerseyClient"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="model.Comment"%>
-<%@page import="controller.CommentBean"%>
-<%@page import="controller.PostBean"%>
-<%@page import="model.Post"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,10 +27,16 @@
                                 <%
                                     JSONObject data = (JSONObject) request.getAttribute("dataProfile");
                                     HttpSession sessionLogin = request.getSession();
-                                    User sessionUser = (User) sessionLogin.getAttribute("user");
+                                    JSONObject sessionUser = (JSONObject) sessionLogin.getAttribute("user");
                                 %>
                                 <div class="post">
-                                    <a href="stats.jsp?username=<%=data.getUsername()%>">Stats</a>
+                                    <%
+                                        if (sessionUser.get("username").toString().equals(data.get("username").toString())) {
+                                    %>
+                                        <a href="stats.jsp?username=<%=data.get("username").toString()%>">Stats</a>
+                                    <%}
+                                    %>
+
                                     <table border="1 solid black">
                                         <tr>
                                             <th><p style="font-size:30px">Profile</p></th>
@@ -72,9 +72,8 @@
                                             </td>
                                             <td>
                                                 <%
-                                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
                                                     String time = "";
-                                                    time = sdf.format(data.get("date_time").toString());
+                                                    time = data.get("date_time").toString();
                                                 %>
                                                 <p style="font-size:15px"><%= time%></p>
                                             </td>
@@ -97,7 +96,7 @@
                                         </tr>
                                     </table>
                                     <%
-                                        if (sessionUser.getUsername().equals(data.get("username").toString())) {
+                                        if (sessionUser.get("username").toString().equals(data.get("username").toString())) {
                                     %>
                                     <a href="editprofile.jsp?userid=<%=data.get("id_user").toString()%>">Edit Profile</a>
                                     <%
@@ -117,7 +116,7 @@
                                                 JSONObject obj = (JSONObject) post.get(i);
                                                 JSONArray c = jc.getCommentById(obj.get("id_post").toString());
 //                                                c = cb.getCommentById(p.get(i).getIdPost());
-                                                time = sdf.format(obj.get("date_time"));
+                                                time = obj.get("date_time").toString();
                                         %>
 
                                         <tr>
@@ -129,7 +128,7 @@
                                                     <%= obj.get("dislike_post").toString()%> Dislikes</p>
                                         <right>
                                             <%
-                                                if (sessionUser.getUsername().equals(data.get("username").toString())) {
+                                                if (sessionUser.get("username").toString().equals(data.get("username").toString())) {
                                             %>
                                             <a href="edit.jsp?post=<%=obj.get("id_post").toString()%>">Edit Post</a>
                                             <form method="post" action="DeleteServlet?post=<%=obj.get("id_post").toString()%>">

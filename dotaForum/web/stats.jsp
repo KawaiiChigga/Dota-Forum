@@ -7,12 +7,7 @@
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="client.NewJerseyClient"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="model.Comment"%>
-<%@page import="controller.CommentBean"%>
-<%@page import="controller.PostBean"%>
-<%@page import="model.Post"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

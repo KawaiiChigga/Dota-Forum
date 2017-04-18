@@ -6,8 +6,6 @@
 package servlet;
 
 import client.NewJerseyClient;
-import controller.UserBean;
-import static controller.UserBean.factory;
 import java.io.IOException;
 //import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +19,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

@@ -6,8 +6,6 @@
 package servlet;
 
 import client.NewJerseyClient;
-import controller.CommentBean;
-import controller.PostBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -17,9 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Comment;
-import model.Post;
-import model.User;
 import org.json.simple.JSONObject;
 
 /**

@@ -6,8 +6,6 @@
 
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="client.NewJerseyClient"%>
-<%@page import="model.User"%>
-<%@page import="controller.UserBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

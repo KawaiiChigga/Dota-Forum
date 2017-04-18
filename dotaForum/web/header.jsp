@@ -4,7 +4,7 @@
     Author     : asus
 --%>
 
-<%@page import="model.User"%>
+<%@page import="org.json.simple.JSONObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -88,7 +88,7 @@
                                     <%
                                         if (Login.getAttribute("check") != null) {
                                             HttpSession sessionLogin = request.getSession();
-                                            User u = (User) sessionLogin.getAttribute("user");
+                                            JSONObject u = (JSONObject) sessionLogin.getAttribute("user");
                                     %>
                                     <li class="<%=temp[0]%>"><a href="index.jsp?menu=1">All</a></li>
                                     <li class="<%=temp[1]%>"><a href="index.jsp?menu=2">Chat</a></li>
@@ -97,7 +97,7 @@
                                     <li class="<%=temp[4]%>"><a href="index.jsp?menu=5">Media</a></li>
                                     <li class="<%=temp[5]%>"><a href="index.jsp?menu=6">Recruitment</a></li>
                                     <li class="<%=temp[6]%>"><a href="index.jsp?menu=7">Strategy</a></li>
-                                    <li class="<%=temp[7]%>" style="float:right;"><a href="ProfileServlet?userid=<%= u.getIdUser() %>">Profile</a></li>
+                                    <li class="<%=temp[7]%>" style="float:right;"><a href="ProfileServlet?userid=<%= u.get("id_user").toString() %>">Profile</a></li>
                                         <%
                                         } else {
                                         %>

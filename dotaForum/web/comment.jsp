@@ -9,13 +9,7 @@
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="client.NewJerseyClient"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="model.Comment"%>
-<%@page import="controller.CommentBean"%>
-<%@page import="controller.UserBean"%>
-<%@page import="model.User"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="controller.PostBean"%>
-<%@page import="model.Post"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -47,9 +41,9 @@
                             err = "";
                         }
                     }
-                    int idpost = -1;
+                    String idpost = "";
                     if (request.getParameter("post") != null) {
-                        idpost = Integer.parseInt(request.getParameter("post"));
+                        idpost = request.getParameter("post");
                     }
                 %>
             </div>
@@ -62,7 +56,7 @@
                                     <table border="1 solid black">
                                         <%
                                             NewJerseyClient jc = new NewJerseyClient();
-                                            JSONObject post = jc.getPostById(Integer.toString(idpost));
+                                            JSONObject post = jc.getPostById(idpost);
                                             JSONObject user = jc.getUserById(post.get("id_user").toString());
 
                                             int idPost = Integer.parseInt(post.get("id_post").toString());
@@ -73,21 +67,21 @@
 //                                            Post p = pb.getPostById(idpost);
 //                                            int post_id = post.getIdPost();
                                             JSONArray comment = jc.getCommentById(Integer.toString(idPost));
-                                            ArrayList<Comment> c = new ArrayList<>();
+//                                            ArrayList<Comment> c = new ArrayList<>();
                                             ArrayList<Integer> idUserComment = new ArrayList<>();
                                             int idUser;
-                                            Comment temp;
+//                                            Comment temp;
                                             for (int i = 0; i < comment.size(); i++) {
                                                 JSONObject obj = (JSONObject) comment.get(i);
-                                                 temp = new Comment();
-                                                idUser = (int)obj.get("id_user");
+//                                                 temp = new Comment();
+                                                idUser = (int) obj.get("id_user");
                                                 idUserComment.add(idUser);
-                                                temp.setDateTime((Date)obj.get("date_time"));
-                                                temp.setIsiComment("isi_comment");
-                                                c.add(temp);
+//                                                temp.setDateTime((Date)obj.get("date_time"));
+//                                                temp.setIsiComment("isi_comment");
+//                                                c.add(temp);
                                             }
 //                                            User u = ub.getUserById(p.getUser().getIdUser());
-                                            int u = (int)user.get("id_user");
+                                            int u = (int) user.get("id_user");
 //a
                                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
                                             String time = "";
@@ -95,7 +89,7 @@
                                             time = sdf.format(post.get("date_time"));
                                         %>
                                         <%=err%>
-                                        
+
                                         <p style="font-size:25px"><%= post.get("judul").toString()%></p>
                                         <p style="font-size:20px">By <%= user.get("username")%></p>
                                         <p style="font-size:12px">Posted in: <%= time%></p>
@@ -121,16 +115,17 @@
                                         <hr><hr>
                                         <p style="font-size:20px">Comments : </p>
                                         <%
-                                            for (int i = 0; i < c.size(); i++) {
+                                            for (int i = 0; i < comment.size(); i++) {
                                                 JSONObject tempUser = jc.getUserById(idUserComment.get(i).toString());
 //                                                int u = ub.getUserById(idUserComment.get(i));
-                                                time = sdf.format(c.get(i).getDateTime());
+                                                JSONObject obj = (JSONObject) comment.get(i);
+                                                time = sdf.format(obj.get("date_time").toString());
                                         %>
                                         <div>
                                             <p style="font-size:20px"><a href="ProfileServlet?userid=<%= tempUser.get("id_user")%>"><%= tempUser.get("username")%></a> - 
                                                 <b style="font-size:15px">Commented in: <%= time%></b>
                                             </p>
-                                            <p style="font-size:15px"><%= c.get(i).getIsiComment()%></p>
+                                            <p style="font-size:15px"><%= obj.get("isi_comment").toString()%></p>
                                             <hr>
                                         </div>
                                         <%
