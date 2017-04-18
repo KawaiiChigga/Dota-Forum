@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package servlet;
 
 import fb.FBConnection;
@@ -16,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -24,32 +24,37 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "MainServlet", urlPatterns = {"/fbhome"})
 public class FBServlet extends HttpServlet {
 
-    private String code="";
-    
+    private String code = "";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         code = request.getParameter("code");
-		if (code == null || code.equals("")) {
-			throw new RuntimeException(
-					"ERROR: Didn't get code parameter in callback.");
-		}
-		FBConnection fbConnection = new FBConnection();
-		String accessToken = fbConnection.getAccessToken(code);
+        if (code == null || code.equals("")) {
+            throw new RuntimeException(
+                    "ERROR: Didn't get code parameter in callback.");
+        }
+        FBConnection fbConnection = new FBConnection();
+        String accessToken = fbConnection.getAccessToken(code);
 
-		FBGraph fbGraph = new FBGraph(accessToken);
-		String graph = fbGraph.getFBGraph();
-                System.out.println(graph);
-		HashMap<String, String> fbProfileData = fbGraph.getGraphData(graph);
-		
-		out.println("<h1>Facebook Login using Java</h1>");
-		out.println("<h2>Application Main Menu</h2>");
-		out.println("<div>Welcome "+fbProfileData.get("name"));
-		out.println("<div>Your Email: "+fbProfileData.get("email"));
-		out.println("<div>You are "+fbProfileData.get("gender"));		
-	}
-    
+        FBGraph fbGraph = new FBGraph(accessToken);
+        String graph = fbGraph.getFBGraph();
+        System.out.println(graph);
+        HashMap<String, String> fbProfileData = fbGraph.getGraphData(graph);
+        String email = fbProfileData.get("email");
+        String first_name = fbProfileData.get("first_name");
+        String last_name = fbProfileData.get("last_name");
+        JSONObject user = new JSONObject();
+        user.put("email", email);
+        user.put("first_name", first_name);
+        user.put("last_name", last_name);
+        request.setAttribute("user", user);
+        request.setAttribute("fb", "fb");
+        request.getRequestDispatcher("register.jsp").forward(request, response);
+//  "username": "",
+//  "password": "",
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

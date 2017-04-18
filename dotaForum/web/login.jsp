@@ -65,11 +65,11 @@
                         <form action="login" method="post">
                             <hr />
                             <div class="form-group input-group"
-                                 style="background-image: url(./img/fbloginbckgrnd.jpg); height: 32px; width: 61px;">
+                                 style="height: 32px; width: 61px;">
                                 <center>
-                                    <a href="<%=fbConnection.getFBAuthUrl()%>"> <img
-                                            style="margin-top: 10px;" src="./img/facebookloginbutton.png" />
-                                    </a>
+                                    <a href="<%=fbConnection.getFBAuthUrl()%>">
+                                        <img src="img/facebookloginbutton.png" alt=""/>
+                                    </a> 
                                 </center>
                             </div>
                             <center><h5>OR</h5></center>

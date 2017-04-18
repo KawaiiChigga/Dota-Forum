@@ -28,7 +28,7 @@ public class FBGraph {
 	public String getFBGraph() {
 		String graph = null;
 		try {
-                        String data = URLEncoder.encode("id,name,birthday,gender,email","UTF-8");
+                        String data = URLEncoder.encode("id,first_name,last_name,email","UTF-8");
 			//String gs = URLEncoder.encode("gender","UTF-8");
 			String g = "https://graph.facebook.com/me?access_token=" + accessToken
                                 +"&fields="+data;
@@ -56,11 +56,11 @@ public class FBGraph {
 		try {
                     JSONObject json = (JSONObject) JSONValue.parse(fbGraph);			
 			fbProfile.put("id", (String)json.get("id"));
-			fbProfile.put("name", (String)json.get("name"));
+			fbProfile.put("first_name", (String)json.get("first_name"));
+                        fbProfile.put("last_name", (String)json.get("last_name"));
+                        fbProfile.put("password", accessToken);
 			if (json.containsKey("email"))
 				fbProfile.put("email", (String)json.get("email"));
-			if (json.containsKey("gender"))
-				fbProfile.put("gender", (String)json.get("gender"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("ERROR in parsing FB graph data. " + e);

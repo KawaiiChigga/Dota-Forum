@@ -4,6 +4,7 @@
     Author     : Tuyu
 --%>
 
+<%@page import="org.json.simple.JSONObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -38,9 +39,21 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                     <%
+                        JSONObject user = null;
+                        String fb = (String) request.getAttribute("fb");
+                        String email = "";
+                        String gender = "";
+                        String first_name = "";
+                        String last_name = "";
+                        if (fb != null) {
+                            user = (JSONObject) request.getAttribute("user");
+                            email = user.get("email").toString();
+                            first_name = user.get("first_name").toString();
+                            last_name = user.get("last_name").toString();
+                        }
                         String warning = (String) request.getAttribute("warningRegister");
                         if (warning != null) {
-                            out.println("&nbsp&nbsp&nbsp"+warning);
+                            out.println("&nbsp&nbsp&nbsp" + warning);
                         }
                         request.setAttribute("warningRegister", "");
                     %>
@@ -49,11 +62,11 @@
                         <form method="post" action="/dotaForum/RegisterServlet">
                             <div class="form-group col-md-6">
                                 <label for="first_name">First name:</label>
-                                <input type="text" class="form-control" name = "first_name" placeholder="First name">
+                                <input type="text" class="form-control" name = "first_name" placeholder="First name" value="<%= first_name %>">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="last_name">Last name:</label>
-                                <input type="text" class="form-control" name = "last_name" placeholder="Last name">
+                                <input type="text" class="form-control" name = "last_name" placeholder="Last name" value="<%= last_name %>">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="username">Username:</label> (Can't be changed)<span class="alert-danger"><?php echo $nameErr; ?></span>
@@ -62,7 +75,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="email">Email address:</label><span class="alert-danger"><?php echo $emailErr; ?></span>
-                                <input type="email" class="form-control" name="email" placeholder="Email address">
+                                <input type="email" class="form-control" name="email" placeholder="Email address" value="<%= last_name %>" >
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="password">Password:</label><span class="alert-danger"><?php echo $passErr; ?></span>
@@ -72,7 +85,7 @@
                                     if (passWarning != null) {
                                         out.print(passWarning);
                                     }
-                                    
+
                                 %>
                             </div>
                             <div class="form-group col-md-6">
