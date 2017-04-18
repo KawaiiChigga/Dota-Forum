@@ -5,10 +5,14 @@
         <group>
             <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/servlet/RegisterServlet.java</file>
             <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/servlet/PostServlet.java</file>
+            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/fb/FBConnection.java</file>
             <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/test_server.jsp</file>
+            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/servlet/FBServlet.java</file>
             <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/content.jsp</file>
             <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/servlet/SendMsgServlet.java</file>
+            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/fb/FBGraph.java</file>
             <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/client/NewJerseyClient.java</file>
+            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/login.jsp</file>
         </group>
     </open-files>
 </project-private>

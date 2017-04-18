@@ -38,16 +38,17 @@
 ////            jc.insertUser(update,id);
 
             NewJerseyClient jc = new NewJerseyClient();
+            JSONArray c = jc.getAllPost("new");
 //            JSONObject post = jc.getPostById("9");
 //            JSONObject user = jc.getUserById(post.get("id_user").toString());
 //            out.println(post.get("date_time").toString());
 //            out.println(jc.getCommentById("9"));
 //            out.println("-------------------------------\n");
 //            JSONArray c = jc.getCommentById("9");
-//            for(int i=0;i<c.size();i++){
-//                JSONObject ob = (JSONObject) c.get(i);
-//                out.println(ob.get("id_comment").toString()+"\n");
-//            }
+            for(int i=0;i<c.size();i++){
+                JSONObject ob = (JSONObject) c.get(i);
+                out.println(ob.get("id_post").toString()+"\n");
+            }
             boolean dis = jc.checkDislikeUser("8", "16");
             out.println(dis);
 

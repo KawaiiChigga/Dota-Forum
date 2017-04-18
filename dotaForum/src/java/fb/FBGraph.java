@@ -28,7 +28,7 @@ public class FBGraph {
 	public String getFBGraph() {
 		String graph = null;
 		try {
-                        String data = URLEncoder.encode("id,name,birthday,gender,email,relationship_status","UTF-8");
+                        String data = URLEncoder.encode("id,name,birthday,gender,email","UTF-8");
 			//String gs = URLEncoder.encode("gender","UTF-8");
 			String g = "https://graph.facebook.com/me?access_token=" + accessToken
                                 +"&fields="+data;

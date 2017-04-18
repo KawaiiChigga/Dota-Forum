@@ -118,6 +118,13 @@ public class NewJerseyClient {
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
         return (JSONArray) JSONValue.parse(json);
     }
+    
+    public JSONArray getPostByUser(String id_user) {
+        WebTarget resource = webTarget;
+        resource = resource.path("post").path("user").path(id_user);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
 
     public JSONArray getPostByCategory(String jenis, String sort) {
         WebTarget resource = webTarget;
@@ -160,6 +167,20 @@ public class NewJerseyClient {
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
         return (JSONArray) JSONValue.parse(json);
     }
+    
+    public JSONArray getMsgBySender(String id_user) {
+        WebTarget resource = webTarget;
+        resource = resource.path("message").path("sender").path(id_user);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
+    
+    public JSONArray getMsgByReceiver(String id_user) {
+        WebTarget resource = webTarget;
+        resource = resource.path("message").path("receiver").path(id_user);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
 
     public JSONArray getMsgFromId(String id_sender, String id_receiver) {
         WebTarget resource = webTarget;
@@ -187,6 +208,13 @@ public class NewJerseyClient {
     public JSONArray getCommentById(String id_post) {
         WebTarget resource = webTarget;
         resource = resource.path("comment").path(id_post);
+        String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return (JSONArray) JSONValue.parse(json);
+    }
+    
+    public JSONArray getCommentByUser(String id_user) {
+        WebTarget resource = webTarget;
+        resource = resource.path("comment").path("user").path(id_user);
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
         return (JSONArray) JSONValue.parse(json);
     }

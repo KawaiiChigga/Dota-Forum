@@ -98,11 +98,10 @@
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
                             String time = "";
 //                            time = sdf.format(p.get(i).getDateTime());
-                            time = sdf.format(obj.get("date_time"));
+                            time = obj.get("date_time").toString();
                     %>
                     <div onclick="window.location = 'comment.jsp?post=<%=obj.get("id_post").toString()%>';" style="cursor: pointer;">
                         <p style="font-size:25px"><a href="comment.jsp?post=<%=obj.get("id_post").toString()%>"> <%= obj.get("judul").toString() %></a></p>
-                        <p style="font-size:25px"><a href="comment.jsp?post=<%=obj.get("id_post").toString()%>"> <%= obj.get("judul").toString()%></a></p>
                         <p style="font-size:15px"><a href="ProfileServlet?userid=<%= u.get("id_user").toString()%>">By <%= u.get("username").toString()%></a></p>
                         <p style="font-size:13px">Posted on: <%= time%></p>
                         <p><%= obj.get("like_post").toString()%> Likes -  
