@@ -1,3 +1,6 @@
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="client.NewJerseyClient"%>
 <%@ page import="java.awt.*,org.jCharts.*,org.jCharts.chartData.*,org.jCharts.properties.*,org.jCharts.types.ChartType,org.jCharts.axisChart.*,org.jCharts.test.TestDataGenerator,org.jCharts.encoders.JPEGEncoder13,org.jCharts.properties.util.ChartFont,
 					  org.jCharts.encoders.ServletEncoderHelper"%><%
 /**************************************************************************************
@@ -62,16 +65,37 @@
 		Shape[] shapes= { PointChartProperties.SHAPE_TRIANGLE,PointChartProperties.SHAPE_DIAMOND, PointChartProperties.SHAPE_CIRCLE };
 		LineChartProperties lineChartProperties = new LineChartProperties(strokes,shapes);
 		
-		String[] xAxisLabels= { "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005"};
+		String[] xAxisLabels= { "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"};
 		String xAxisTitle= "Years";
-		String yAxisTitle= "Problems";
-		String title= "Micro$oft At Work";
+		String yAxisTitle= "Quantity";
+		String title= "Profile Stats";
 		DataSeries dataSeries = new DataSeries( xAxisLabels, xAxisTitle, yAxisTitle,title );
 		
-				
+                String id = request.getParameter("id_user");
+		NewJerseyClient jc = new NewJerseyClient();
+                JSONArray post = jc.getPostByUser(id);
+                JSONArray message = jc.getInbox(id);
+                JSONArray comment = jc.getCommentByUser(id);
+                int year=2010;
+                int[] pos = new int[8];
+                int[] com = new int[8];
+                int[] mes = new int[8];
+                
+                for(int i=0;i<post.size();i++){
+                    JSONObject jb = (JSONObject) post.get(i);
+                    String[] date = jb.get("date_time").toString().split("-");
+                    if(date[i]==""+year){
+                        pos[i]++;
+                        com[i]++;
+                        mes[i]++;
+                    }
+                    year++;
+                }
 		//From AxisChartServlet.java:createAxisChartDataSet
-		double[][] data= TestDataGenerator.getRandomNumbers( 3, 8, 200, 500 );
-		String[] legendLabels= { "Posts", "Comments", "Messages" };
+		double[][] data= new double[][]{{pos[0],pos[1],pos[2],pos[3],pos[4],pos[5],pos[6],pos[7]},
+                    {com[0],com[1],com[2],com[3],com[4],com[5],com[6],com[7]},
+                    {mes[0],mes[1],mes[2],mes[3],mes[4],mes[5],mes[6],mes[7]}};
+		String[] legendLabels= {"Posts", "Comments", "Messages"};
 		Paint[] paints= TestDataGenerator.getRandomPaints( 3 );
 		AxisChartDataSet acds = new AxisChartDataSet(data, legendLabels, paints,ChartType.LINE, lineChartProperties );
 		dataSeries.addIAxisPlotDataSet(acds);

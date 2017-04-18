@@ -36,6 +36,7 @@
                                     User sessionUser = (User) sessionLogin.getAttribute("user");
                                 %>
                                 <div class="post">
+                                    <a href="stats.jsp?username=<%=data.getUsername()%>">Stats</a>
                                     <table border="1 solid black">
                                         <tr>
                                             <th><p style="font-size:30px">Profile</p></th>
