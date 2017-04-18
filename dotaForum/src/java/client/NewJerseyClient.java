@@ -213,7 +213,7 @@ public class NewJerseyClient {
 //---------------------------- COMMENT ----------------------------
     public boolean insertComment(JSONObject obj) {
         WebTarget resource = webTarget;
-        resource = resource.path("comment");
+        resource = resource.path("comment/");
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
         return true;
     }
