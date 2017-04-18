@@ -120,6 +120,8 @@ public class DeleteServlet extends HttpServlet {
 //            e.printStackTrace();
 //            System.out.println("gagal");
 //        } finally {
+
+        request.setAttribute("dataProfile", jc.getUserById(temp.get("id_user").toString()));
         request.getRequestDispatcher("profile.jsp??menu=8").forward(request, response);
 //        }
     }

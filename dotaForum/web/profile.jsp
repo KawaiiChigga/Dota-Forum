@@ -4,6 +4,7 @@
     Author     : Asus
 ---%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="client.NewJerseyClient"%>
@@ -65,10 +66,13 @@
                                             </td>
                                             <td>
                                                 <%
-                                                    String time = "";
-                                                    time = data.get("date_time").toString();
+                                                    String date_time = "";
+                                                    date_time = data.get("date_time").toString();
+                                                    String[] date = date_time.split("T");
+                                                    String[] time = date[1].split(":");
+                                                    date_time = date[0] + " " + time[0] + ":" + time[1];
                                                 %>
-                                                <p style="font-size:15px"><%= time%></p>
+                                                <p style="font-size:15px"><%= date_time %></p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -112,7 +116,7 @@
                                                 JSONObject obj = (JSONObject) post.get(i);
                                                 JSONArray c = jc.getCommentById(obj.get("id_post").toString());
 //                                                c = cb.getCommentById(p.get(i).getIdPost());
-                                                time = obj.get("date_time").toString();
+                                                date_time = obj.get("date_time").toString();
                                         %>
 
                                         <tr>
@@ -126,7 +130,7 @@
                                             <%
                                                 if (sessionUser.get("username").toString().equals(data.get("username").toString())) {
                                             %>
-                                            <a href="edit.jsp?post=<%= obj.get("id_post").toString()%> %>">Edit Post</a>
+                                            <a href="edit.jsp?post=<%= obj.get("id_post").toString() %>">Edit Post</a>
                                             <form method="post" action="DeleteServlet?post=<%=obj.get("id_post").toString()%>">
                                                 <input type='submit' name="delete" value='Delete Post'/>
                                             </form>

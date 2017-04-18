@@ -8,6 +8,7 @@ package servlet;
 import client.NewJerseyClient;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -112,10 +113,12 @@ public class EditProfileServlet extends HttpServlet {
         }
         if (berhasil) {
             if (jc.updateUser(obj, id)) {
-                request.getRequestDispatcher("ProfileServlet?userid="+id).forward(request, response);
+                request.setAttribute("dataProfile", jc.getUserById(request.getParameter("userid")));
+                request.getRequestDispatcher("profile.jsp?menu=8").forward(request, response);
             }
-        }else{
-            request.getRequestDispatcher("ProfileServlet?userid="+id).forward(request, response);
+        } else {
+            request.setAttribute("dataProfile", nu);
+            request.getRequestDispatcher("profile.jsp?menu=8").forward(request, response);
         }
     }
 
