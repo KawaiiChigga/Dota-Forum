@@ -23,9 +23,6 @@ import model.Dislikes;
 import model.Likes;
 import model.Post;
 import model.User;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.json.simple.JSONObject;
 
 /**

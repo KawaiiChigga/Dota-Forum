@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.User;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -62,12 +64,12 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession logoutSession = request.getSession(false);
 
-        User user = (User) logoutSession.getAttribute("user");
+        JSONObject user = (JSONObject) logoutSession.getAttribute("user");
         String remember = (String) logoutSession.getAttribute("remember");
-        if (remember!=null) {
-            request.setAttribute("username", user.getUsername());
-            request.setAttribute("password", user.getPassword());
-        }else{
+        if (remember != null) {
+            request.setAttribute("username", user.get("username").toString());
+            request.setAttribute("password", user.get("password").toString());
+        } else {
             request.setAttribute("username", "");
             request.setAttribute("password", "");
         }
@@ -88,7 +90,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**

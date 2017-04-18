@@ -20,8 +20,6 @@ import javax.servlet.http.HttpSession;
 import model.Categories;
 import model.Post;
 import model.User;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.json.simple.JSONObject;
 
 /**

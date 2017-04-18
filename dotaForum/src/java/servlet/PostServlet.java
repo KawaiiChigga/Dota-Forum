@@ -98,13 +98,13 @@ public class PostServlet extends HttpServlet {
         String kategori = request.getParameter("category");
 
         HttpSession sessionLogIn = request.getSession();
-        User user = (User) sessionLogIn.getAttribute("user");
+        JSONObject user = (JSONObject) sessionLogIn.getAttribute("user");
 
 //        CategoriesBean cb = new CategoriesBean();
         JSONObject category = jc.getCategory(kategori);
 //        Categories category = cb.getCategory(kategori);
         JSONObject obj = new JSONObject();
-        obj.put("id_user",user.getIdUser());
+        obj.put("id_user",user.get("id_user"));
         obj.put("judul",judul);
         obj.put("isi",isi);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");

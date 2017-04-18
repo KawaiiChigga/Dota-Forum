@@ -75,23 +75,23 @@ public class ProfileServlet extends HttpServlet {
         NewJerseyClient jc = new NewJerseyClient();
         int uid = Integer.parseInt(request.getParameter("userid"));
         JSONObject obj = jc.getUserById(Integer.toString(uid));
-        User temp = new User();
-        temp.setFirstName(obj.get("first_name").toString());
-        temp.setLastName(obj.get("last_name").toString());
-        temp.setIdUser((int)obj.get("id_user"));
-        temp.setEmail(obj.get("email").toString());
-        temp.setJenisKelamin(obj.get("jenis_kelamin").toString());
-        temp.setUrlFoto(obj.get("url_foto").toString());
-        temp.setUsername(obj.get("username").toString());
-        temp.setPassword(obj.get("password").toString());
-        temp.setLevel((int)obj.get("level"));
-        temp.setDateTime((Date)obj.get("date_time"));
-        temp.setProgressLevel((int)obj.get("progress_level"));
+//        User temp = new User();
+//        temp.setFirstName(obj.get("first_name").toString());
+//        temp.setLastName(obj.get("last_name").toString());
+//        temp.setIdUser((int)obj.get("id_user"));
+//        temp.setEmail(obj.get("email").toString());
+//        temp.setJenisKelamin(obj.get("jenis_kelamin").toString());
+//        temp.setUrlFoto(obj.get("url_foto").toString());
+//        temp.setUsername(obj.get("username").toString());
+//        temp.setPassword(obj.get("password").toString());
+//        temp.setLevel((int)obj.get("level"));
+//        temp.setDateTime((Date)obj.get("date_time"));
+//        temp.setProgressLevel((int)obj.get("progress_level"));
         
         
 //        User temp = (User) ub.getUserById(uid);
 
-        request.setAttribute("dataProfile", temp);
+        request.setAttribute("dataProfile", obj);
         RequestDispatcher rd = request.getRequestDispatcher("profile.jsp?menu=8");
         rd.forward(request, response);
     }

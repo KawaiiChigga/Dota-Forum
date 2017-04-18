@@ -19,9 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.User;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.json.simple.JSONObject;
 
 /**
@@ -96,20 +93,20 @@ public class LoginServlet extends HttpServlet {
         JSONObject obj = jc.checkLogIn(user);
         if (obj != null) {
             HttpSession sessionLogIn = request.getSession();
-            User temp = new User();
-            temp.setFirstName(obj.get("first_name").toString());
-            temp.setLastName(obj.get("last_name").toString());
-            temp.setIdUser((int) obj.get("id_user"));
-            temp.setEmail(obj.get("email").toString());
-            temp.setJenisKelamin(obj.get("jenis_kelamin").toString());
-            temp.setUrlFoto(obj.get("url_foto").toString());
-            temp.setUsername(obj.get("username").toString());
-            temp.setPassword(obj.get("password").toString());
-            temp.setLevel((int) obj.get("level"));
-            temp.setDateTime((Date) obj.get("date_time"));
-            temp.setProgressLevel((int) obj.get("progress_level"));
+//            User temp = new User();
+//            temp.setFirstName(obj.get("first_name").toString());
+//            temp.setLastName(obj.get("last_name").toString());
+//            temp.setIdUser((int) obj.get("id_user"));
+//            temp.setEmail(obj.get("email").toString());
+//            temp.setJenisKelamin(obj.get("jenis_kelamin").toString());
+//            temp.setUrlFoto(obj.get("url_foto").toString());
+//            temp.setUsername(obj.get("username").toString());
+//            temp.setPassword(obj.get("password").toString());
+//            temp.setLevel((int) obj.get("level"));
+//            temp.setDateTime((Date) obj.get("date_time"));
+//            temp.setProgressLevel((int) obj.get("progress_level"));
             sessionLogIn.setAttribute("check", "yes");
-            sessionLogIn.setAttribute("user", temp);
+            sessionLogIn.setAttribute("user", obj);
             sessionLogIn.setAttribute("remember", remember);
             request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
         } else {

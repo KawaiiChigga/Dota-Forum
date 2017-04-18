@@ -93,7 +93,7 @@ public class CommentServlet extends HttpServlet {
             JSONObject p = jc.getPostById(Integer.toString(id));
 //            Post p = pb.getPostById(id);
 
-            User user = (User) sessionLogIn.getAttribute("user");
+            JSONObject user = (JSONObject) sessionLogIn.getAttribute("user");
 
 //            Comment c = new Comment();
 //            c.setPost(p);
@@ -102,7 +102,7 @@ public class CommentServlet extends HttpServlet {
             JSONObject obj = new JSONObject();
             obj.put("isi", isi);
             obj.put("id_post",p.get("id_post").toString());
-            obj.put("id_user",user.getIdUser().toString());
+            obj.put("id_user",user.get("id_user").toString());
             if (jc.insertComment(obj)) {
                 String ALERT_FAIL = "fail";
                 String fail = "0";

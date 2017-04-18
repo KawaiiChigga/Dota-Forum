@@ -66,7 +66,7 @@ public class DirectMsgServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sessionLogin = request.getSession();
-        User usession = (User) sessionLogin.getAttribute("user");
+        JSONObject usession = (JSONObject) sessionLogin.getAttribute("user");
 
         NewJerseyClient jc = new NewJerseyClient();
 //        UserBean ub = new UserBean();
@@ -74,25 +74,25 @@ public class DirectMsgServlet extends HttpServlet {
         JSONObject u = jc.getUserById(Integer.toString(uid));
 //        User u = (User) ub.getUserById(uid);
 
-        if (usession.getUsername().equals(u.get("username").toString())) {
-            User temp = new User();
-            temp.setFirstName(u.get("first_name").toString());
-            temp.setLastName(u.get("last_name").toString());
-            temp.setIdUser((int) u.get("id_user"));
-            temp.setEmail(u.get("email").toString());
-            temp.setJenisKelamin(u.get("jenis_kelamin").toString());
-            temp.setUrlFoto(u.get("url_foto").toString());
-            temp.setUsername(u.get("username").toString());
-            temp.setPassword(u.get("password").toString());
-            temp.setLevel((int) u.get("level"));
-            temp.setDateTime((Date) u.get("date_time"));
-            temp.setProgressLevel((int) u.get("progress_level"));
+        if (usession.get("username").toString().equals(u.get("username").toString())) {
+//            User temp = new User();
+//            temp.setFirstName(u.get("first_name").toString());
+//            temp.setLastName(u.get("last_name").toString());
+//            temp.setIdUser((int) u.get("id_user"));
+//            temp.setEmail(u.get("email").toString());
+//            temp.setJenisKelamin(u.get("jenis_kelamin").toString());
+//            temp.setUrlFoto(u.get("url_foto").toString());
+//            temp.setUsername(u.get("username").toString());
+//            temp.setPassword(u.get("password").toString());
+//            temp.setLevel((int) u.get("level"));
+//            temp.setDateTime((Date) u.get("date_time"));
+//            temp.setProgressLevel((int) u.get("progress_level"));
 
-            request.setAttribute("user", temp);
+            request.setAttribute("user", u);
             RequestDispatcher rd = request.getRequestDispatcher("getMessage.jsp");
             rd.forward(request, response);
         } else {
-            RequestDispatcher rd = request.getRequestDispatcher("showMessage.jsp?sender=" + u.get("id_user").toString() + "&receiver=" + usession.getIdUser());
+            RequestDispatcher rd = request.getRequestDispatcher("showMessage.jsp?sender=" + u.get("id_user").toString() + "&receiver=" + usession.get("id_user").toString());
             rd.forward(request, response);
         }
     }
