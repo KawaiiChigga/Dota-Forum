@@ -71,7 +71,7 @@
                                             }
                                             System.out.println(idUserComment.size());
                                             int u = Integer.parseInt(user.get("id_user").toString());
-//a
+
                                             String time = "";
                                             time = post.get("date_time").toString();
                                         %>

@@ -246,7 +246,7 @@ public class NewJerseyClient {
 //---------------------------- LIKE ----------------------------
     public boolean addLike(JSONObject obj) {
         WebTarget resource = webTarget;
-        resource = resource.path("likes");
+        resource = resource.path("likes/");
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
         return true;
     }
@@ -276,7 +276,7 @@ public class NewJerseyClient {
 
     public boolean addDislike(JSONObject obj) {
         WebTarget resource = webTarget;
-        resource = resource.path("dislike");
+        resource = resource.path("dislikes/");
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
         return true;
     }
