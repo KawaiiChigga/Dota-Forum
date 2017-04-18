@@ -123,7 +123,7 @@
                                             <td>
                                                 <p style="font-size:20px"><a href="comment.jsp?post=<%=obj.get("id_post").toString()%>"><%= obj.get("judul").toString()%></a></p>
                                                 <p style="font-size:15px">By <%= data.get("username").toString()%></p>
-                                                <p style="font-size:12px">Posted in: <%= time%></p>
+                                                <p style="font-size:12px">Posted in: <%= date_time%></p>
                                                 <p><%= obj.get("like_post").toString()%> Likes -  
                                                     <%= obj.get("dislike_post").toString()%> Dislikes</p>
                                         <right>

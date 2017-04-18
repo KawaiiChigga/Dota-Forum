@@ -40,7 +40,7 @@ public class EditServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditServlet</title>");            
+            out.println("<title>Servlet EditServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet EditServlet at " + request.getContextPath() + "</h1>");
@@ -61,7 +61,7 @@ public class EditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
@@ -77,24 +77,26 @@ public class EditServlet extends HttpServlet {
             throws ServletException, IOException {
         String isibaru = request.getParameter("post_isi");
         String judulbaru = request.getParameter("post_title");
-        String userid =  request.getParameter("userid");
+        String userid = request.getParameter("userid");
         NewJerseyClient jc = new NewJerseyClient();
 //        PostBean pb = new PostBean();
         int pid = Integer.parseInt(request.getParameter("postid"));
         JSONObject temp = jc.getPostById(Integer.toString(pid));
 //        Post temp = (Post)pb.getPostById(pid);
         JSONObject obj = new JSONObject();
-        obj.put("isi",isibaru);
-        obj.put("judul",judulbaru);
+        obj.put("isi", isibaru);
+        obj.put("judul", judulbaru);
 //        temp.setIsi(isibaru);
 //        temp.setJudul(judulbaru);
-        try{
-            if(jc.updatePost(obj,Integer.toString(pid))){
-                request.getRequestDispatcher("ProfileServlet?userid="+userid).forward(request, response);
-//                request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
+        try {
+            if (jc.updatePost(obj, Integer.toString(pid))) {
+//                request.getRequestDispatcher("ProfileServlet?userid="+userid).forward(request, response);
+//                request.getRequestDispatcher("profile.jsp?menu=8").forward(request, response);
+                request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
+                System.out.println("gagal");
             }
-        }
-        catch (Exception e) {
+            System.out.println("gagal lagi");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
