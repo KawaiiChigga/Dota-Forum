@@ -84,9 +84,27 @@
                 for(int i=0;i<post.size();i++){
                     JSONObject jb = (JSONObject) post.get(i);
                     String[] date = jb.get("date_time").toString().split("-");
-                    if(date[i]==""+year){
+                    if(date[1]==""+year){
                         pos[i]++;
                         com[i]++;
+                        mes[i]++;
+                    }
+                    year++;
+                }
+                year=2010;
+                for(int i=0;i<post.size();i++){
+                    JSONObject jb = (JSONObject) comment.get(i);
+                    String[] date = jb.get("date_time").toString().split("-");
+                    if(date[1]==""+year){
+                        com[i]++;
+                    }
+                    year++;
+                }
+                year=2010;
+                for(int i=0;i<post.size();i++){
+                    JSONObject jb = (JSONObject) message.get(i);
+                    String[] date = jb.get("date_time").toString().split("-");
+                    if(date[1]==""+year){
                         mes[i]++;
                     }
                     year++;
