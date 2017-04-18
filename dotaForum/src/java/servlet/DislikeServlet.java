@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 
 /**
@@ -63,8 +64,10 @@ public class DislikeServlet extends HttpServlet {
             throws ServletException, IOException {
         NewJerseyClient jc = new NewJerseyClient();
 //        Session session = null;
-
-        String u = request.getParameter("user");
+        HttpSession session = request.getSession();
+        JSONObject user = (JSONObject) session.getAttribute("user");
+//        String u = request.getParameter("user");
+        String u = user.get("id_user").toString();
         String p = request.getParameter("post");
 //        try {
 //            LikeDislikeBean ld = new LikeDislikeBean();
@@ -86,9 +89,7 @@ public class DislikeServlet extends HttpServlet {
         if (!jc.checkDislikeUser(p, u)) {
 //                PostBean pb = new PostBean();
             JSONObject post = jc.getPostById(p);
-            if (!jc.checkLikeUser(p, u)) {
-
-            } else {
+            if (jc.checkLikeUser(p, u)) {
                 pernah = true;
             }
             JSONObject obj = new JSONObject();

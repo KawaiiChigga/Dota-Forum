@@ -23,7 +23,7 @@
         <%
             NewJerseyClient jc = new NewJerseyClient();
             JSONObject u = jc.getPostById("8");
-            out.println(jc.checkLikeUser("9", "15"));
+            out.println(jc.checkLikeUser("9", "16"));
 //            out.println(u.get("first_name").toString());
 //            
 ////            JSONArray arr = jc.getReplyByCommentId("8");

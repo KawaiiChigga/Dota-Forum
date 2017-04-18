@@ -47,7 +47,7 @@
 //                                    Post p = pb.getPostById(id);
                                 %>
                                 <div class="post">
-                                    <form method="POST" action="EditServlet?postid=<%=post.get("id_post").toString()%>" id="post_disc">
+                                    <form method="POST" action="EditServlet?postid=<%=post.get("id_post").toString()%>&userid=<%=sessionUser.get("id_user").toString()%>" id="post_disc">
                                         <h2>Post it!</h2>
                                         <p style="color:red"><b><%=err%></b><p>
                                         <center>
@@ -56,7 +56,7 @@
                                             <input type="hidden" name="userid" value="<%= sessionUser.get("id_user").toString() %>">
                                             <textarea placeholder="What do you wanna say?" name="post_isi" id="post_disc" style="border-radius:5px;" rows="15"><%=post.get("isi").toString() %></textarea><br><br>
                                             <input type="submit" name="post_disc" value="Edit Post" style="width:70%;height:50px;border-radius:5px;"><br><br>
-                                            <input type="submit" name="post_cancel" value="Cancel" style="width:70%;height:30px;border-radius:5px;" formaction="index.jsp"><br>
+                                            <input type="submit" name="post_cancel" value="Cancel" style="width:70%;height:30px;border-radius:5px;" formaction="ProfileServlet?userid=<%=sessionUser.get("id_user").toString()%>"><br>
                                         </center>
                                     </form>
                                 </div>

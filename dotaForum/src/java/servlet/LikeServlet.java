@@ -64,9 +64,13 @@ public class LikeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        Session session = null;
+        HttpSession session = request.getSession();
         NewJerseyClient jc = new NewJerseyClient();
-        String u = request.getParameter("user");
+//        String u = request.getParameter("user");
         String p = request.getParameter("post");
+        
+        JSONObject user = (JSONObject) session.getAttribute("user");
+        String u = user.get("id_user").toString();
 //        try {
 //            LikeDislikeBean ld = new LikeDislikeBean();
 //            session = ld.factory.openSession();
@@ -82,73 +86,70 @@ public class LikeServlet extends HttpServlet {
 //            ArrayList<User> hasilUser = (ArrayList) q.list();
 //            q = session.createQuery("from Post where id_post='" + p + "'");
 //            ArrayList<Post> hasilPost = (ArrayList) q.list();
-            boolean dis = false;
-            if (!jc.checkLikeUser(p, u)) {
+        boolean dis = false;
+        if (!jc.checkLikeUser(p, u)) {
 //                PostBean pb = new PostBean();
-                JSONObject post = jc.getPostById(p);
-                if (!jc.checkDislikeUser(p, u)) {
-
-                } else {
-                    dis = true;
-                }
-//                Likes like = new Likes(hasilPost.get(0), hasilUser.get(0));
-                JSONObject obj = new JSONObject();
-                obj.put("id_user", u);
-                obj.put("id_post", p);
-                if (jc.addLike(obj)) {
-                    JSONObject objUpdate = new JSONObject();
-                    if (dis) {
-                        jc.deleteDislike(p, u);
-//                        hasilPost.get(0).setDislikePost(hasilPost.get(0).getDislikePost() - 1);
-                        objUpdate.put("dislike_post", Integer.toString(Integer.parseInt(post.get("dislike_post").toString()) - 1));
-                        jc.updatePost(objUpdate, p);
-                    }
-                    JSONObject objUpdate2 = new JSONObject();
-                    objUpdate2.put("like_post", Integer.toString(Integer.parseInt(post.get("like_post").toString()) + 1));
-//                    hasilPost.get(0).setLikePost(hasilPost.get(0).getLikePost() + 1);
-                    jc.updatePost(objUpdate2, p);
-                    System.out.println("berhasil");
-                } else {
-                    System.out.println("salah");
-                }
-            } else {
-                System.out.println("sudah ada");
+            JSONObject post = jc.getPostById(p);
+            if (jc.checkDislikeUser(p, u)) {
+                dis = true;
             }
+//                Likes like = new Likes(hasilPost.get(0), hasilUser.get(0));
+            JSONObject obj = new JSONObject();
+            obj.put("id_user", u);
+            obj.put("id_post", p);
+            System.out.println("nilai u" + u);
+            System.out.println(p);
+            if (jc.addLike(obj)) {
+                JSONObject objUpdate = new JSONObject();
+                if (dis) {
+                    jc.deleteDislike(p, u);
+//                        hasilPost.get(0).setDislikePost(hasilPost.get(0).getDislikePost() - 1);
+                    objUpdate.put("dislike_post", Integer.toString(Integer.parseInt(post.get("dislike_post").toString()) - 1));
+                    jc.updatePost(objUpdate, p);
+                }
+                JSONObject objUpdate2 = new JSONObject();
+                objUpdate2.put("like_post", Integer.toString(Integer.parseInt(post.get("like_post").toString()) + 1));
+//                    hasilPost.get(0).setLikePost(hasilPost.get(0).getLikePost() + 1);
+                jc.updatePost(objUpdate2, p);
+                System.out.println("berhasil");
+            } else {
+                System.out.println("salah");
+            }
+        } else {
+            System.out.println("sudah ada");
+        }
 //            tx.commit();
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        } finally {
 //            session.close();
-            request.getRequestDispatcher("comment.jsp?post=" + p).forward(request, response);
+        request.getRequestDispatcher("comment.jsp?post=" + p).forward(request, response);
 //        }
 
-        }
-
-        /**
-         * Handles the HTTP <code>POST</code> method.
-         *
-         * @param request servlet request
-         * @param response servlet response
-         * @throws ServletException if a servlet-specific error occurs
-         * @throws IOException if an I/O error occurs
-         */
-        @Override
-        protected void doPost
-        (HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-            processRequest(request, response);
-        }
-
-        /**
-         * Returns a short description of the servlet.
-         *
-         * @return a String containing servlet description
-         */
-        @Override
-        public String getServletInfo
-        
-            () {
-        return "Short description";
-        }// </editor-fold>
-
     }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}

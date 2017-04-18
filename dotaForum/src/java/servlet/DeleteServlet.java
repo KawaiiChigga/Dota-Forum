@@ -67,21 +67,21 @@ public class DeleteServlet extends HttpServlet {
 //        ReplyBean rb = new ReplyBean();
 //        LikeDislikeBean ldb = new LikeDislikeBean();
 
-        int pid = Integer.parseInt(request.getParameter("post"));
-        JSONObject temp = jc.getPostById(Integer.toString(pid));
+        String pid = request.getParameter("post");
+        JSONObject temp = jc.getPostById(pid);
 //        Post temp = pb.getPostById(pid);
 
 //        ArrayList<Comment> comment = new ArrayList<Comment>();
-        JSONArray comment = jc.getCommentById(Integer.toString(pid));
+        JSONArray comment = jc.getCommentById(pid);
 //        comment = cb.getCommentById(pid);
 
 //        ArrayList<Likes> like = new ArrayList<Likes>();
 //        like = ldb.getAllLike(pid);
-        JSONArray like = jc.getAllLikes(Integer.toString(pid));
+        JSONArray like = jc.getAllLikes(pid);
 
 //        ArrayList<Dislikes> dislike = new ArrayList<Dislikes>();
 //        dislike = ldb.getAllDislike(pid);
-        JSONArray dislike = jc.getAllDislike(Integer.toString(pid));
+        JSONArray dislike = jc.getAllDislike(pid);
 
 //        try {
         if (comment.size() > 0) {
@@ -112,10 +112,10 @@ public class DeleteServlet extends HttpServlet {
                 JSONObject objDislike = (JSONObject) dislike.get(i);
                 String id_post = objDislike.get("id_post").toString();
                 String id_user = objDislike.get("id_user").toString();
-                jc.deleteLike(id_post, id_user);
+                jc.deleteDislike(id_post,id_user);
             }
         }
-        jc.deletePost(Integer.toString(pid));
+        jc.deletePost(pid);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //            System.out.println("gagal");
