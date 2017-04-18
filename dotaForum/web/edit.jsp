@@ -52,14 +52,7 @@
                                         <p style="color:red"><b><%=err%></b><p>
                                         <center>
                                             <input type="text" name="post_title" placeholder="Post Title" value="<%=post.get("judul").toString() %>" style="width:50%;height:30px;border-radius:5px;"><br><br>
-                                            <select name="category" style="width:50%;height:30px;border-radius:5px;">
-                                                <option value="Chat">Chat</option>
-                                                <option value="Competitive">Competitive</option>
-                                                <option value="Custom Game">Custom Game</option>
-                                                <option value="Media">Media</option>
-                                                <option value="Recruitment">Recruitment</option>
-                                                <option value="Strategy">Strategy</option>
-                                            </select>
+                                            
                                             <input type="hidden" name="userid" value="<%= sessionUser.get("id_user").toString() %>">
                                             <textarea placeholder="What do you wanna say?" name="post_isi" id="post_disc" style="border-radius:5px;" rows="15"><%=post.get("isi").toString() %></textarea><br><br>
                                             <input type="submit" name="post_disc" value="Edit Post" style="width:70%;height:50px;border-radius:5px;"><br><br>
