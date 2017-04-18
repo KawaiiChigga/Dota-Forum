@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/servlet/DeleteServlet.java</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/test_server.jsp</file>
+            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/servlet/LikeServlet.java</file>
             <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/comment.jsp</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/content.jsp</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/servlet/ProfileServlet.java</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/header.jsp</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/client/NewJerseyClient.java</file>
-            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/profile.jsp</file>
+            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/servlet/CommentServlet.java</file>
+            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/src/java/servlet/DislikeServlet.java</file>
+            <file>file:/C:/Users/Glenn/Documents/Kuliah/GitHub/Dota-Forum/dotaForum/web/login.jsp</file>
         </group>
     </open-files>
 </project-private>
