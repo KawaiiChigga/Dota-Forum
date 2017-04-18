@@ -100,12 +100,12 @@ public class DislikeServlet extends HttpServlet {
                 if (pernah) {
                     jc.deleteLike(p, u);
 //                        hasilPost.get(0).setLikePost(hasilPost.get(0).getLikePost() - 1);
-                    objUpdate.put("like_post", Integer.parseInt(post.get("like_post").toString()) - 1);
+                    objUpdate.put("like_post", Integer.toString(Integer.parseInt(post.get("like_post").toString()) - 1));
                     jc.updatePost(objUpdate, p);
                 }
 //                    hasilPost.get(0).setDislikePost(hasilPost.get(0).getDislikePost() + 1);
                 objUpdate = new JSONObject();
-                objUpdate.put("dislike_post", Integer.parseInt(post.get("dislike_post").toString()) + 1);
+                objUpdate.put("dislike_post", Integer.toString(Integer.parseInt(post.get("dislike_post").toString()) + 1));
                 jc.updatePost(objUpdate, p);
                 System.out.println("berhasil");
             } else {

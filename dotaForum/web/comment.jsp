@@ -66,8 +66,10 @@
                                             for (int i = 0; i < comment.size(); i++) {
                                                 JSONObject obj = (JSONObject) comment.get(i);
                                                 idUser = Integer.parseInt(obj.get("id_user").toString());
+                                                
                                                 idUserComment.add(idUser);
                                             }
+                                            System.out.println(idUserComment.size());
                                             int u = Integer.parseInt(user.get("id_user").toString());
 //a
                                             String time = "";
@@ -83,8 +85,8 @@
                                             session = request.getSession(false);
                                             if (session.getAttribute("check") != null) {
                                         %>  <p>
-                                            <a href="LikeServlet?user=<%=u%>&post=<%=post.get("id_post")%>">Likes (<%= post.get("like_post").toString()%>)</a> -  
-                                            <a href="DislikeServlet?user=<%=u%>&post=<%=post.get("id_post")%>">Dislikes (<%= post.get("dislike_post").toString()%>)</a>
+                                            <a href="LikeServlet?user=<%=u%>&post=<%=post.get("id_post").toString()%>">Likes (<%= post.get("like_post").toString()%>)</a> -  
+                                            <a href="DislikeServlet?user=<%=u%>&post=<%=post.get("id_post").toString()%>">Dislikes (<%= post.get("dislike_post").toString()%>)</a>
                                         </p>
 
                                         <%
