@@ -31,7 +31,7 @@
                         <div id="content">
                             <section>
                                 <%
-                                    User data = (User) request.getAttribute("dataProfile");
+                                    JSONObject data = (JSONObject) request.getAttribute("dataProfile");
                                     HttpSession sessionLogin = request.getSession();
                                     User sessionUser = (User) sessionLogin.getAttribute("user");
                                 %>
@@ -39,14 +39,14 @@
                                     <table border="1 solid black">
                                         <tr>
                                             <th><p style="font-size:30px">Profile</p></th>
-                                            <th><p><a href="directMsgServlet?userid=<%= data.getIdUser()%>">Message(s)</p></a></th>
+                                            <th><p><a href="directMsgServlet?userid=<%= data.get("id_user").toString()%>">Message(s)</p></a></th>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <p style="font-size:15px">First Name:</p>
                                             </td>
                                             <td>
-                                                <p style="font-size:15px"><%=data.getFirstName()%></p>
+                                                <p style="font-size:15px"><%=data.get("first_name").toString()%></p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -54,7 +54,7 @@
                                                 <p style="font-size:15px">Last Name:</p>
                                             </td>
                                             <td>
-                                                <p style="font-size:15px"><%=data.getLastName()%></p>
+                                                <p style="font-size:15px"><%=data.get("last_name").toString()%></p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -62,7 +62,7 @@
                                                 <p style="font-size:15px">Level:</p>
                                             </td>
                                             <td>
-                                                <p style="font-size:15px"><%=data.getLevel()%></p>
+                                                <p style="font-size:15px"><%=data.get("level").toString()%></p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -73,7 +73,7 @@
                                                 <%
                                                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
                                                     String time = "";
-                                                    time = sdf.format(data.getDateTime());
+                                                    time = sdf.format(data.get("date_time").toString());
                                                 %>
                                                 <p style="font-size:15px"><%= time%></p>
                                             </td>
@@ -83,7 +83,7 @@
                                                 <p style="font-size:15px">Gender:</p> 
                                             </td>
                                             <td>
-                                                <p style="font-size:15px"><%=data.getJenisKelamin()%></p>
+                                                <p style="font-size:15px"><%=data.get("jenis_kelamin").toString()%></p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -91,14 +91,14 @@
                                                 <p style="font-size:15px">E-mail:</p>
                                             </td>
                                             <td>
-                                                <p style="font-size:15px"><%=data.getEmail()%></p>
+                                                <p style="font-size:15px"><%=data.get("email").toString()%></p>
                                             </td>
                                         </tr>
                                     </table>
                                     <%
-                                        if (sessionUser.getUsername().equals(data.getUsername())) {
+                                        if (sessionUser.getUsername().equals(data.get("username").toString())) {
                                     %>
-                                    <a href="editprofile.jsp?userid=<%=data.getIdUser()%>">Edit Profile</a>
+                                    <a href="editprofile.jsp?userid=<%=data.get("id_user").toString()%>">Edit Profile</a>
                                     <%
                                         }
                                     %>
@@ -110,7 +110,7 @@
 //                                            PostBean pb = new PostBean();
 //                                            CommentBean cb = new CommentBean();
 //                                            ArrayList<Post> p = pb.getProfilePost(data.getIdUser());
-                                            JSONArray post = jc.getProfilePost(data.getIdUser().toString());
+                                            JSONArray post = jc.getProfilePost(data.get("id_user").toString());
                                             for (int i = 0; i < post.size(); i++) {
 //                                                ArrayList<Comment> c = new ArrayList<Comment>();
                                                 JSONObject obj = (JSONObject) post.get(i);
@@ -122,13 +122,13 @@
                                         <tr>
                                             <td>
                                                 <p style="font-size:20px"><a href="comment.jsp?post=<%=obj.get("id_post").toString()%>"><%= obj.get("judul").toString()%></a></p>
-                                                <p style="font-size:15px">By <%= data.getUsername()%></p>
+                                                <p style="font-size:15px">By <%= data.get("username").toString()%></p>
                                                 <p style="font-size:12px">Posted in: <%= time%></p>
                                                 <p><%= obj.get("like_post").toString()%> Likes -  
                                                     <%= obj.get("dislike_post").toString()%> Dislikes</p>
                                         <right>
                                             <%
-                                                if (sessionUser.getUsername().equals(data.getUsername())) {
+                                                if (sessionUser.getUsername().equals(data.get("username").toString())) {
                                             %>
                                             <a href="edit.jsp?post=<%=obj.get("id_post").toString()%>">Edit Post</a>
                                             <form method="post" action="DeleteServlet?post=<%=obj.get("id_post").toString()%>">
