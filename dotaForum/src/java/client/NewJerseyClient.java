@@ -30,7 +30,8 @@ public class NewJerseyClient {
 
     private WebTarget webTarget;
     private Client client;
-    private static final String BASE_URI = "http://127.0.0.1:8000/";
+//    private static final String BASE_URI = "http://127.0.0.1:8000/";
+    private static final String BASE_URI = "http://192.168.50.1:8000/";
 
     public NewJerseyClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
@@ -68,7 +69,7 @@ public class NewJerseyClient {
 
     public JSONObject checkLogIn(JSONObject obj) {
         WebTarget resource = webTarget;
-        resource = resource.path("user").path("login");
+        resource = resource.path("user").path("login/");
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(Entity.json(obj.toJSONString()), String.class);
         return (JSONObject) JSONValue.parse(json);
     }
