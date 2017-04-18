@@ -50,10 +50,10 @@ public class NewJerseyClient {
     
     public boolean checkUser(String username, String email) {
         WebTarget resource = webTarget;
-        resource = resource.path("user").path("check").path(username).path(email);
+        resource = resource.path("user").path("check").path(username).path(email+"/");
         String json = "";
         json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
-        if (!json.equals("")) {
+        if ((JSONObject) JSONValue.parse(json)!=null) {
             return true;
         } else {
             return false;
@@ -62,7 +62,7 @@ public class NewJerseyClient {
 
     public boolean insertUser(JSONObject obj) {
         WebTarget resource = webTarget;
-        resource = resource.path("user");
+        resource = resource.path("user/");
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
         return true;
     }
@@ -106,14 +106,14 @@ public class NewJerseyClient {
 //---------------------------- POST ----------------------------
     public boolean insertPost(JSONObject obj) {
         WebTarget resource = webTarget;
-        resource = resource.path("post");
+        resource = resource.path("post/");
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
         return true;
     }
 
     public boolean updatePost(JSONObject obj, String pk) {
         WebTarget resource = webTarget;
-        resource = resource.path("post").path(pk);
+        resource = resource.path("post").path(pk+"/");
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
         return true;
     }
@@ -205,7 +205,7 @@ public class NewJerseyClient {
 //---------------------------- CATEGORIES ----------------------------
     public JSONObject getCategory(String category) {
         WebTarget resource = webTarget;
-        resource = resource.path("category").path(category);
+        resource = resource.path("categories").path(category+"/");
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
         return (JSONObject) JSONValue.parse(json);
     }

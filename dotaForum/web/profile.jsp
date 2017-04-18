@@ -130,7 +130,7 @@
                                             <%
                                                 if (sessionUser.get("username").toString().equals(data.get("username").toString())) {
                                             %>
-                                            <a href="edit.jsp?post=<%=obj.get("id_post").toString()%>">Edit Post</a>
+                                            <a href="edit.jsp?post=<%=obj.get("id_post").toString()%> %>">Edit Post</a>
                                             <form method="post" action="DeleteServlet?post=<%=obj.get("id_post").toString()%>">
                                                 <input type='submit' name="delete" value='Delete Post'/>
                                             </form>

@@ -38,6 +38,8 @@
                         <div id="content">
                             <section>
                                 <%
+                                    HttpSession sessionLogin = request.getSession();
+                                    JSONObject sessionUser = (JSONObject) sessionLogin.getAttribute("user");
                                     int id = Integer.parseInt(request.getParameter("post"));
                                     NewJerseyClient jc = new NewJerseyClient();
                                     JSONObject post = jc.getPostById(Integer.toString(id));
@@ -58,6 +60,7 @@
                                                 <option value="Recruitment">Recruitment</option>
                                                 <option value="Strategy">Strategy</option>
                                             </select>
+                                            <input type="hidden" name="userid" value="<%= sessionUser.get("id_user").toString() %>">
                                             <textarea placeholder="What do you wanna say?" name="post_isi" id="post_disc" style="border-radius:5px;" rows="15"><%=post.get("isi").toString() %></textarea><br><br>
                                             <input type="submit" name="post_disc" value="Edit Post" style="width:70%;height:50px;border-radius:5px;"><br><br>
                                             <input type="submit" name="post_cancel" value="Cancel" style="width:70%;height:30px;border-radius:5px;" formaction="index.jsp"><br>

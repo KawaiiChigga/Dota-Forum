@@ -77,7 +77,7 @@ public class EditServlet extends HttpServlet {
             throws ServletException, IOException {
         String isibaru = request.getParameter("post_isi");
         String judulbaru = request.getParameter("post_title");
-        
+        String userid =  request.getParameter("userid");
         NewJerseyClient jc = new NewJerseyClient();
 //        PostBean pb = new PostBean();
         int pid = Integer.parseInt(request.getParameter("postid"));
@@ -90,7 +90,8 @@ public class EditServlet extends HttpServlet {
 //        temp.setJudul(judulbaru);
         try{
             if(jc.updatePost(obj,Integer.toString(pid))){
-                request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
+                request.getRequestDispatcher("ProfileServlet?userid="+userid).forward(request, response);
+//                request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
             }
         }
         catch (Exception e) {

@@ -9,6 +9,8 @@ import client.NewJerseyClient;
 import java.io.IOException;
 //import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -96,10 +98,9 @@ public class RegisterServlet extends HttpServlet {
         user.put("last_name", request.getParameter("last_name"));
         user.put("jenis_kelamin", request.getParameter("gender"));
         user.put("level", 1);
-        user.put("url_foto", " ");
-        user.put("progress_level", 0);
-        Date time = new Date();
-        user.put("date_time", time.toString());
+        user.put("progress_level", "0");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        user.put("date_time", dateFormat.format(new Date()));
 
 //            user.setEmail();
 //            user.setPassword(request.getParameter("password"));
@@ -112,14 +113,14 @@ public class RegisterServlet extends HttpServlet {
 //            user.setProgressLevel(0);
 //            user.setDateTime(null);
         String confPassword = request.getParameter("password2");
-        String temp = user.get("user_name").toString();
+        String temp = user.get("username").toString();
 //            Query q = session.createQuery("from User where username = '" + temp + "' or email = '" + user.getEmail() + "'");
 //            ArrayList<User> hasil = (ArrayList) q.list();
         if (user.get("password").equals("") || user.get("first_name").equals("")
                 || confPassword.equals("") || user.get("email").equals("")
                 || user.get("username").equals("") || user.get("last_name").equals("")) {
             request.setAttribute("warningRegister", "Tolong lengkapi form");
-        } else if (jc.checkUser(user.get("username").toString(), user.get("email").toString())) {
+        } else if (!jc.checkUser(user.get("username").toString(), user.get("email").toString())) {
             if (user.get("password").toString().length() >= 4) {
                 if (user.get("password").toString().equals(confPassword)) {
                     berhasil = true;

@@ -101,13 +101,13 @@ public class PostServlet extends HttpServlet {
         obj.put("id_user",user.get("id_user"));
         obj.put("judul",judul);
         obj.put("isi",isi);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
         String time = "";
         time = sdf.format(new Date());
         obj.put("date_time",time);
         obj.put("like_post",0);
         obj.put("dislike_post",0);
-        obj.put("id_category",kategori);
+        obj.put("id_category",category.get("id_category").toString());
         
 //        Post p = new Post(category, user, judul, isi, null, 0, 0);
         

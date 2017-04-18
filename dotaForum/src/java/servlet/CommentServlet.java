@@ -8,6 +8,9 @@ package servlet;
 import client.NewJerseyClient;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -95,9 +98,11 @@ public class CommentServlet extends HttpServlet {
 //            c.setIsiComment(isi);
 //            c.setUser(user);
             JSONObject obj = new JSONObject();
-            obj.put("isi", isi);
-            obj.put("id_post",p.get("id_post").toString());
-            obj.put("id_user",user.get("id_user").toString());
+            obj.put("isi_comment", isi);
+            obj.put("id_post", p.get("id_post").toString());
+            obj.put("id_user", user.get("id_user").toString());
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            obj.put("date_time", dateFormat.format(new Date()));
             if (jc.insertComment(obj)) {
                 String ALERT_FAIL = "fail";
                 String fail = "0";
