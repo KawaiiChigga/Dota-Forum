@@ -71,7 +71,7 @@
 				
 		//From AxisChartServlet.java:createAxisChartDataSet
 		double[][] data= TestDataGenerator.getRandomNumbers( 3, 8, 200, 500 );
-		String[] legendLabels= { "Bugs", "Security Holes", "Backdoors" };
+		String[] legendLabels= { "Posts", "Comments", "Messages" };
 		Paint[] paints= TestDataGenerator.getRandomPaints( 3 );
 		AxisChartDataSet acds = new AxisChartDataSet(data, legendLabels, paints,ChartType.LINE, lineChartProperties );
 		dataSeries.addIAxisPlotDataSet(acds);
