@@ -30,7 +30,7 @@
                         <div id="content">
                             <section>
                                 <div class="post">
-                                    <img src="chart.jsp?id_user=<%= user.get("id_user").toString() %>"/>
+                                    <img src="chart.jsp?id_user=<%= user.get("username").toString() %>"/>
                                 </div>
                             </section>
                         </div>
