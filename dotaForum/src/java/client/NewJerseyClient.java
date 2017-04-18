@@ -46,6 +46,18 @@ public class NewJerseyClient {
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
         return (JSONObject) JSONValue.parse(json);
     }
+    
+    public boolean checkUser(String username, String email) {
+        WebTarget resource = webTarget;
+        resource = resource.path("user").path("check").path(username).path(email);
+        String json = "";
+        json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        if (!json.equals("")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public boolean insertUser(JSONObject obj) {
         WebTarget resource = webTarget;

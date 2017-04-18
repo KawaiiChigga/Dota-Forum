@@ -5,12 +5,15 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import controller.UserBean;
 import static controller.UserBean.factory;
 import java.io.IOException;
 //import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,6 +25,7 @@ import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -83,62 +87,49 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         boolean berhasil = false;
-        User user = new User();
-        Session session = null;
+        NewJerseyClient jc = new NewJerseyClient();
 
-        try {
-            UserBean ub = new UserBean();
-            session = ub.factory.openSession();
-            Transaction tx = session.beginTransaction();
+        JSONObject user = new JSONObject();
+        user.put("email", request.getParameter("email"));
+        user.put("password", request.getParameter("password"));
+        user.put("username", request.getParameter("username"));
+        user.put("first_name", request.getParameter("first_name"));
+        user.put("last_name", request.getParameter("last_name"));
+        user.put("gender", request.getParameter("gender"));
+        user.put("level", 1);
+        user.put("url_foto", "");
+        user.put("progress_level", 1);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        String time = "";
+        time = sdf.format(new Date());
+        user.put("date_time", time);
 
-            user.setEmail(request.getParameter("email"));
-            user.setPassword(request.getParameter("password"));
-            user.setUsername(request.getParameter("username"));
-            user.setFirstName(request.getParameter("first_name"));
-            user.setLastName(request.getParameter("last_name"));
-            user.setJenisKelamin(request.getParameter("gender"));
-            user.setLevel(1);
-            user.setUrlFoto("");
-            user.setProgressLevel(0);
-            user.setDateTime(null);
-
-            String confPassword = request.getParameter("password2");
-            String temp = user.getUsername();
-            Query q = session.createQuery("from User where username = '" + temp + "' or email = '" + user.getEmail() + "'");
-            ArrayList<User> hasil = (ArrayList) q.list();
-            if (user.getPassword().equals("") || user.getFirstName().equals("")
-                    || confPassword.equals("") || user.getEmail().equals("")
-                    || user.getUsername().equals("") || user.getLastName().equals("")) {
-                request.setAttribute("warningRegister", "Tolong lengkapi form");
-            } else if (hasil.isEmpty()) {
-                if (user.getPassword().length() >= 4) {
-                    if (user.getPassword().equals(confPassword)) {
-                        berhasil = true;
-                        request.setAttribute("berhasil", "Registrasi berhasil");
-                    } else {
-                        request.setAttribute("warningRegister", "Check Password and Confirm Password!");
-                    }
+        String confPassword = request.getParameter("password2");
+        boolean used = jc.checkUser(request.getParameter("username"), request.getParameter("email"));
+        if (user.get("password").toString().equals("") || user.get("first_name").toString().equals("")
+                || confPassword.equals("") || user.get("email").toString().equals("")
+                || user.get("username").toString().equals("") || user.get("last_name").toString().equals("")) {
+            request.setAttribute("warningRegister", "Tolong lengkapi form");
+        } else if (!used) {
+            if (user.get("password").toString().length() >= 4) {
+                if (user.get("password").toString().equals(confPassword)) {
+                    berhasil = true;
+                    request.setAttribute("berhasil", "Registrasi berhasil");
                 } else {
-                    request.setAttribute("warningRegister", "Password minimal 4 character!");
+                    request.setAttribute("warningRegister", "Check Password and Confirm Password!");
                 }
             } else {
-                request.setAttribute("warningRegister", "Username atau email sudah terdaftar!");
+                request.setAttribute("warningRegister", "Password minimal 4 character!");
             }
-
-            tx.commit();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
+        } else {
+            request.setAttribute("warningRegister", "Username atau email sudah terdaftar!");
         }
 
         if (berhasil) {
-            UserBean register = new UserBean();
-            if (register.insertUser(user)) {
-                request.setAttribute("username", user.getUsername());
+            if (jc.insertUser(user)) {
+                request.setAttribute("username", user.get("username").toString());
                 request.getRequestDispatcher("login.jsp").forward(request, response);
-            }else{
+            } else {
                 request.setAttribute("warningRegister", "Registrasi Gagal!");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
             }
