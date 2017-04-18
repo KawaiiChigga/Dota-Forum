@@ -21,13 +21,14 @@
     <%
         NewJerseyClient jc = new NewJerseyClient();
 //        UserBean ub = new UserBean();
-
-        User user = (User) request.getAttribute("user");
+        HttpSession sessionLogin = request.getSession();
+//        User temp = (User) sessionLogin.getAttribute("user");
+        JSONObject user = (JSONObject) request.getAttribute("user");
 //        MessageBean mb = new MessageBean();
 //        ArrayList<Message> msg = new ArrayList();
-        JSONArray msg = jc.getInbox(Integer.toString(user.getIdUser()));
+        JSONArray msg = jc.getInbox(user.get("id_user").toString());
 //        msg = mb.getInbox(user.getIdUser());
-    %>
+%>
     <body>
         <div id="header-wrapper">
             <jsp:include page="header.jsp?menu=<%=user%>"/>
@@ -43,9 +44,8 @@
                                 for (int i = 0; i < msg.size(); i++) {
 //                                        User sender = new User();
                                     JSONObject obj = (JSONObject) msg.get(i);
-                                    JSONObject sender = jc.getUserById(pk);
-                                    sender = ub.getUserById(msg.get(i).getUserByIdSender().getIdUser());
-                            %><div onclick="window.location = 'showMessage.jsp?sender=<%= sender.get("id_user").toString()%>&receiver=<%= user.getIdUser()%>';" style="cursor: pointer;">
+                                    JSONObject sender = jc.getUserById(obj.get("id_user").toString());
+                            %><div onclick="window.location = 'showMessage.jsp?sender=<%= sender.get("id_user").toString()%>&receiver=<%= user.get("id_user").toString() %>';" style="cursor: pointer;">
                                 <p>from <b style="font-size:20px"><a href="ProfileServlet?userid=<%= sender.get("id_user").toString()%>"><%= sender.get("username")%></a></b></p>
                                 <p><%= obj.get("isi").toString()%></p>
                                 <hr>
