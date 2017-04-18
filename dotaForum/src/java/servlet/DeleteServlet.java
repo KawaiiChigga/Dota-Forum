@@ -110,14 +110,18 @@ public class DeleteServlet extends HttpServlet {
         if (like.size() > 0) {
             for (int i = 0; i < like.size(); i++) {
                 JSONObject objLike = (JSONObject) like.get(i);
-                jc.deleteLike(objLike.get("id_like").toString());
+                String id_post = objLike.get("id_post").toString();
+                String id_user = objLike.get("id_user").toString();
+                jc.deleteLike(id_post, id_user);
             }
         }
         if (dislike.size() > 0) {
             for (int i = 0; i < dislike.size(); i++) {
 //                    ldb.deleteDislike(dislike.get(i).getIdDislike());
                 JSONObject objDislike = (JSONObject) dislike.get(i);
-                jc.deleteLike(objDislike.get("id_dislike").toString());
+                String id_post = objDislike.get("id_post").toString();
+                String id_user = objDislike.get("id_user").toString();
+                jc.deleteLike(id_post, id_user);
             }
         }
         jc.deletePost(Integer.toString(pid));

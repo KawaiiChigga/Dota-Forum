@@ -225,9 +225,9 @@ public class NewJerseyClient {
         }
     }
 
-    public boolean deleteLike(String pk) {
+    public boolean deleteLike(String id_post, String id_user) {
         WebTarget resource = webTarget;
-        resource = resource.path("likes").path("delete").path(pk);
+        resource = resource.path("likes").path("delete").path(id_post).path(id_user);
         Response json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
         return true;
     }
@@ -255,9 +255,9 @@ public class NewJerseyClient {
         return Boolean.parseBoolean(obj.get("message").toString());
     }
 
-    public boolean deleteDislike(String pk) {
+    public boolean deleteDislike(String id_post,String id_user) {
         WebTarget resource = webTarget;
-        resource = resource.path("dislikes").path("delete").path(pk);
+        resource = resource.path("dislikes").path("delete").path(id_post).path(id_user);
         Response json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
         return true;
     }

@@ -10,6 +10,7 @@ import controller.MessageBean;
 import controller.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,7 +47,7 @@ public class SendMsgServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SendMsgServlet</title>");            
+            out.println("<title>Servlet SendMsgServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SendMsgServlet at " + request.getContextPath() + "</h1>");
@@ -84,41 +85,44 @@ public class SendMsgServlet extends HttpServlet {
         NewJerseyClient jc = new NewJerseyClient();
 //        MessageBean mb = new MessageBean();
         String isi = request.getParameter("msg_isi");
-        
+
         HttpSession sessionLogIn = request.getSession();
         User user = (User) sessionLogIn.getAttribute("user");
-        
+
 //        UserBean ub = new UserBean();
         JSONObject target = jc.getUserById(request.getParameter("target"));
 //        User target = ub.getUserById(Integer.parseInt(request.getParameter("target")));
         JSONObject obj = new JSONObject();
-        obj.put("id_sender",user.getIdUser());
-        obj.put("id_receiver",target.get("id_user").toString());
-        obj.put("isi",isi);
-        obj.put("date_time",);
-        
+        obj.put("id_sender", user.getIdUser());
+        obj.put("id_receiver", target.get("id_user").toString());
+        obj.put("isi", isi);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        String time = "";
+        time = sdf.format(new Date());
+        obj.put("date_time",time);
+
         User temp = new User();
         temp.setFirstName(target.get("first_name").toString());
         temp.setLastName(target.get("last_name").toString());
-        temp.setIdUser((int)target.get("id_user"));
+        temp.setIdUser((int) target.get("id_user"));
         temp.setEmail(target.get("email").toString());
         temp.setJenisKelamin(target.get("jenis_kelamin").toString());
         temp.setUrlFoto(target.get("url_foto").toString());
         temp.setUsername(target.get("username").toString());
         temp.setPassword(target.get("password").toString());
-        temp.setLevel((int)target.get("level"));
-        temp.setDateTime((Date)target.get("date_time"));
-        temp.setProgressLevel((int)target.get("progress_level"));
-        
+        temp.setLevel((int) target.get("level"));
+        temp.setDateTime((Date) target.get("date_time"));
+        temp.setProgressLevel((int) target.get("progress_level"));
+
 //        Message m = new Message(target,user,isi,null);
-        if(jc.insertMessage(obj)){
+        if (jc.insertMessage(obj)) {
             String ALERT_FAIL = "fail";
             String fail = "0";
             request.setAttribute(ALERT_FAIL, fail);
             request.setAttribute("dataProfile", temp);
             RequestDispatcher rd = request.getRequestDispatcher("profile.jsp?menu=8");
             rd.include(request, response);
-        }else{
+        } else {
             String ALERT_FAIL = "fail";
             String fail = "1";
             request.setAttribute(ALERT_FAIL, fail);

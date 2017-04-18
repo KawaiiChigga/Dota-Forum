@@ -4,6 +4,7 @@
     Author     : Tuyu
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="model.Comment"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -48,9 +49,14 @@
 //                out.println(ob.get("id_comment").toString()+"\n");
 //            }
             boolean dis = jc.checkDislikeUser("8", "16");
-            out.print(dis);
+            out.println(dis);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+            String time = "";
+            time = sdf.format(new Date());
+            out.println(time);
 //            dis = jc.checkDislikeUser("8", "16");
 //            out.println(dis);
-        %>
+%>
     </body>
 </html>
