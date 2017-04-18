@@ -48,6 +48,7 @@ public class DirectMsgServlet extends HttpServlet {
             out.println("<h1>Servlet DirectMsgServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+            out.println("---------------------"+request.getParameter("userid"));
         }
     }
 
@@ -68,8 +69,7 @@ public class DirectMsgServlet extends HttpServlet {
 
         NewJerseyClient jc = new NewJerseyClient();
 //        UserBean ub = new UserBean();
-        int uid = Integer.parseInt(request.getParameter("userid"));
-        JSONObject u = jc.getUserById(Integer.toString(uid));
+        JSONObject u = jc.getUserById(request.getParameter("userid"));
 //        User u = (User) ub.getUserById(uid);
 
         if (usession.get("username").toString().equals(u.get("username").toString())) {

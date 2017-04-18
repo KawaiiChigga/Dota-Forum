@@ -17,7 +17,7 @@
     <%
         NewJerseyClient jc = new NewJerseyClient();
 //        UserBean ub = new UserBean();
-        HttpSession sessionLogin = request.getSession();
+//        HttpSession sessionLogin = request.getSession();
 //        User temp = (User) sessionLogin.getAttribute("user");
         JSONObject user = (JSONObject) request.getAttribute("user");
 //        MessageBean mb = new MessageBean();
@@ -40,7 +40,7 @@
                                 for (int i = 0; i < msg.size(); i++) {
 //                                        User sender = new User();
                                     JSONObject obj = (JSONObject) msg.get(i);
-                                    JSONObject sender = jc.getUserById(obj.get("id_user").toString());
+                                    JSONObject sender = jc.getUserById(obj.get("id_sender").toString());
                             %><div onclick="window.location = 'showMessage.jsp?sender=<%= sender.get("id_user").toString()%>&receiver=<%= user.get("id_user").toString() %>';" style="cursor: pointer;">
                                 <p>from <b style="font-size:20px"><a href="ProfileServlet?userid=<%= sender.get("id_user").toString()%>"><%= sender.get("username")%></a></b></p>
                                 <p><%= obj.get("isi").toString()%></p>

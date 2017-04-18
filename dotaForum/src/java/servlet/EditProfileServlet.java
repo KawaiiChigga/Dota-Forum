@@ -39,7 +39,7 @@ public class EditProfileServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditProfileServlet</title>");            
+            out.println("<title>Servlet EditProfileServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet EditProfileServlet at " + request.getContextPath() + "</h1>");
@@ -82,40 +82,41 @@ public class EditProfileServlet extends HttpServlet {
         String newmail = request.getParameter("email");
         String newpass2 = request.getParameter("password2");
         String newjk = request.getParameter("gender");
-        boolean berhasil=false;
-        
+        boolean berhasil = false;
+
         JSONObject nu = jc.getUserById(request.getParameter("userid"));
 //        User nu = ub.getUserById(Integer.parseInt(request.getParameter("userid")));
         JSONObject obj = new JSONObject();
-        obj.put("first_name",newfirst );
-        obj.put("jenis_kelamin",newjk);
-        obj.put("last_name",newlast);
-        obj.put("email",newmail);
-        obj.put("password",newpass);
-        obj.put("url_foto",newlast);
-        
-         if (nu.get("password").toString().equals("") || nu.get("first_name").toString().equals("")
-                    || newpass2.equals("") || nu.get("email").toString().equals("")
-                    || nu.get("last_name").toString().equals("")) {
-                request.setAttribute("warningRegister", "Tolong lengkapi form");
+        obj.put("first_name", newfirst);
+        obj.put("jenis_kelamin", newjk);
+        obj.put("last_name", newlast);
+        obj.put("email", newmail);
+        obj.put("password", newpass);
+        obj.put("url_foto", newlast);
+        String id = nu.get("id_user").toString();
+
+        if (nu.get("password").toString().equals("") || nu.get("first_name").toString().equals("")
+                || newpass2.equals("") || nu.get("email").toString().equals("")
+                || nu.get("last_name").toString().equals("")) {
+            request.setAttribute("warningRegister", "Tolong lengkapi form");
+        }
+        if (nu.get("password").toString().length() >= 4) {
+            if (nu.get("password").toString().equals(newpass2)) {
+                berhasil = true;
+                request.setAttribute("berhasil", "Update berhasil");
+            } else {
+                request.setAttribute("warningRegister", "Check Password and Confirm Password!");
             }
-                if (nu.get("password").toString().length() > 4) {
-                    if (nu.get("password").toString().equals(newpass2)) {
-                        berhasil = true;
-                        request.setAttribute("berhasil", "Update berhasil");
-                    } else {
-                        request.setAttribute("warningRegister", "Check Password and Confirm Password!");
-                    }
-                } else {
-                    request.setAttribute("warningRegister", "Password minimal 4 character!");
-                }
-                if(berhasil){
-                    if(jc.updateUser(obj, nu.get("id_user").toString())){
-                        request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
-                    }else{
-                        
-                    }
-                }
+        } else {
+            request.setAttribute("warningRegister", "Password minimal 4 character!");
+        }
+        if (berhasil) {
+            if (jc.updateUser(obj, id)) {
+                request.getRequestDispatcher("ProfileServlet?userid="+id).forward(request, response);
+            }
+        }else{
+            request.getRequestDispatcher("ProfileServlet?userid="+id).forward(request, response);
+        }
     }
 
     /**

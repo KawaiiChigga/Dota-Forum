@@ -42,7 +42,7 @@
                     <%
                         String warning = (String) request.getAttribute("warningRegister");
                         if (warning != null) {
-                            out.println("&nbsp&nbsp&nbsp"+warning);
+                            out.println("&nbsp&nbsp&nbsp" + warning);
                         }
                         request.setAttribute("warningRegister", "");
                         NewJerseyClient jc = new NewJerseyClient();
@@ -50,7 +50,7 @@
                         int uid = Integer.parseInt(request.getParameter("userid"));
                         JSONObject temp = jc.getUserById(Integer.toString(uid));
 //                        User temp = (User) ub.getUserById(uid);
-                    %>
+%>
                     <div class="panel-body">
 
                         <form method="post" action="EditProfileServlet?userid=<%=uid%>">
@@ -68,13 +68,13 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="password">New Password:</label><span class="alert-danger"><?php echo $passErr; ?></span>
-                                <input type="password" class="form-control" name="password" placeholder="Password">
+                                <input type="password" class="form-control" name="password" placeholder="Password" value="<%=temp.get("password").toString()%>">
                                 <%
                                     String passWarning = request.getParameter("warningPassLength");
                                     if (passWarning != null) {
                                         out.print(passWarning);
                                     }
-                                    
+
                                 %>
                             </div>
                             <div class="form-group col-md-6">
@@ -83,13 +83,25 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="gender">Gender</label> &nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="gender" value="L"> Male
-                                <input type="radio" name="gender" value="P"> Female
+                                <%                                    String gender = temp.get("jenis_kelamin").toString();
+                                    if (gender.equals("L")) {
+                                %>
+                                <input type="radio" name="gender" value="L" checked="checked"> Male
+                                <input type="radio" name="gender" value="P" > Female
+                                <%
+                                } else {
+                                %>
+                                <input type="radio" name="gender" value="L" > Male
+                                <input type="radio" name="gender" value="P" checked="checked"> Female
+                                <%
+                                    }
+                                %>
+
+
                                 <span class="alert-danger"><?php echo $genderErr; ?></span>
                             </div>
                             <div class="form-group col-md-12">
                                 <center>
-                                    <br><input type="checkbox" name="terms_condition" value="1"><a href="terms.htm"> Terms & Condition</a><br><br>
                                     <input type='submit' name="submit" value='Edit Profile' class="btn btn-primary">
                                     <span class="alert-success"><?php echo $done; ?></span>
                                 </center>

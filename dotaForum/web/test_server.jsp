@@ -23,7 +23,7 @@
         <%
             NewJerseyClient jc = new NewJerseyClient();
             JSONObject u = jc.getPostById("8");
-            out.println(u.get("id_post").toString());
+            out.println(jc.checkLikeUser("9", "15"));
 //            out.println(u.get("first_name").toString());
 //            
 ////            JSONArray arr = jc.getReplyByCommentId("8");
@@ -43,10 +43,12 @@
 //            out.println(post.get("date_time").toString());
 //            out.println(jc.getCommentById("9"));
 //            out.println("-------------------------------\n");
-//            JSONArray c = jc.getCommentById("9");
-//            for(int i=0;i<c.size();i++){
+//            JSONObject user = jc.getUserById("5");
+//            JSONObject byuser = jc.getUserById("16");
+//            JSONArray c = jc.getMsgFromId(byuser.get("id_user").toString(), user.get("id_user").toString());
+//            for (int i = 0; i < c.size(); i++) {
 //                JSONObject ob = (JSONObject) c.get(i);
-//                out.println(ob.get("id_post").toString()+"\n");
+//                out.println(ob.get("isi").toString() + "\n");
 //            }
 //            boolean dis = jc.checkDislikeUser("8", "16");
 //            out.println(dis);
@@ -57,6 +59,6 @@
 //            out.println(time);
 //            dis = jc.checkDislikeUser("8", "16");
 //            out.println(dis);
-%>
+        %>
     </body>
 </html>

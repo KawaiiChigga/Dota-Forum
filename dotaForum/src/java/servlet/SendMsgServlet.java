@@ -92,7 +92,7 @@ public class SendMsgServlet extends HttpServlet {
         obj.put("id_sender", user.get("id_user").toString());
         obj.put("id_receiver", target.get("id_user").toString());
         obj.put("isi", isi);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = "";
         time = sdf.format(new Date());
         obj.put("date_time",time);
@@ -116,14 +116,14 @@ public class SendMsgServlet extends HttpServlet {
             String fail = "0";
             request.setAttribute(ALERT_FAIL, fail);
             request.setAttribute("dataProfile", target);
-            RequestDispatcher rd = request.getRequestDispatcher("profile.jsp?menu=8");
+            RequestDispatcher rd = request.getRequestDispatcher("showMessage.jsp?sender="+target.get("id_user").toString()+"&receiver="+user.get("id_user").toString());
             rd.include(request, response);
         } else {
             String ALERT_FAIL = "fail";
             String fail = "1";
             request.setAttribute(ALERT_FAIL, fail);
             request.setAttribute("dataProfile", target);
-            RequestDispatcher rd = request.getRequestDispatcher("profile.jsp?menu=8");
+            RequestDispatcher rd = request.getRequestDispatcher("showMessage.jsp?sender="+target.get("id_user").toString()+"&receiver="+user.get("id_user").toString());
             rd.include(request, response);
         }
     }

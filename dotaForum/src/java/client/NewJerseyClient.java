@@ -76,9 +76,13 @@ public class NewJerseyClient {
 
     public boolean updateUser(JSONObject obj, String pk) {
         WebTarget resource = webTarget;
-        resource = resource.path("user").path(pk);
+        resource = resource.path("user").path(pk+"/");
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
-        return true;
+        if ((JSONObject) JSONValue.parse(json)!=null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 //---------------------------- REPLY ----------------------------
@@ -169,7 +173,7 @@ public class NewJerseyClient {
 //---------------------------- MESSAGE ----------------------------
     public boolean insertMessage(JSONObject obj) {
         WebTarget resource = webTarget;
-        resource = resource.path("message");
+        resource = resource.path("message/");
         String json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(Entity.json(obj.toJSONString()), String.class);
         return true;
     }
@@ -259,11 +263,8 @@ public class NewJerseyClient {
         resource = resource.path("likes").path("check").path(id_post).path(id_user);
         String json = "";
         json = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
-        if (!json.equals("")) {
-            return true;
-        } else {
-            return false;
-        }
+        JSONObject obj = (JSONObject) JSONValue.parse(json);
+        return Boolean.parseBoolean(obj.get("message").toString());
     }
 
     public boolean deleteLike(String id_post, String id_user) {

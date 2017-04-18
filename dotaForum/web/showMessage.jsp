@@ -68,10 +68,10 @@
 //                                        User sender = msg.get(i).getUserByIdSender();
                                         JSONObject obj = (JSONObject) msg.get(i);
 //                                        int receiver = msg.get(i).getUserByIdReceiver().getIdUser();
-                                        int receiver = (int) obj.get("id_user");
+                                        String receiver = obj.get("id_receiver").toString();
                                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
-                                        if ((int) user.get("id_user") == receiver) {
-                                            time = sdf.format(obj.get("date_time"));
+                                        if (user.get("id_user").toString().equals(receiver)) {
+                                            time = obj.get("date_time").toString();
                                 %>
                                 <p style="font-size:15px;">
                                     <%= byuser.get("username").toString()%> - <%= time%>
@@ -80,7 +80,7 @@
                                 </p>
                                 <%
                                 } else {
-                                    time = sdf.format(obj.get("date_time"));
+                                    time = obj.get("date_time").toString();
                                 %>
                                 <p style="font-size:15px;"><%= user.get("username").toString()%> - <%= time%>
                                     <br>

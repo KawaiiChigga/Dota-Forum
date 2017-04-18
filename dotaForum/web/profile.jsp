@@ -30,17 +30,10 @@
                                     JSONObject sessionUser = (JSONObject) sessionLogin.getAttribute("user");
                                 %>
                                 <div class="post">
-                                    <%
-                                        if (sessionUser.get("username").toString().equals(data.get("username").toString())) {
-                                    %>
-                                        <a href="stats.jsp?username=<%=data.get("username").toString()%>">Stats</a>
-                                    <%}
-                                    %>
-
                                     <table border="1 solid black">
                                         <tr>
                                             <th><p style="font-size:30px">Profile</p></th>
-                                            <th><p><a href="directMsgServlet?userid=<%= data.get("id_user").toString()%>">Message(s)</p></a></th>
+                                                <th><p><a href="directMsgServlet?userid=<%= data.get("id_user").toString() %>">Message(s)</p></a></th>
                                         </tr>
                                         <tr>
                                             <td>
@@ -98,7 +91,10 @@
                                     <%
                                         if (sessionUser.get("username").toString().equals(data.get("username").toString())) {
                                     %>
-                                    <a href="editprofile.jsp?userid=<%=data.get("id_user").toString()%>">Edit Profile</a>
+                                    <a href="editprofile.jsp?userid=<%=data.get("id_user").toString()%>">Edit Profile</a> -
+                                    <a href="stats.jsp?username=<%=data.get("username").toString()%>">Show Stats</a>
+                                    <br>
+                                    <h3><jsp:include page="shareFB.jsp"/></h3>
                                     <%
                                         }
                                     %>
@@ -130,7 +126,7 @@
                                             <%
                                                 if (sessionUser.get("username").toString().equals(data.get("username").toString())) {
                                             %>
-                                            <a href="edit.jsp?post=<%= obj.get("id_post").toString() %> %>">Edit Post</a>
+                                            <a href="edit.jsp?post=<%= obj.get("id_post").toString()%> %>">Edit Post</a>
                                             <form method="post" action="DeleteServlet?post=<%=obj.get("id_post").toString()%>">
                                                 <input type='submit' name="delete" value='Delete Post'/>
                                             </form>
