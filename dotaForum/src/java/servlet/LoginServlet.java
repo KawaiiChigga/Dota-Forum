@@ -103,7 +103,7 @@ public class LoginServlet extends HttpServlet {
 //            temp.setDateTime((Date) obj.get("date_time"));
 //            temp.setProgressLevel((int) obj.get("progress_level"));
             sessionLogIn.setAttribute("check", "yes");
-            sessionLogIn.setAttribute("user", obj);
+            sessionLogIn.setAttribute("user", jc.getUserById(obj.get("id_user").toString()));
             sessionLogIn.setAttribute("remember", remember);
             request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
         } else {

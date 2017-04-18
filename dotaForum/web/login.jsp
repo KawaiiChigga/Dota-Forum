@@ -81,7 +81,6 @@
                                 String y = "";
                                 if (loginSession.getAttribute("check") != null) {
                                     x = (String) request.getAttribute("username");
-                                    y = (String) request.getAttribute("password");
                                 } else if (accBaru) {
                                     x = (String) request.getAttribute("username");
                                 }

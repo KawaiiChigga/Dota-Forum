@@ -62,15 +62,14 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession logoutSession = request.getSession(false);
-
         JSONObject user = (JSONObject) logoutSession.getAttribute("user");
-        String remember = (String) logoutSession.getAttribute("remember");
+        String remember = null;
+        remember = (String) logoutSession.getAttribute("remember");
         if (remember != null) {
             request.setAttribute("username", user.get("username").toString());
-            request.setAttribute("password", user.get("password").toString());
+//            request.setAttribute("password", user.get("password").toString());
         } else {
             request.setAttribute("username", "");
-            request.setAttribute("password", "");
         }
 
 //        logoutSession.invalidate();
