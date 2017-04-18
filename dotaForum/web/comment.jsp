@@ -60,33 +60,18 @@
                                             JSONObject user = jc.getUserById(post.get("id_user").toString());
 
                                             int idPost = Integer.parseInt(post.get("id_post").toString());
-
-//                                            PostBean pb = new PostBean();
-//                                            UserBean ub = new UserBean();
-//                                            CommentBean cb = new CommentBean();
-//                                            Post p = pb.getPostById(idpost);
-//                                            int post_id = post.getIdPost();
                                             JSONArray comment = jc.getCommentById(Integer.toString(idPost));
-//                                            ArrayList<Comment> c = new ArrayList<>();
-                                            ArrayList<Integer> idUserComment = new ArrayList<>();
+                                            ArrayList<Integer> idUserComment = new ArrayList();
                                             int idUser;
-//                                            Comment temp;
                                             for (int i = 0; i < comment.size(); i++) {
                                                 JSONObject obj = (JSONObject) comment.get(i);
-//                                                 temp = new Comment();
-                                                idUser = (int) obj.get("id_user");
+                                                idUser = Integer.parseInt(obj.get("id_user").toString());
                                                 idUserComment.add(idUser);
-//                                                temp.setDateTime((Date)obj.get("date_time"));
-//                                                temp.setIsiComment("isi_comment");
-//                                                c.add(temp);
                                             }
-//                                            User u = ub.getUserById(p.getUser().getIdUser());
-                                            int u = (int) user.get("id_user");
+                                            int u = Integer.parseInt(user.get("id_user").toString());
 //a
-                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
                                             String time = "";
-//                                            time = sdf.format(p.getDateTime());
-                                            time = sdf.format(post.get("date_time"));
+                                            time = post.get("date_time").toString();
                                         %>
                                         <%=err%>
 
@@ -119,7 +104,7 @@
                                                 JSONObject tempUser = jc.getUserById(idUserComment.get(i).toString());
 //                                                int u = ub.getUserById(idUserComment.get(i));
                                                 JSONObject obj = (JSONObject) comment.get(i);
-                                                time = sdf.format(obj.get("date_time").toString());
+                                                time = obj.get("date_time").toString();
                                         %>
                                         <div>
                                             <p style="font-size:20px"><a href="ProfileServlet?userid=<%= tempUser.get("id_user")%>"><%= tempUser.get("username")%></a> - 

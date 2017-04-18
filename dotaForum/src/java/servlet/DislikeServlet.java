@@ -86,7 +86,7 @@ public class DislikeServlet extends HttpServlet {
         if (!jc.checkDislikeUser(p, u)) {
 //                PostBean pb = new PostBean();
             JSONObject post = jc.getPostById(p);
-            if (jc.checkLikeUser(p, u)) {
+            if (!jc.checkLikeUser(p, u)) {
 
             } else {
                 pernah = true;
@@ -95,17 +95,17 @@ public class DislikeServlet extends HttpServlet {
             obj.put("id_post", p);
             obj.put("id_user", u);
 //                Dislikes dislike = new Dislikes(hasilPost.get(0), hasilUser.get(0));
-            if (!jc.addDislike(obj)) {
+            if (jc.addDislike(obj)) {
                 JSONObject objUpdate = new JSONObject();
                 if (pernah) {
                     jc.deleteLike(p, u);
 //                        hasilPost.get(0).setLikePost(hasilPost.get(0).getLikePost() - 1);
-                    objUpdate.put("like_post", (int) post.get("like_post") - 1);
+                    objUpdate.put("like_post", Integer.parseInt(post.get("like_post").toString()) - 1);
                     jc.updatePost(objUpdate, p);
                 }
 //                    hasilPost.get(0).setDislikePost(hasilPost.get(0).getDislikePost() + 1);
                 objUpdate = new JSONObject();
-                objUpdate.put("dislike_post", (int) post.get("dislike_post") + 1);
+                objUpdate.put("dislike_post", Integer.parseInt(post.get("dislike_post").toString()) + 1);
                 jc.updatePost(objUpdate, p);
                 System.out.println("berhasil");
             } else {
