@@ -5,7 +5,6 @@
 --%>
 
 <%@page import="java.util.Date"%>
-<%@page import="model.Comment"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="org.json.simple.JSONArray"%>
@@ -22,9 +21,9 @@
     <body>
         <h1>Hello World!</h1>
         <%
-//            NewJerseyClient jc = new NewJerseyClient();
-////            JSONObject u = (JSONObject) JSONValue.parse(jc.getUser("17"));
-//            JSONObject u = jc.getUserById("17");
+            NewJerseyClient jc = new NewJerseyClient();
+            JSONObject u = jc.getPostById("8");
+            out.println(u.get("id_post").toString());
 //            out.println(u.get("first_name").toString());
 //            
 ////            JSONArray arr = jc.getReplyByCommentId("8");
@@ -37,25 +36,25 @@
 //            update.put("first_name", "tuyu");
 ////            jc.insertUser(update,id);
 
-            NewJerseyClient jc = new NewJerseyClient();
-            JSONArray c = jc.getAllPost("new");
+//            NewJerseyClient jc = new NewJerseyClient();
+//            JSONArray c = jc.getAllPost("new");
 //            JSONObject post = jc.getPostById("9");
 //            JSONObject user = jc.getUserById(post.get("id_user").toString());
 //            out.println(post.get("date_time").toString());
 //            out.println(jc.getCommentById("9"));
 //            out.println("-------------------------------\n");
 //            JSONArray c = jc.getCommentById("9");
-            for(int i=0;i<c.size();i++){
-                JSONObject ob = (JSONObject) c.get(i);
-                out.println(ob.get("id_post").toString()+"\n");
-            }
-            boolean dis = jc.checkDislikeUser("8", "16");
-            out.println(dis);
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
-            String time = "";
-            time = sdf.format(new Date());
-            out.println(time);
+//            for(int i=0;i<c.size();i++){
+//                JSONObject ob = (JSONObject) c.get(i);
+//                out.println(ob.get("id_post").toString()+"\n");
+//            }
+//            boolean dis = jc.checkDislikeUser("8", "16");
+//            out.println(dis);
+//
+//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+//            String time = "";
+//            time = sdf.format(new Date());
+//            out.println(time);
 //            dis = jc.checkDislikeUser("8", "16");
 //            out.println(dis);
 %>

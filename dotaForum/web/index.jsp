@@ -7,13 +7,7 @@
 
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="model.Comment"%>
-<%@page import="controller.CommentBean"%>
-<%@page import="controller.UserBean"%>
-<%@page import="model.User"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="controller.PostBean"%>
-<%@page import="model.Post"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

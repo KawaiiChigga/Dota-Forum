@@ -9,13 +9,7 @@
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="client.NewJerseyClient"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="model.Post"%>
-<%@page import="model.Comment"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.User"%>
-<%@page import="controller.CommentBean"%>
-<%@page import="controller.UserBean"%>
-<%@page import="controller.PostBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -74,10 +68,6 @@
                 <table border="1 solid black">
                     <%
                         NewJerseyClient jc = new NewJerseyClient();
-
-                        PostBean pb = new PostBean();
-                        UserBean ub = new UserBean();
-                        CommentBean cb = new CommentBean();
 //                        ArrayList<Post> p = new ArrayList<Post>();
                         JSONArray post;
                         if (request.getParameter("menu").equals("1")) {

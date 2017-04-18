@@ -6,9 +6,6 @@
 package servlet;
 
 import client.NewJerseyClient;
-import controller.LikeDislikeBean;
-import controller.PostBean;
-import controller.UserBean;
 import java.awt.Point;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,10 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Dislikes;
-import model.Likes;
-import model.Post;
-import model.User;
 import org.json.simple.JSONObject;
 
 /**
@@ -107,11 +100,11 @@ public class LikeServlet extends HttpServlet {
                     if (dis) {
                         jc.deleteDislike(p, u);
 //                        hasilPost.get(0).setDislikePost(hasilPost.get(0).getDislikePost() - 1);
-                        objUpdate.put("dislike_post", (int) post.get("dislike_post") - 1);
+                        objUpdate.put("dislike_post", Integer.parseInt( post.get("dislike_post").toString()) - 1);
                         jc.updatePost(objUpdate, p);
                     }
                     objUpdate = new JSONObject();
-                    objUpdate.put("like_post", (int) post.get("like_post") + 1);
+                    objUpdate.put("like_post", Integer.parseInt(post.get("like_post").toString()) + 1);
 //                    hasilPost.get(0).setLikePost(hasilPost.get(0).getLikePost() + 1);
                     jc.updatePost(objUpdate, p);
                     System.out.println("berhasil");

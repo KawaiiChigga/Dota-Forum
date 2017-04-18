@@ -6,10 +6,6 @@
 package servlet;
 
 import client.NewJerseyClient;
-import controller.CommentBean;
-import controller.LikeDislikeBean;
-import controller.PostBean;
-import controller.ReplyBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
@@ -20,11 +16,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Comment;
-import model.Dislikes;
-import model.Likes;
-import model.Post;
-import model.Reply;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -129,7 +120,7 @@ public class DeleteServlet extends HttpServlet {
 //            e.printStackTrace();
 //            System.out.println("gagal");
 //        } finally {
-        request.getRequestDispatcher("index.jsp?menu=1").forward(request, response);
+        request.getRequestDispatcher("profile.jsp??menu=8").forward(request, response);
 //        }
     }
 

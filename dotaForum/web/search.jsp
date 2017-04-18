@@ -7,16 +7,7 @@
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="client.NewJerseyClient"%>
-<%@page import="model.User"%>
-<%@page import="model.Comment"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.Post"%>
-<%@page import="model.Post"%>
-<%@page import="model.Post"%>
-<%@page import="model.Post"%>
-<%@page import="controller.CommentBean"%>
-<%@page import="controller.UserBean"%>
-<%@page import="controller.PostBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
