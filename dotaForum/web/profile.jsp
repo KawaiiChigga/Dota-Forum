@@ -34,7 +34,7 @@
                                     <table border="1 solid black">
                                         <tr>
                                             <th><p style="font-size:30px">Profile</p></th>
-                                                <th><p><a href="directMsgServlet?userid=<%= data.get("id_user").toString() %>">Message(s)</p></a></th>
+                                            <th><p><a href="directMsgServlet?userid=<%= data.get("id_user").toString()%>">Message(s)</p></a></th>
                                         </tr>
                                         <tr>
                                             <td>
@@ -72,7 +72,7 @@
                                                     String[] time = date[1].split(":");
                                                     date_time = date[0] + " " + time[0] + ":" + time[1];
                                                 %>
-                                                <p style="font-size:15px"><%= date_time %></p>
+                                                <p style="font-size:15px"><%= date_time%></p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -96,7 +96,7 @@
                                         if (sessionUser.get("username").toString().equals(data.get("username").toString())) {
                                     %>
                                     <a href="editprofile.jsp?userid=<%=data.get("id_user").toString()%>">Edit Profile</a> -
-                                    <a href="stats.jsp?username=<%=data.get("username").toString()%>">Show Stats</a>
+                                    <a href="stats.jsp?id_user=<%=data.get("id_user").toString()%>">Show Stats</a>
                                     <br>
                                     <h3><jsp:include page="shareFB.jsp"/></h3>
                                     <%
@@ -116,7 +116,11 @@
                                                 JSONObject obj = (JSONObject) post.get(i);
                                                 JSONArray c = jc.getCommentById(obj.get("id_post").toString());
 //                                                c = cb.getCommentById(p.get(i).getIdPost());
+                                                date_time = "";
                                                 date_time = obj.get("date_time").toString();
+                                                date = date_time.split("T");
+                                                time = date[1].split(":");
+                                                date_time = date[0] + " " + time[0] + ":" + time[1];
                                         %>
 
                                         <tr>
@@ -130,7 +134,7 @@
                                             <%
                                                 if (sessionUser.get("username").toString().equals(data.get("username").toString())) {
                                             %>
-                                            <a href="edit.jsp?post=<%= obj.get("id_post").toString() %>">Edit Post</a>
+                                            <a href="edit.jsp?post=<%= obj.get("id_post").toString()%>">Edit Post</a>
                                             <form method="post" action="DeleteServlet?post=<%=obj.get("id_post").toString()%>">
                                                 <input type='submit' name="delete" value='Delete Post'/>
                                             </form>

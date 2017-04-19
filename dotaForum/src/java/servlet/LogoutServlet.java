@@ -65,6 +65,7 @@ public class LogoutServlet extends HttpServlet {
         JSONObject user = (JSONObject) logoutSession.getAttribute("user");
         String remember = null;
         remember = (String) logoutSession.getAttribute("remember");
+        
         if (remember != null) {
             request.setAttribute("username", user.get("username").toString());
 //            request.setAttribute("password", user.get("password").toString());

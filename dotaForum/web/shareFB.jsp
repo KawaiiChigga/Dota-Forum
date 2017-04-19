@@ -11,7 +11,8 @@
         <title>Your Website Title</title>
         <!-- You can use Open Graph tags to customize link previews.
         Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
-        <meta property="og:url"           content="http://localhost:8080/dotaForum/index.jsp?menu=1&sort=1" />
+        <!--http://localhost:8080/dotaForum/index.jsp?menu=1&sort=1-->
+        <meta property="og:url"           content="https://web.facebook.com/cgt31" />
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Share Facebook" />
         <meta property="og:description"   content="Your description" />
@@ -32,7 +33,7 @@
 
         <!-- Your share button code -->
         <div class="fb-share-button" 
-             data-href="http://localhost:8080/dotaForum/index.jsp?menu=1&sort=1" 
+             data-href="https://web.facebook.com/cgt31" 
              data-layout="button_count">
         </div>
 

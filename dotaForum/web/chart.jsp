@@ -74,7 +74,7 @@
                 String id = request.getParameter("id_user");
 		NewJerseyClient jc = new NewJerseyClient();
                 JSONArray post = jc.getPostByUser(id);
-                JSONArray message = jc.getInbox(id);
+                JSONArray message = jc.getMsgBySender(id);
                 JSONArray comment = jc.getCommentByUser(id);
                 int year=2010;
                 int[] pos = new int[8];
@@ -84,31 +84,50 @@
                 for(int i=0;i<post.size();i++){
                     JSONObject jb = (JSONObject) post.get(i);
                     String[] date = jb.get("date_time").toString().split("-");
-                    if(date[1]==""+year){
-                        pos[i]++;
-                        com[i]++;
-                        mes[i]++;
+                    switch(Integer.parseInt(date[0])){
+                        case 2010:pos[0]++;break;
+                        case 2011:pos[1]++;break;
+                        case 2012:pos[2]++;break;
+                        case 2013:pos[3]++;break;
+                        case 2014:pos[4]++;break;
+                        case 2015:pos[5]++;break;
+                        case 2016:pos[6]++;break;
+                        case 2017:pos[7]++;break;
+                        default: break;
                     }
-                    year++;
                 }
-                year=2010;
-                for(int i=0;i<post.size();i++){
+                for(int i=0;i<comment.size();i++){
                     JSONObject jb = (JSONObject) comment.get(i);
                     String[] date = jb.get("date_time").toString().split("-");
-                    if(date[1]==""+year){
-                        com[i]++;
+                    switch(Integer.parseInt(date[0])){
+                        case 2010:com[0]++;break;
+                        case 2011:com[1]++;break;
+                        case 2012:com[2]++;break;
+                        case 2013:com[3]++;break;
+                        case 2014:com[4]++;break;
+                        case 2015:com[5]++;break;
+                        case 2016:com[6]++;break;
+                        case 2017:com[7]++;break;
+                        default: break;
                     }
-                    year++;
                 }
-                year=2010;
-                for(int i=0;i<post.size();i++){
+                
+                for(int i=0;i<message.size();i++){
                     JSONObject jb = (JSONObject) message.get(i);
                     String[] date = jb.get("date_time").toString().split("-");
-                    if(date[1]==""+year){
-                        mes[i]++;
+                    switch(Integer.parseInt(date[0])){
+                        case 2010:mes[0]++;break;
+                        case 2011:mes[1]++;break;
+                        case 2012:mes[2]++;break;
+                        case 2013:mes[3]++;break;
+                        case 2014:mes[4]++;break;
+                        case 2015:mes[5]++;break;
+                        case 2016:mes[6]++;break;
+                        case 2017:mes[7]++;break;
+                        default: break;
                     }
-                    year++;
                 }
+                
 		//From AxisChartServlet.java:createAxisChartDataSet
 		double[][] data= new double[][]{{pos[0],pos[1],pos[2],pos[3],pos[4],pos[5],pos[6],pos[7]},
                     {com[0],com[1],com[2],com[3],com[4],com[5],com[6],com[7]},

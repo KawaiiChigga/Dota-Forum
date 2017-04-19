@@ -66,20 +66,23 @@
                                             for (int i = 0; i < comment.size(); i++) {
                                                 JSONObject obj = (JSONObject) comment.get(i);
                                                 idUser = Integer.parseInt(obj.get("id_user").toString());
-                                                
+
                                                 idUserComment.add(idUser);
                                             }
                                             System.out.println(idUserComment.size());
                                             int u = Integer.parseInt(user.get("id_user").toString());
 
-                                            String time = "";
-                                            time = post.get("date_time").toString();
+                                            String date_time = "";
+                                            date_time = post.get("date_time").toString();
+                                            String[] date = date_time.split("T");
+                                            String[] time = date[1].split(":");
+                                            date_time = date[0] + " " + time[0] + ":" + time[1];
                                         %>
                                         <%=err%>
 
                                         <p style="font-size:25px"><%= post.get("judul").toString()%></p>
                                         <p style="font-size:20px">By <%= user.get("username")%></p>
-                                        <p style="font-size:12px">Posted in: <%= time%></p>
+                                        <p style="font-size:12px">Posted in: <%= date_time%></p>
                                         <p style="font-size:20px"><%= post.get("isi").toString()%></p>
                                         <%
                                             session = request.getSession(false);
@@ -106,11 +109,15 @@
                                                 JSONObject tempUser = jc.getUserById(idUserComment.get(i).toString());
 //                                                int u = ub.getUserById(idUserComment.get(i));
                                                 JSONObject obj = (JSONObject) comment.get(i);
-                                                time = obj.get("date_time").toString();
+                                                date_time = "";
+                                                date_time = obj.get("date_time").toString();
+                                                date = date_time.split("T");
+                                                time = date[1].split(":");
+                                                date_time = date[0] + " " + time[0] + ":" + time[1];
                                         %>
                                         <div>
                                             <p style="font-size:20px"><a href="ProfileServlet?userid=<%= tempUser.get("id_user")%>"><%= tempUser.get("username")%></a> - 
-                                                <b style="font-size:15px">Commented in: <%= time%></b>
+                                                <b style="font-size:15px">Commented in: <%= date_time%></b>
                                             </p>
                                             <p style="font-size:15px"><%= obj.get("isi_comment").toString()%></p>
                                             <hr>

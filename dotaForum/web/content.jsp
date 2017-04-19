@@ -78,22 +78,23 @@
                         }
                         for (int i = 0; i < post.size(); i++) {
 //                            User u = ub.getUserById(p.get(i).getUser().getIdUser());
-                            JSONObject obj  = (JSONObject) post.get(i);
+                            JSONObject obj = (JSONObject) post.get(i);
                             JSONObject u = jc.getUserById(obj.get("id_user").toString());
-                            
+
 //                            ArrayList<Comment> c = new ArrayList<Comment>();
-                            JSONArray c ;
+                            JSONArray c;
 //                            c = cb.getCommentById(p.get(i).getIdPost());
                             c = jc.getCommentById(obj.get("id_post").toString());
-                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
-                            String time = "";
-//                            time = sdf.format(p.get(i).getDateTime());
-                            time = obj.get("date_time").toString();
+                            String date_time = "";
+                            date_time = obj.get("date_time").toString();
+                            String[] date = date_time.split("T");
+                            String[] time = date[1].split(":");
+                            date_time = date[0] + " " + time[0] + ":" + time[1];
                     %>
                     <div onclick="window.location = 'comment.jsp?post=<%=obj.get("id_post").toString()%>';" style="cursor: pointer;">
-                        <p style="font-size:25px"><a href="comment.jsp?post=<%=obj.get("id_post").toString()%>"> <%= obj.get("judul").toString() %></a></p>
+                        <p style="font-size:25px"><a href="comment.jsp?post=<%=obj.get("id_post").toString()%>"> <%= obj.get("judul").toString()%></a></p>
                         <p style="font-size:15px"><a href="ProfileServlet?userid=<%= u.get("id_user").toString()%>">By <%= u.get("username").toString()%></a></p>
-                        <p style="font-size:13px">Posted on: <%= time%></p>
+                        <p style="font-size:13px">Posted on: <%= date_time%></p>
                         <p><%= obj.get("like_post").toString()%> Likes -  
                             <%= obj.get("dislike_post").toString()%> Dislikes</p>
                         <p><a href="comment.jsp?post=<%=obj.get("id_post")%>">Comment(s) (<%= c.size()%>)</a></p>

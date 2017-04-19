@@ -13,15 +13,18 @@
 <html>
     <head>
         <%
-            HttpSession sessionLogin = request.getSession();
-            JSONObject user = (JSONObject) sessionLogin.getAttribute("user");
+            NewJerseyClient jc = new NewJerseyClient();
+//            HttpSession sessionLogin = request.getSession();
+//            JSONObject user = (JSONObject) sessionLogin.getAttribute("user");
+            JSONObject user = jc.getUserById(request.getParameter("id_user"));
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title><%= user.get("username").toString() %> Stats</title>
+        <title><%= user.get("username").toString()%> Stats</title>
     </head>
     <body>
         <div id="wrapper">
             <div id="header-wrapper">
+                <a href="stats.jsp"></a>
                 <jsp:include page="header.jsp"/>
             </div>
             <div id="page-wrapper" class="5grid-layout">
@@ -30,6 +33,11 @@
                         <div id="content">
                             <section>
                                 <div class="post">
+                                    <table>
+                                        <tr>
+                                            <th><p style="font-size:30px"><%= user.get("username").toString()%>'s Chart</p></th>
+                                        </tr>
+                                    </table>
                                     <img src="chart.jsp?id_user=<%=user.get("id_user").toString()%>"/>
                                 </div>
                             </section>
@@ -37,7 +45,7 @@
                     </div>
                     <div class="3u">
                         <div id="sidebar2">
-                            
+
                         </div>
                     </div>
                 </div>

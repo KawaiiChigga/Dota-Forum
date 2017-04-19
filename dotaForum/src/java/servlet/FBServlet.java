@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import client.NewJerseyClient;
 import fb.FBConnection;
 import fb.FBGraph;
 import java.io.IOException;
@@ -39,19 +40,33 @@ public class FBServlet extends HttpServlet {
         String accessToken = fbConnection.getAccessToken(code);
 
         FBGraph fbGraph = new FBGraph(accessToken);
-        String graph = fbGraph.getFBGraph();
-        System.out.println(graph);
-        HashMap<String, String> fbProfileData = fbGraph.getGraphData(graph);
-        String email = fbProfileData.get("email");
-        String first_name = fbProfileData.get("first_name");
-        String last_name = fbProfileData.get("last_name");
-        JSONObject user = new JSONObject();
-        user.put("email", email);
-        user.put("first_name", first_name);
-        user.put("last_name", last_name);
-        request.setAttribute("user", user);
-        request.setAttribute("fb", "fb");
-        request.getRequestDispatcher("register.jsp").forward(request, response);
+
+        String graph = "";
+        graph = fbGraph.getFBGraph();
+        if (!graph.equals("")) {
+            //        System.out.println(graph);
+            HashMap<String, String> fbProfileData = fbGraph.getGraphData(graph);
+            String email = fbProfileData.get("email");
+            NewJerseyClient jc = new NewJerseyClient();
+            if (!jc.checkUser("username", email)) {
+                request.setAttribute("warning", "Username atau email sudah terdaftar!");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else {
+                String first_name = fbProfileData.get("first_name");
+                String last_name = fbProfileData.get("last_name");
+                JSONObject user = new JSONObject();
+                user.put("email", email);
+                user.put("first_name", first_name);
+                user.put("last_name", last_name);
+                request.setAttribute("user", user);
+                request.setAttribute("fb", "fb");
+            }
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+        } else {
+            request.setAttribute("warning", "Username atau email sudah terdaftar!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+
 //  "username": "",
 //  "password": "",
     }
