@@ -51,7 +51,7 @@
                                             </select>
                                             <textarea placeholder="What do you wanna say?" name="post_isi" id="post_disc" style="border-radius:5px;" rows="15"> </textarea><br><br>
                                             <input type="submit" name="post_disc" value="Post it!" style="width:70%;height:50px;border-radius:5px;"><br><br>
-                                            <input type="submit" name="post_cancel" value="Cancel" style="width:70%;height:30px;border-radius:5px;" formaction="index.jsp"><br>
+                                            <input type="submit" name="post_cancel" value="Cancel" style="width:70%;height:30px;border-radius:5px;" formaction="index.jsp?menu=1"><br>
                                         </center>
                                     </form>
                                 </div>

@@ -75,7 +75,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="email">Email address:</label><span class="alert-danger"><?php echo $emailErr; ?></span>
-                                <input type="email" class="form-control" name="email" placeholder="Email address" value="<%= last_name %>" >
+                                <input type="email" class="form-control" name="email" placeholder="Email address" value="<%= email %>" >
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="password">Password:</label><span class="alert-danger"><?php echo $passErr; ?></span>

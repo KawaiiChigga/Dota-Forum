@@ -22,15 +22,18 @@
         <h1>Hello World!</h1>
         <%
             NewJerseyClient jc = new NewJerseyClient();
-            JSONObject u = jc.getPostById("8");
-            out.println(jc.checkLikeUser("9", "16"));
+//            JSONObject u = jc.getPostById("8");
+//            out.println(jc.checkLikeUser("9", "16"));
+            JSONArray post = jc.getPostSearch("aaspd");
+            out.println(post.size());
 //            out.println(u.get("first_name").toString());
 //            
 ////            JSONArray arr = jc.getReplyByCommentId("8");
-////            for (int i = 0; i < arr.size(); i++) {
-////                JSONObject ob = (JSONObject) arr.get(i);
-////                String id = ob.get("id_user").toString();
-////            }
+            for (int i = 0; i < post.size(); i++) {
+                JSONObject ob = (JSONObject) post.get(i);
+                String id = ob.get("judul").toString();
+                out.println(id);
+            }
 //
 //            JSONObject update = new JSONObject();
 //            update.put("first_name", "tuyu");

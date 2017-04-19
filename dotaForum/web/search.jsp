@@ -34,7 +34,7 @@
 //                                ArrayList<Post> p = new ArrayList<Post>();
                                 JSONArray post = jc.getPostSearch(search);
 //                                p = pb.getPostSearch(search);
-                                if (post.size() == 0) {
+                                if (post.size() <=0) {
                             %>
                             <p>No result found for "<%= search%>"</p>
                             <%
@@ -46,7 +46,7 @@
 //                                    ArrayList<Comment> c = new ArrayList<Comment>();
                                     JSONArray c = jc.getCommentById(obj.get("id_post").toString());
 //                                    c = cb.getCommentById(p.get(i).getIdPost());
-                            %>
+%>
 
                             <p style="font-size:20px"><a href="comment.jsp?post=<%=obj.get("id_post")%>"><%= obj.get("judul").toString()%></a></p>
                             <p style="font-size:15px"><a href="ProfileServlet?userid=<%= user.get("id_user").toString()%>">By <%= user.get("username").toString()%></a></p>
